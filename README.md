@@ -4,7 +4,7 @@ Research-grade benchmark for **Advaita Vedānta doctrinal competence** in large 
 
 AdvaitaBench tests whether models can teach classical Advaita without conflating schools, collapsing levels of reality, or reproducing popular misconceptions. It is not a general Hinduism quiz or a “spiritual vibes” eval.
 
-## Six task families
+## Task families
 
 | Family | What it tests |
 |--------|----------------|
@@ -14,6 +14,7 @@ AdvaitaBench tests whether models can teach classical Advaita without conflating
 | **Text-grounded interpretation** | Claims justified from supplied passages |
 | **Misconception repair** | Multi-turn correction of common distortions |
 | **Consistency & adversarial robustness** | Same doctrine under rephrasing and hostility |
+| **Open elicitation** | Vague, term-free existential questions — real apparatus vs New Age mush |
 
 ## Documentation
 

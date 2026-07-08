@@ -14,7 +14,8 @@
         "school_discrimination",
         "text_grounded",
         "misconception_repair",
-        "consistency_adversarial"
+        "consistency_adversarial",
+        "open_elicitation"
       ]
     },
     "prompt": { "type": "string", "minLength": 10 },

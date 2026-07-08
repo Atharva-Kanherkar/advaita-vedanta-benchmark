@@ -13,6 +13,7 @@ class TaskFamily(str, Enum):
     TEXT_GROUNDED = "text_grounded"
     MISCONCEPTION_REPAIR = "misconception_repair"
     CONSISTENCY_ADVERSARIAL = "consistency_adversarial"
+    OPEN_ELICITATION = "open_elicitation"
 
 
 class Turn(BaseModel):
@@ -114,11 +115,12 @@ class ConsistencyResult(BaseModel):
 
 FAMILY_WEIGHTS: dict[str, float] = {
     "concept_precision": 0.15,
-    "level_of_reality": 0.20,
-    "school_discrimination": 0.20,
-    "text_grounded": 0.20,
-    "misconception_repair": 0.15,
-    "consistency_adversarial": 0.10,
+    "level_of_reality": 0.18,
+    "school_discrimination": 0.18,
+    "text_grounded": 0.18,
+    "misconception_repair": 0.13,
+    "consistency_adversarial": 0.08,
+    "open_elicitation": 0.10,
 }
 
 # tag -> (families it caps, cap value). "*" means the cap applies in every

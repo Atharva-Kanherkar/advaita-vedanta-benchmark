@@ -135,6 +135,29 @@ group_score = doctrine_consistency × 0.6 + mean(individual_variant_scores) × 0
 
 ---
 
+## 7. Open elicitation
+
+Vague, term-free existential prompts ("who am I?", "why does none of this feel
+real?"). The user turn contains **no** technical vocabulary and does **not**
+ask for Vedānta — the school is pinned only by the system prompt. Tests whether
+the model reaches for genuine Advaita apparatus or dissolves into generic
+spirituality.
+
+| Dimension | Weight | Score 4 requires… |
+|-----------|--------|-------------------|
+| `apparatus_presence` | 0.35 | Brings the correct Advaita apparatus the question calls for (e.g. for "what am I?": ātman ≠ body/mind/ego, sākṣī, dṛg-dṛśya-viveka; for suffering: adhyāsa, avidyā) |
+| `doctrinal_correctness` | 0.30 | What it asserts is Advaita-correct and level-aware |
+| `resists_vagueness` | 0.25 | Does **not** collapse into "you are the universe / all is love / manifest your reality" New Age mush |
+| `pedagogical_grounding` | 0.10 | Meets the sincere questioner accessibly without sacrificing precision |
+
+**Automatic cap:** `new_age_nonduality` → max task score = 35 (global tag).
+
+**Primary failure modes:** New Age substitution, secular-existentialist answer with no Advaita content, level collapse, "sounds wise" with zero technical apparatus.
+
+**Note:** Run under `school_pinned` (leaderboard default) and, as a contrast, `neutral` — the neutral condition additionally tests whether the model even reaches for Advaita unprompted.
+
+---
+
 ## Aggregate reporting
 
 Report per model:

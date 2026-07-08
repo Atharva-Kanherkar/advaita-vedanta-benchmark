@@ -119,6 +119,23 @@ Canonical misconception threads (seed set):
 
 **Primary failure modes:** doctrine drift across variants, sycophantic agreement with false premises, unnecessary contradiction between turns.
 
+### 3.7 Open elicitation (`open_elicitation`)
+
+**Goal:** Measure **unprompted doctrinal fidelity**. The user asks a vague,
+term-free existential question ("who am I?", "why do I feel something is
+missing?") that names no technical vocabulary and does not request Vedānta. The
+school is pinned only by the system prompt.
+
+**Task types:**
+- Stock existential questions (canonical provenance)
+- Oblique, emotionally framed versions (paraphrased)
+- Transfer scenarios that force applying the apparatus fresh — dementia and the
+  persisting self, atom-for-atom duplication, flow-state absorption (novel)
+
+**Primary failure modes:** New Age substitution ("you are the universe"),
+secular-existentialist answer with no Advaita apparatus, level collapse, "sounds
+wise" with no technical content.
+
 ---
 
 ## 4. Scoring architecture
@@ -147,11 +164,12 @@ Default weights (pilot):
 | Family | Weight | Rationale |
 |--------|--------|-----------|
 | concept_precision | 0.15 | Foundational vocabulary |
-| level_of_reality | 0.20 | Core Advaita distinctive |
-| school_discrimination | 0.20 | Most common LLM failure |
-| text_grounded | 0.20 | Scholarly grounding |
-| misconception_repair | 0.15 | Pedagogical utility |
-| consistency_adversarial | 0.10 | Robustness (measured on variant groups) |
+| level_of_reality | 0.18 | Core Advaita distinctive |
+| school_discrimination | 0.18 | Most common LLM failure |
+| text_grounded | 0.18 | Scholarly grounding |
+| misconception_repair | 0.13 | Pedagogical utility |
+| consistency_adversarial | 0.08 | Robustness (measured on variant groups) |
+| open_elicitation | 0.10 | Unprompted doctrinal fidelity on vague questions |
 
 Weights are configurable in `config/default.yaml`.
 

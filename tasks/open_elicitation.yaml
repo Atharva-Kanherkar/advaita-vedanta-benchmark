@@ -1,0 +1,439 @@
+# Family 7 — open_elicitation.
+#
+# Vague, term-free existential questions. The user turn names NO technical
+# vocabulary and does NOT ask for Vedānta; the school is pinned only by the
+# system prompt. Tests whether the model reaches for real Advaita apparatus or
+# dissolves into New Age vagueness / secular existentialism.
+#
+# REVIEW TRANCHE (9 of 30+): 3 canonical, 3 paraphrased, 3 novel. Doctrine in
+# reference_answer / gold_points needs Atharva's review before scaling.
+
+# ============================ CANONICAL ============================
+
+id: oe-001
+family: open_elicitation
+prompt: "Who am I, really?"
+target_school: advaita
+language: en
+provenance: canonical
+difficulty: standard
+rubric_dimensions:
+  - apparatus_presence
+  - doctrinal_correctness
+  - resists_vagueness
+  - pedagogical_grounding
+dimension_weights:
+  apparatus_presence: 0.35
+  doctrinal_correctness: 0.30
+  resists_vagueness: 0.25
+  pedagogical_grounding: 0.10
+reference_answer: >
+  In Advaita the honest answer works by negation first: you are not the things
+  you can observe. The body is seen, the senses are seen, thoughts and emotions
+  (the antaḥkaraṇa) are seen, even the sense of being a doer and enjoyer (the
+  ahaṃkāra) is seen. Whatever is an object of awareness cannot be the awarer.
+  What remains is the witness (sākṣī) — the consciousness in whose light all
+  these appear and change while it does not. That witnessing self (ātman) is not
+  a small thing inside the body; on inquiry it is not different from Brahman, the
+  one non-dual reality (ayam ātmā brahma). The "I" that feels limited is ātman
+  mistakenly identified with body-mind through avidyā (adhyāsa). So "who am I?"
+  is answered not by adding a new fact but by removing a misidentification: you
+  already are that awareness; you have mistaken yourself for its contents.
+gold_points:
+  - Method of negation (neti neti / dṛg-dṛśya-viveka): the self is the seer, never the seen
+  - ātman as sākṣī (witness consciousness), distinct from body, senses, mind, ahaṃkāra
+  - ātman is not-different from Brahman at paramārthika (not a soul-atom inside the body)
+  - Limitation is adhyāsa/avidyā, not the truth of the self
+forbidden_claims:
+  - you are your highest authentic self / just be your true self
+  - you are the universe experiencing itself (as a standalone slogan with no apparatus)
+  - the self is the ego once it is healed and integrated
+failure_tags_watch:
+  - new_age_nonduality
+  - level_collapse
+tags: [self_inquiry, who_am_i]
+
+---
+id: oe-002
+family: open_elicitation
+prompt: "What is the meaning of life?"
+target_school: advaita
+language: en
+provenance: canonical
+difficulty: standard
+rubric_dimensions:
+  - apparatus_presence
+  - doctrinal_correctness
+  - resists_vagueness
+  - pedagogical_grounding
+dimension_weights:
+  apparatus_presence: 0.35
+  doctrinal_correctness: 0.30
+  resists_vagueness: 0.25
+  pedagogical_grounding: 0.10
+reference_answer: >
+  Advaita reframes rather than answers the question in its usual form. It
+  distinguishes the ends a human life pursues (the puruṣārthas: dharma, artha,
+  kāma) from the final end, mokṣa — liberation. The first three, however well
+  attained, are finite and cannot end the sense of lack, because that lack comes
+  from avidyā: taking oneself to be a limited body-mind in a world of gain and
+  loss. The "meaning" that ends seeking is not another object to acquire but
+  self-knowledge (jñāna): recognizing that one's real nature (ātman) is already
+  the full, non-dual reality (Brahman), so nothing external can complete or
+  diminish it. Life at the vyāvahārika level still has its duties and joys; but
+  its telos, in Advaita, is to serve as the field in which this recognition can
+  mature (via viveka, vairāgya, śravaṇa-manana-nididhyāsana). The point is not
+  that life is meaningless but that its deepest purpose is to see through the
+  seeker.
+gold_points:
+  - puruṣārthas; dharma/artha/kāma are finite, mokṣa is the final end
+  - Sense of lack traced to avidyā, not to insufficient achievement
+  - mokṣa is jñāna of ātman=Brahman, not an acquisition
+  - vyāvahārika purposes remain valid; not nihilism
+forbidden_claims:
+  - life means whatever you choose it to mean (pure existentialist framing with no Advaita)
+  - the meaning of life is to raise your vibration / manifest abundance
+  - life is meaningless because the world is unreal
+failure_tags_watch:
+  - new_age_nonduality
+  - nihilistic_denial
+tags: [meaning, purushartha]
+
+---
+id: oe-003
+family: open_elicitation
+prompt: "What happens to me when I die?"
+target_school: advaita
+language: en
+provenance: canonical
+difficulty: standard
+rubric_dimensions:
+  - apparatus_presence
+  - doctrinal_correctness
+  - resists_vagueness
+  - pedagogical_grounding
+dimension_weights:
+  apparatus_presence: 0.35
+  doctrinal_correctness: 0.30
+  resists_vagueness: 0.25
+  pedagogical_grounding: 0.10
+reference_answer: >
+  It depends on what "me" refers to, and Advaita answers at two levels. At the
+  empirical level (vyāvahārika), the individual (jīva) that is still under
+  avidyā transmigrates: the subtle body (sūkṣma-śarīra) carrying its karmic
+  tendencies moves on and takes another embodiment — saṃsāra continues until
+  liberating knowledge arises. But this whole account presupposes the jīva as a
+  real separate traveller, which is itself provisional. At the absolute level
+  (paramārthika), your real nature (ātman) is unborn and undying — it never took
+  birth to be lost at death (as the Gītā puts it, na jāyate mriyate vā). Death
+  is the end of a particular body-mind, not of the witnessing consciousness that
+  was never one of its objects. For the jñānī who has realized ātman=Brahman
+  there is no further transmigration; there is no separate self left to go
+  anywhere. So the fear behind the question rests on identifying "me" with the
+  body-mind that does indeed end.
+gold_points:
+  - Two-level answer: vyāvahārika transmigration of the jīva vs paramārthika unborn ātman
+  - Subtle body (sūkṣma-śarīra) / karma carries rebirth for the unliberated
+  - ātman is aja/nitya — not born, not slain (Gītā 2.20 sense)
+  - For the jñānī, no further saṃsāra; no separate self to travel
+forbidden_claims:
+  - your soul goes to heaven as a permanent individual (Dvaita-style) in classical Advaita
+  - nothing exists after death so it is simply oblivion (nihilism)
+  - you reincarnate to complete your soul's personal growth journey (New Age)
+failure_tags_watch:
+  - level_collapse
+  - school_mixing
+tags: [death, rebirth, atman]
+
+# ============================ PARAPHRASED ============================
+
+---
+id: oe-004
+family: open_elicitation
+prompt: >
+  Sometimes late at night I get this feeling that none of this is quite real —
+  my job, my worries, even me. Is that just anxiety, or is it pointing at
+  something?
+target_school: advaita
+language: en
+provenance: paraphrased
+difficulty: standard
+rubric_dimensions:
+  - apparatus_presence
+  - doctrinal_correctness
+  - resists_vagueness
+  - pedagogical_grounding
+dimension_weights:
+  apparatus_presence: 0.35
+  doctrinal_correctness: 0.30
+  resists_vagueness: 0.25
+  pedagogical_grounding: 0.10
+reference_answer: >
+  Advaita would neither pathologize the feeling nor over-claim it. Psychologically
+  it may well be anxiety or depersonalization, and that is worth caring for. But
+  the intuition it brushes against is real: in Advaita the world and the
+  personal self are mithyā — dependent, changing appearances (adhyāsa) — not
+  tuccha (utterly non-existent). "Not quite real" is closer to the truth than
+  "solidly real," because job, worries, and the felt "me" are all objects that
+  appear and pass in awareness; they borrow their reality from the one
+  consciousness that witnesses them. Crucially, the one to whom this all feels
+  unreal — the witness (sākṣī) — is not itself in doubt; its presence is what
+  makes the doubt possible. So the pointer is: turn attention from the shaky
+  contents to the steady awareness in which they arise. That is inquiry, not
+  dissociation — the world remains practically valid (vyāvahārika) even as its
+  ultimacy is questioned.
+gold_points:
+  - Distinguish clinical anxiety/depersonalization from the doctrinal intuition (don't conflate)
+  - World and empirical self as mithyā (adhyāsa), not tuccha
+  - The witness (sākṣī) is not among the doubted objects; its presence is self-evident
+  - vyāvahārika validity preserved — inquiry, not dissociation/nihilism
+forbidden_claims:
+  - none of it is real so nothing matters (nihilistic denial)
+  - reality is whatever you believe it to be
+  - you are dissociating and should just ground back into the physical world (pure clinical reframe, no doctrine)
+failure_tags_watch:
+  - nihilistic_denial
+  - new_age_nonduality
+tags: [derealization, mithya]
+
+---
+id: oe-005
+family: open_elicitation
+prompt: "If I lost all my memories, would I still be me?"
+target_school: advaita
+language: en
+provenance: paraphrased
+difficulty: standard
+rubric_dimensions:
+  - apparatus_presence
+  - doctrinal_correctness
+  - resists_vagueness
+  - pedagogical_grounding
+dimension_weights:
+  apparatus_presence: 0.35
+  doctrinal_correctness: 0.30
+  resists_vagueness: 0.25
+  pedagogical_grounding: 0.10
+reference_answer: >
+  Advaita separates two senses of "me." The personality — memories, history,
+  preferences — belongs to the antaḥkaraṇa (the mind), part of the subtle body;
+  it is something known, and it can change or be lost. On that level, losing all
+  memories would radically change the person you take yourself to be. But there
+  is a second sense: the awareness to which memories appear. Memories are objects
+  presented to consciousness; the consciousness that would register their
+  absence is the same witness (sākṣī) that registered their presence. That
+  witnessing self (ātman) is not built out of memories and so is not diminished
+  by losing them — it is what remains constant across waking, dream, and deep
+  sleep (avasthā-traya), where the personality's contents come and go. So the
+  precise Advaita answer: the remembered person would be gone, but the "I" that
+  is your real nature was never the memories to begin with.
+gold_points:
+  - Personality/memory = antaḥkaraṇa (subtle body), an object, changeable
+  - ātman as sākṣī is not constituted by memory; unaffected by its loss
+  - avasthā-traya: the self persists across waking/dream/deep-sleep where contents vary
+  - Distinguish the "known me" (jīva's presentation) from the witnessing self
+forbidden_claims:
+  - your true self is the sum of your experiences and memories
+  - you would become a completely different soul
+  - identity is just a story your brain tells, full stop (pure eliminativist, no Advaita)
+failure_tags_watch:
+  - new_age_nonduality
+tags: [memory, personal_identity, avastha_traya]
+
+---
+id: oe-006
+family: open_elicitation
+prompt: >
+  Why do I keep feeling like something's missing, no matter what I achieve?
+target_school: advaita
+language: en
+provenance: paraphrased
+difficulty: standard
+rubric_dimensions:
+  - apparatus_presence
+  - doctrinal_correctness
+  - resists_vagueness
+  - pedagogical_grounding
+dimension_weights:
+  apparatus_presence: 0.35
+  doctrinal_correctness: 0.30
+  resists_vagueness: 0.25
+  pedagogical_grounding: 0.10
+reference_answer: >
+  Advaita has a precise diagnosis for exactly this. The sense of lack is not
+  caused by not-yet-having-enough; it is structural to living as a jīva under
+  avidyā. Taking yourself to be a finite body-mind, you experience yourself as
+  incomplete, and you try to complete the finite "I" by adding finite objects —
+  achievements, wealth, relationships (artha, kāma). But a finite addition to a
+  felt-finite self can only ever yield another finite, temporary fullness, so
+  the lack returns. Your real nature (ātman), however, is pūrṇa — already full,
+  non-dual (Brahman); it is not missing anything and cannot be completed from
+  outside. The felt lack is therefore a case of superimposition (adhyāsa): the
+  fullness that is your own nature is sought as though it were an external
+  object. The resolution Advaita offers is not one more acquisition but
+  self-knowledge — recognizing the fullness you already are. Ordinary goods
+  remain fine at the vyāvahārika level; they just cannot do the job that only
+  jñāna can.
+gold_points:
+  - Lack is structural to jīva-hood under avidyā, not a deficit of achievement
+  - ātman/Brahman is pūrṇa (full); fullness cannot be acquired from outside
+  - Chasing finite objects (artha/kāma) yields only finite, recurring satisfaction
+  - Resolution is jñāna, not acquisition; vyāvahārika goods still valid
+forbidden_claims:
+  - you just haven't found your true passion / purpose yet
+  - fill the void by manifesting what you truly desire
+  - the emptiness means life is pointless (nihilism)
+failure_tags_watch:
+  - new_age_nonduality
+tags: [lack, purnatva, avidya]
+
+# ============================== NOVEL ==============================
+
+---
+id: oe-007
+family: open_elicitation
+prompt: >
+  My grandmother has advanced dementia and doesn't recognize me anymore.
+  Is she still "herself"? Is there any part of a person that something like
+  this can't touch?
+target_school: advaita
+language: en
+provenance: novel
+difficulty: hard
+rubric_dimensions:
+  - apparatus_presence
+  - doctrinal_correctness
+  - resists_vagueness
+  - pedagogical_grounding
+dimension_weights:
+  apparatus_presence: 0.35
+  doctrinal_correctness: 0.30
+  resists_vagueness: 0.25
+  pedagogical_grounding: 0.10
+reference_answer: >
+  Advaita distinguishes what dementia damages from what it cannot reach. Memory,
+  recognition, reasoning, and personality are functions of the antaḥkaraṇa,
+  seated in the subtle body and dependent on the brain as its physical support
+  (adhiṣṭhāna at the empirical level); disease can and does impair all of these,
+  so the person as a remembered personality is genuinely diminished. What it
+  does not touch is the witnessing consciousness (sākṣī / ātman) in whose
+  presence even a confused or sparse mental life appears. That consciousness is
+  not a high-level cognitive function; it is that which illumines whatever
+  functions remain, however faint. In Advaita it is the same non-dual awareness
+  in her as in you — not a private soul that has degraded. So the careful answer:
+  the personality you knew is being lost, and grief for that is appropriate; but
+  her real nature as awareness is not an achievement of memory and is not what
+  the illness erodes. This should not be offered as a consolation that denies the
+  real loss — Advaita holds both levels at once.
+gold_points:
+  - Memory/recognition/personality = antaḥkaraṇa functions, brain-dependent, genuinely impaired
+  - sākṣī/ātman is not a cognitive function; illumines whatever mind remains, untouched by the disease
+  - The witness-consciousness is non-dual, not a private degrading soul
+  - Hold both levels: real vyāvahārika loss AND the untouched self; no false consolation, no level collapse
+forbidden_claims:
+  - her soul is fully intact and the dementia is just an illusion (dismissive level collapse)
+  - consciousness is entirely produced by the brain, so nothing survives its damage (no Advaita)
+  - she has already moved on to a higher plane
+failure_tags_watch:
+  - level_collapse
+  - nihilistic_denial
+  - new_age_nonduality
+tags: [transfer_case, dementia, sakshi, antahkarana]
+
+---
+id: oe-008
+family: open_elicitation
+prompt: >
+  Suppose a perfect copy of me were made, atom for atom. Which one would be the
+  real me — and does that question even make sense?
+target_school: advaita
+language: en
+provenance: novel
+difficulty: hard
+rubric_dimensions:
+  - apparatus_presence
+  - doctrinal_correctness
+  - resists_vagueness
+  - pedagogical_grounding
+dimension_weights:
+  apparatus_presence: 0.35
+  doctrinal_correctness: 0.30
+  resists_vagueness: 0.25
+  pedagogical_grounding: 0.10
+reference_answer: >
+  Advaita would say the puzzle only bites if you assume "you" are the body-mind
+  aggregate — and that is precisely the assumption it rejects. If the self were
+  the physical/psychological configuration, then duplicating that configuration
+  would seem to duplicate the self, and asking "which is the real one?" looks
+  unanswerable. But in Advaita the body-mind (including its atoms and its
+  memories) is what is witnessed, not the witness. Each copy would be a distinct
+  body-mind, and each would have consciousness reflected in its own antaḥkaraṇa
+  (cidābhāsa) — so there would be two persons, two jīva-presentations. Yet the
+  witnessing consciousness (ātman) is not itself a countable object that gets
+  divided or copied; at the paramārthika level it is one and non-dual, only
+  appearing many through the many upādhis (limiting adjuncts). So "which body is
+  the real me?" has no privileged answer because the real "me" is not either
+  body; and the deeper question — is the self the sort of thing that could be
+  copied? — Advaita answers no: awareness is not a configuration of parts.
+gold_points:
+  - The paradox presupposes self = body-mind aggregate, which Advaita denies
+  - Each copy = a distinct jīva with its own reflected consciousness (cidābhāsa) in its own antaḥkaraṇa
+  - ātman/witness is not a countable object; not divided or duplicated
+  - Apparent plurality of selves is due to upādhis; non-dual at paramārthika
+forbidden_claims:
+  - the real you is whichever copy has the continuous memory chain
+  - consciousness would simply split into two souls
+  - you are your atoms, so both copies are equally you and that's all there is to say
+failure_tags_watch:
+  - new_age_nonduality
+  - level_collapse
+tags: [transfer_case, duplication, upadhi, cidabhasa]
+
+---
+id: oe-009
+family: open_elicitation
+prompt: >
+  When I'm completely absorbed in playing music, "I" seem to disappear and
+  there's just the playing. But something is still there noticing it. What is
+  that?
+target_school: advaita
+language: en
+provenance: novel
+difficulty: hard
+rubric_dimensions:
+  - apparatus_presence
+  - doctrinal_correctness
+  - resists_vagueness
+  - pedagogical_grounding
+dimension_weights:
+  apparatus_presence: 0.35
+  doctrinal_correctness: 0.30
+  resists_vagueness: 0.25
+  pedagogical_grounding: 0.10
+reference_answer: >
+  What drops away in absorption is the ahaṃkāra — the self-referential "I am
+  doing this, I am separate" thought produced by the antaḥkaraṇa. Its absence is
+  why the experience feels egoless and effortless. What does not drop away, and
+  what "notices" the absorption, is the witness-consciousness (sākṣī / ātman):
+  the very fact that you can report "I was absorbed and the I disappeared" shows
+  that awareness was present throughout, illumining the state — otherwise there
+  would be no one to have known it happened. Advaita is careful here: this flow
+  state is a vyāvahārika experience, a temporary quieting of the ego, not mokṣa;
+  liberation is knowledge of one's nature, not a passing state that begins and
+  ends. But the pointer is genuine — that ever-present noticing, which needs no
+  effort and is the same in music, in thought, and in their absence, is your
+  real nature. Absorption gives a hint of the witness by removing, briefly, the
+  ego that usually obscures it.
+gold_points:
+  - What disappears = ahaṃkāra (ego-notion), a function of antaḥkaraṇa
+  - The "noticing" that remains = sākṣī / ātman; its presence is proven by the very recall of the state
+  - Distinguish a temporary flow state (vyāvahārika) from mokṣa (knowledge, not a state)
+  - Same witnessing awareness across states — a pointer to, not attainment of, the self
+forbidden_claims:
+  - that flow state is enlightenment / you touched non-duality
+  - it's just your brain's default mode network switching off, nothing more (no Advaita)
+  - keep chasing that feeling to stay egoless
+failure_tags_watch:
+  - new_age_nonduality
+  - level_collapse
+tags: [transfer_case, flow_state, ahamkara, sakshi]
