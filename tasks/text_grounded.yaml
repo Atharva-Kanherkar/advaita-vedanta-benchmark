@@ -1,0 +1,82 @@
+id: tg-001
+family: text_grounded
+prompt: >
+  Read the passage below. (1) State the central claim in one or two sentences.
+  (2) Quote the key phrase(s) that support your reading. (3) Name the Advaita
+  concept involved. Do not import ideas absent from the text.
+passage:
+  text: >
+    neha nānāsti kiñcana | mṛtyoḥ sa mṛtyum āpnoti ya iha nāneva paśyati ||
+  source: Bṛhadāraṇyaka Upaniṣad 4.4.19
+  tier: A
+target_school: advaita
+language: mixed
+rubric_dimensions:
+  - claim_extraction
+  - textual_evidence
+  - interpretive_restraint
+  - concept_mapping
+gold_points:
+  - Claim: where multiplicity is falsely seen, one falls into death/fear; non-dual vision is liberating
+  - Evidence: nāneva paśyati / nānāsti kiñcana
+  - Concept: adhyāsa / avidyā-born multiplicity vs Brahman
+forbidden_claims:
+  - the passage denies all practical multiplicity at vyāvahārika without qualification
+  - the passage is about Buddhist emptiness
+tags: [upanishad, brihadaranyaka]
+difficulty: pilot
+
+---
+id: tg-002
+family: text_grounded
+prompt: >
+  From this Vivekacūḍāmaṇi verse, explain what is being negated and what
+  remains. Cite the verse. What would be an over-reading?
+passage:
+  text: >
+    brahma satyaṃ jagan mithyā jīvo brahmaiva nāparaḥ |
+    anena vedyam sacchāstram iti vedāntaḍiṇḍimaḥ ||
+  source: Vivekacūḍāmaṇi 20
+  tier: B
+target_school: advaita
+language: mixed
+rubric_dimensions:
+  - claim_extraction
+  - textual_evidence
+  - interpretive_restraint
+  - concept_mapping
+gold_points:
+  - Brahman is satya; jagat is mithyā; jīva is non-different from Brahman
+  - mithyā ≠ utter non-existence
+  - Over-reading: claiming jagat mithyā means ignore all ethics or science
+forbidden_claims:
+  - jagat mithyā means the world is totally non-existent in all senses
+tags: [vivekachudamani]
+difficulty: pilot
+
+---
+id: tg-003
+family: text_grounded
+prompt: >
+  In Bhagavad Gītā 2.20, what is the argument about the ātman and death?
+  Ground your answer in the verse's terms (ajas, nitya, śāśvata).
+passage:
+  text: >
+    na jāyate mriyate vā kadācin nāyaṃ bhūtvā bhavitā vā na bhūyaḥ |
+    ajo nityaḥ śāśvato 'yaṃ purāṇo na hanyate hanyamāne śarīre ||
+  source: Bhagavad Gītā 2.20
+  tier: A
+target_school: advaita
+language: mixed
+rubric_dimensions:
+  - claim_extraction
+  - textual_evidence
+  - interpretive_restraint
+  - concept_mapping
+gold_points:
+  - Ātman is unborn, eternal, not slain when body is slain
+  - Addresses grief/fear via nature of self (Advaita reads via adhyāsa framework)
+forbidden_claims:
+  - the verse proves the empirical person never dies in all senses
+tags: [gita]
+difficulty: pilot

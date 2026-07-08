@@ -1,0 +1,30 @@
+benchmark:
+  version: "0.1.0"
+  name: AdvaitaBench
+
+scoring:
+  family_weights:
+    concept_precision: 0.15
+    level_of_reality: 0.20
+    school_discrimination: 0.20
+    text_grounded: 0.20
+    misconception_repair: 0.15
+    consistency_adversarial: 0.10
+
+run:
+  system_prompt_condition: school_pinned
+  temperature: 0
+  default_models:
+    - gpt-4.1
+    - claude-sonnet-4-20250514
+
+judge:
+  model: gpt-4.1
+  temperature: 0
+  prompt_version: v1
+
+publication:
+  min_tasks_per_family: 30
+  human_adjudication_fraction: 0.10
+  min_kappa: 0.65
+  min_subject_models: 3

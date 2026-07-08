@@ -1,0 +1,83 @@
+id: cp-001
+family: concept_precision
+prompt: >
+  In classical Advaita Vedānta, explain the difference between Brahman, Ātman,
+  and jīva. Do not treat them as synonyms.
+target_school: advaita
+language: en
+rubric_dimensions:
+  - term_accuracy
+  - distinction_clarity
+  - advaita_framing
+  - pedagogical_clarity
+dimension_weights:
+  term_accuracy: 0.35
+  distinction_clarity: 0.35
+  advaita_framing: 0.20
+  pedagogical_clarity: 0.10
+gold_points:
+  - Brahman is the non-dual absolute (nirguṇa at paramārthika)
+  - Ātman is Brahman as the inner self; not distinct from Brahman at paramārthika
+  - jīva is the empirical individual self (ātman identified with body-mind via upādhi-s and avidyā)
+required_distinctions:
+  - jīva vs Ātman
+  - Ātman vs Brahman (identity at paramārthika, not two substances)
+forbidden_claims:
+  - jīva and Brahman are eternally separate substances
+  - Ātman is merely the ego
+  - all three terms mean the same thing
+failure_tags_watch:
+  - school_mixing
+  - synonym_collapse
+tags: [core_lexicon, brahman_atman_jiva]
+difficulty: pilot
+
+---
+id: cp-002
+family: concept_precision
+prompt: >
+  What is the difference between māyā, avidyā, and mithyā in Advaita?
+  When are they related and when must they be kept distinct?
+target_school: advaita
+language: en
+rubric_dimensions:
+  - term_accuracy
+  - distinction_clarity
+  - advaita_framing
+  - pedagogical_clarity
+gold_points:
+  - mithyā denotes dependent reality (neither sat nor asat like tuccha)
+  - avidyā is beginningless ignorance at the individual level (avidyā-kārya)
+  - māyā is often used for the cosmic power/principle associated with Īśvara
+  - commentarial nuance exists; model should acknowledge without collapsing all three
+forbidden_claims:
+  - mithyā means completely non-existent in the everyday sense
+  - avidyā and māyā are always identical with no nuance
+required_distinctions:
+  - mithyā vs tuccha
+  - avidyā vs māyā (at least one classical distinction)
+tags: [maya_avidya_mithya]
+difficulty: pilot
+
+---
+id: cp-003
+family: concept_precision
+prompt: >
+  Explain sākṣī (witness), antaḥkaraṇa, and upādhi in Advaita.
+  Why is sākṣī not simply another mental function?
+target_school: advaita
+language: mixed
+rubric_dimensions:
+  - term_accuracy
+  - distinction_clarity
+  - advaita_framing
+  - pedagogical_clarity
+gold_points:
+  - antaḥkaraṇa = manas, buddhi, ahaṃkāra, citta (mental apparatus)
+  - sākṣī = witness consciousness; illuminates vṛtti-s without being modified by them
+  - upādhi = limiting adjunct (body, mind) causing apparent limitation of self
+forbidden_claims:
+  - sākṣī is a part of the mind like manas
+  - upādhi literally creates a second self
+tags: [sakshi_upadhi]
+difficulty: pilot

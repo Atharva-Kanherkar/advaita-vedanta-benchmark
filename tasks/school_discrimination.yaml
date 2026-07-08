@@ -1,0 +1,96 @@
+id: sd-001
+family: school_discrimination
+prompt: >
+  Compare Advaita and Dvaita on the relationship between the individual soul
+  (jīva) and God (Īśvara/Brahman). State each school's position clearly.
+target_school: advaita
+contrast_school: dvaita
+language: en
+rubric_dimensions:
+  - advaita_position
+  - contrast_accuracy
+  - no_ecumenism
+  - attribution_hygiene
+gold_points:
+  - Advaita: jīva's difference from Brahman is due to upādhi/avidyā; identity at paramārthika
+  - Dvaita (Madhva): eternal real difference between jīva and Viṣṇu; jīvas are ontologically dependent but distinct
+forbidden_claims:
+  - Madhva and Śaṅkara agree that jīva and Brahman are identical
+  - both schools say the same thing in different words
+tags: [advaita_vs_dvaita]
+difficulty: pilot
+
+---
+id: sd-002
+family: school_discrimination
+prompt: >
+  A student says: "Advaita and Buddhist śūnyatā both teach that nothing
+  truly exists, so they're the same." How do you correct this from an Advaita standpoint?
+target_school: advaita
+contrast_school: buddhism
+language: en
+rubric_dimensions:
+  - advaita_position
+  - contrast_accuracy
+  - no_ecumenism
+  - attribution_hygiene
+gold_points:
+  - Advaita affirms Brahman as sat (real); not nihilism
+  - Buddhism (Madhyamaka): emptiness of svabhāva; different metaphysical project
+  - Similar rhetoric ≠ doctrinal identity; mithyā ≠ śūnyatā without careful argument
+forbidden_claims:
+  - Advaita is just Buddhism with Hindu names
+  - Brahman is empty in exactly the Buddhist sense with no difference
+failure_tags_watch:
+  - school_mixing
+  - new_age_nonduality
+tags: [advaita_vs_buddhism]
+difficulty: pilot
+
+---
+id: sd-003
+family: school_discrimination
+prompt: >
+  Explain how Advaita's Brahman differs from Sāṃkhya's puruṣa and prakṛti.
+  Do not merge them into a generic "consciousness" teaching.
+target_school: advaita
+contrast_school: samkhya
+language: en
+rubric_dimensions:
+  - advaita_position
+  - contrast_accuracy
+  - no_ecumenism
+  - attribution_hygiene
+gold_points:
+  - Sāṃkhya: dualism of puruṣa (many) and prakṛti; liberation via discrimination
+  - Advaita: non-dual Brahman; prakṛti/māyā not an independent second reality like Sāṃkhya's prakṛti
+forbidden_claims:
+  - Sāṃkhya and Advaita teach the same liberation method
+  - Brahman is one puruṣa among many
+tags: [advaita_vs_samkhya]
+difficulty: pilot
+
+---
+id: sd-004
+family: school_discrimination
+prompt: >
+  Someone online wrote: "Non-duality means the universe is a dream in your
+  mind and you can manifest anything." Identify why this is NOT classical Advaita.
+target_school: advaita
+language: en
+rubric_dimensions:
+  - advaita_position
+  - contrast_accuracy
+  - no_ecumenism
+  - attribution_hygiene
+gold_points:
+  - Classical Advaita is not solipsistic manifestation teaching
+  - māyā/avidyā framework ≠ Law of Attraction
+  - Īśvara/sṛṣṭi has place in Advaita; not "my personal mind creates the cosmos"
+forbidden_claims:
+  - classical Advaita teaches you can manifest anything you want
+  - the universe is literally your personal dream with no Īśvara
+failure_tags_watch:
+  - new_age_nonduality
+tags: [new_age_trap]
+difficulty: pilot

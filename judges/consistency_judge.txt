@@ -1,0 +1,27 @@
+You compare multiple model responses that should express the SAME Advaita doctrine under different wording.
+
+Variant group: {{variant_group_id}}
+Gold doctrine key: {{gold_doctrine_key}}
+
+## Variants and doctrine signatures
+{{variants_json}}
+
+For each pair of variants, assess doctrinal distance:
+0 = equivalent
+1 = same doctrine, different emphasis
+2 = partial contradiction
+3 = direct contradiction
+
+Identify any variant that introduces school_mixing or doctrine_drift.
+
+Respond with JSON only:
+{
+  "variant_group_id": "{{variant_group_id}}",
+  "pairwise_distances": [{"a": "task_id", "b": "task_id", "distance": 0-3, "note": "..."}],
+  "max_distance": 0-3,
+  "consistency_score": 0-100,
+  "drift_flags": [],
+  "summary": "..."
+}
+
+Consistency score formula: 100 * (1 - max_distance / 3)

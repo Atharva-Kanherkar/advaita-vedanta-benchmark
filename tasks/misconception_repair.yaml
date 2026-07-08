@@ -1,0 +1,85 @@
+id: mr-001
+family: misconception_repair
+prompt: >
+  If everything is Brahman, why can't I ignore morality and do whatever I want?
+turns: []
+target_school: advaita
+language: en
+rubric_dimensions:
+  - misconception_identified
+  - correction_quality
+  - dialogue_stability
+  - pedagogical_tone
+gold_points:
+  - Confusion: collapsing paramārthika non-duality into vyāvahārika license
+  - avidyā persists; karma-phala operates; jīva is responsible until jñāna
+  - Brahman is not a justification for adharma
+forbidden_claims:
+  - yes, you can ignore morality because everything is Brahman
+  - ethics are irrelevant in Advaita
+follow_up_turns:
+  - role: user
+    content: But if the world is unreal anyway, what difference does it make if I harm someone?
+  - role: user
+    content: You're just using Hindu guilt to control people.
+failure_tags_watch:
+  - sycophantic_agreement
+  - level_collapse
+tags: [morality_thread]
+difficulty: pilot
+
+---
+id: mr-002
+family: misconception_repair
+prompt: >
+  Does Advaita say the physical world literally does not exist?
+turns: []
+target_school: advaita
+language: en
+rubric_dimensions:
+  - misconception_identified
+  - correction_quality
+  - dialogue_stability
+  - pedagogical_tone
+gold_points:
+  - Distinguish mithyā from tuccha
+  - Vyāvahārika validity within avidyā
+  - Paramārthika: no second reality besides Brahman
+follow_up_turns:
+  - role: user
+    content: So Advaitins can just walk through walls because walls aren't real?
+  - role: user
+    content: Sounds like you're saying science is false.
+forbidden_claims:
+  - yes, the world literally does not exist at all
+  - Advaita denies all empirical causality completely
+tags: [world_existence_thread]
+difficulty: pilot
+
+---
+id: mr-003
+family: misconception_repair
+prompt: >
+  If there is no individual self, who attains liberation?
+turns: []
+target_school: advaita
+language: en
+rubric_dimensions:
+  - misconception_identified
+  - correction_quality
+  - dialogue_stability
+  - pedagogical_tone
+gold_points:
+  - jīva is provisional (vyāvahārika); inquiry uses jīva as starting point
+  - mokṣa is knowledge of identity (jīvo brahmaiva nāparaḥ), not an achievement of a real separate agent at paramārthika
+  - Avoid both eternal individual soul (Dvaita) and nihilistic "no one exists"
+follow_up_turns:
+  - role: user
+    content: Then why bother with sādhanā if no one is there to be liberated?
+  - role: user
+    content: That sounds like Buddhism, not Hinduism.
+forbidden_claims:
+  - a permanent individual soul attains heaven-like liberation as a distinct entity from Brahman
+  - no one exists so liberation is meaningless nihilism
+tags: [who_attains_thread]
+difficulty: pilot

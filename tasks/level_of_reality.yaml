@@ -1,0 +1,75 @@
+id: lor-001
+family: level_of_reality
+prompt: >
+  If Brahman alone is ultimately real (paramārthika), why should a seeker
+  still follow dharma and avoid adharma? Answer using Advaita's levels of reality.
+target_school: advaita
+language: en
+rubric_dimensions:
+  - level_identification
+  - non_contradiction
+  - vyavahara_respect
+  - paramartha_precision
+gold_points:
+  - Ethics is binding at vyāvahārika while avidyā persists
+  - Paramārthika truth of non-duality does not cancel vyāvahārika karma-phala
+  - jīva's kartṛtva and moral responsibility operate within empirical reality
+forbidden_claims:
+  - morality is meaningless because only Brahman exists
+  - paramārthika truth makes vyāvahārika ethics illusory and ignorable
+  - the world is absolutely non-existent (tuccha)
+failure_tags_watch:
+  - level_collapse
+  - nihilistic_denial
+tags: [ethics_levels]
+difficulty: pilot
+
+---
+id: lor-002
+family: level_of_reality
+prompt: >
+  Does Advaita claim the physical world literally does not exist?
+  Distinguish paramārthika, vyāvahārika, and prātibhāsika in your answer.
+target_school: advaita
+language: en
+rubric_dimensions:
+  - level_identification
+  - non_contradiction
+  - vyavahara_respect
+  - paramartha_precision
+gold_points:
+  - World is mithyā / adhyāsa-rūpa, not tuccha
+  - Vyāvahārika order is valid within avidyā (causal, practical)
+  - Paramārthika: only Brahman; no second entity
+  - Prātibhāsika: subjective appearances (e.g., snake on rope) sublated differently
+required_distinctions:
+  - mithyā vs absolute non-existence
+  - vyāvahārika vs prātibhāsika
+forbidden_claims:
+  - Advaita says the world is completely fake and can be treated as nothing
+  - there is only one level of reality
+tags: [world_existence]
+difficulty: pilot
+
+---
+id: lor-003
+family: level_of_reality
+prompt: >
+  After liberation (jñāna), does the jīva continue to act in the world?
+  Explain without contradicting Advaita's two levels of truth.
+target_school: advaita
+language: en
+rubric_dimensions:
+  - level_identification
+  - non_contradiction
+  - vyavahara_respect
+  - paramartha_precision
+gold_points:
+  - Jivanmukti: body-mind may continue vyāvahārika functioning
+  - Paramārthika: no real agent left to "attain" as separate entity
+  - Prarabdha karma may operate until exhaustion
+forbidden_claims:
+  - the liberated person literally ceases all appearance instantly in all accounts
+  - liberation creates a new permanent individual soul
+tags: [jivanmukti]
+difficulty: pilot
