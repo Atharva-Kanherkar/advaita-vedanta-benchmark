@@ -1,40 +1,45 @@
-# Model registry for AdvaitaBench.
+# Model registry for AdvaitaBench — SOTA frontier set as of July 2026.
 #
-# Routing (see harness/providers.py): OpenAI, Anthropic, and Gemini specs hit
-# their native APIs and draw on first-party credits; everything else routes
-# through OpenRouter, which is real out-of-pocket spend. A spec may force a
-# route with a `provider:` prefix (e.g. openrouter:anthropic/claude-3.5-sonnet).
+# Routing (harness/providers.py) is also a billing decision: OpenAI, Anthropic,
+# and Google specs hit their native APIs (first-party credits); everything else
+# routes through OpenRouter (real out-of-pocket spend, reported per run).
+# Prefix `provider:` forces a route. `--models @frontier,@openrouter` expands
+# groups; `@all` expands everything.
 #
-# `advaita-bench run --models @frontier` expands a group; `--models @all`
-# expands every enabled entry. Model ids drift — verify against each provider's
-# current catalogue before a paid run. A model that errors is skipped and
-# recorded in the run manifest, so one stale id will not sink the batch.
+# Prices below are per 1M tokens (input/output), from OpenRouter's live catalogue
+# on 2026-07-08, for cost intuition only. IDs drift — a model that errors is
+# skipped and logged in the run manifest.
 
 groups:
-  # Direct-billed frontier models (Anthropic + OpenAI + Google credits).
+  # ---- Direct-billed frontier (Anthropic + OpenAI + Google credits) ----
   frontier:
-    - anthropic:claude-opus-4-1
-    - anthropic:claude-sonnet-4-5
-    - openai:gpt-4.1
-    - openai:gpt-4o
-    - google:gemini-2.5-pro
+    - anthropic:claude-fable-5              # Anthropic SOTA, Mythos-class   $10 / $50
+    - anthropic:claude-opus-4-8             # Anthropic flagship             $5  / $25
+    - anthropic:claude-sonnet-5             # Anthropic value tier           $2  / $10
+    - openai:gpt-5.5                        # OpenAI SOTA                    $5  / $30
+    - openai:gpt-5.2                        # OpenAI value tier              $1.75 / $14
+    - google:gemini-3.1-pro-preview         # Google SOTA (VERIFY native id) $2  / $12
 
-  # Everything below routes through OpenRouter (spends real money).
+  # ---- OpenRouter (real spend): xAI, DeepSeek, and the frontier non-Western labs ----
   openrouter:
-    - x-ai/grok-3
-    - deepseek/deepseek-chat
-    - deepseek/deepseek-r1
-    - qwen/qwen-2.5-72b-instruct
-    - zhipuai/glm-4-plus
-    - moonshotai/kimi-k2
-    - mistralai/mistral-large
-    - meta-llama/llama-3.3-70b-instruct
+    - x-ai/grok-4.3                         # xAI flagship                   $1.25 / $2.50
+    - deepseek/deepseek-v4-pro              # DeepSeek flagship              $0.43 / $0.87
+    - qwen/qwen3.7-max                      # Alibaba Qwen flagship          $1.25 / $3.75
+    - z-ai/glm-5.2                          # Zhipu GLM flagship             $0.93 / $3.00
+    - moonshotai/kimi-k2.6                  # Moonshot Kimi flagship         $0.66 / $3.41
+    - minimax/minimax-m3                    # MiniMax flagship               $0.30 / $1.20
+    - mistralai/mistral-medium-3-5          # Mistral flagship               $1.50 / $7.50
+    - tencent/hy3                           # Tencent Hunyuan 3              $0.20 / $0.80
 
-  # A cheap smoke set for wiring checks.
+  # ---- Cheap current-gen smoke set for wiring checks (~$0.05 over a --limit run) ----
   smoke:
-    - openai:gpt-4o-mini
-    - anthropic:claude-3-5-haiku-latest
+    - anthropic:claude-haiku-4-5-20251001
+    - deepseek/deepseek-v3.2
 
-# Default judge. MUST differ from every subject model in a publication run;
-# the harness enforces this unless --allow-self-judge is passed.
-judge: openai:gpt-4.1
+# Default judge. MUST differ from every subject model (harness enforces this).
+# gpt-5.4 is near-frontier, reserved (not a subject), and cheap on the OpenAI
+# credit (~$16 over a full run). Same-provider-family as the two GPT subjects —
+# a minor, disclosed limitation; run a judge-sensitivity pass with a cross-family
+# judge (e.g. google:gemini-3.1-pro-preview or anthropic:claude-opus-4-8) before
+# publishing.
+judge: openai:gpt-5.4
