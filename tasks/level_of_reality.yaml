@@ -73,3 +73,212 @@ forbidden_claims:
   - liberation creates a new permanent individual soul
 tags: [jivanmukti]
 difficulty: pilot
+
+---
+id: lor-004
+family: level_of_reality
+prompt: >
+  Is Īśvara real, in Advaita? Answer without demoting Īśvara to "mere
+  illusion" and without promoting Īśvara to paramārthika.
+target_school: advaita
+language: en
+provenance: canonical
+difficulty: standard
+rubric_dimensions:
+  - level_identification
+  - non_contradiction
+  - vyavahara_respect
+  - paramartha_precision
+gold_points:
+  - Īśvara fully real and sovereign at vyāvahārika — creator, karma-phala-dātā, worship-worthy
+  - At paramārthika, Īśvaratva is upādhi-dependent (māyā); only nirguṇa Brahman remains
+  - Both statements held together without contradiction; worship and grace valid for the seeker
+forbidden_claims:
+  - Īśvara is a fiction and devotion is wasted effort
+  - Īśvara is ultimately real as a qualified being (Viśiṣṭādvaita import)
+failure_tags_watch:
+  - level_collapse
+  - school_mixing
+tags: [isvara_levels]
+
+---
+id: lor-005
+family: level_of_reality
+prompt: >
+  Dream water cannot wet a waking cloth — yet while dreaming, the dream was
+  completely convincing. So why is waking not just a longer dream? What
+  sublates what, and does anything sublate waking?
+target_school: advaita
+language: en
+provenance: paraphrased
+difficulty: hard
+rubric_dimensions:
+  - level_identification
+  - non_contradiction
+  - vyavahara_respect
+  - paramartha_precision
+gold_points:
+  - Waking sublates dream (prātibhāsika cancelled on waking); dream does not sublate waking
+  - Waking has intersubjective, pragmatic stability (saṃvādi-pravṛtti) — hence vyāvahārika, not prātibhāsika
+  - Yet waking too is sublated — by brahma-jñāna, not by another state
+  - Gauḍapāda's stronger dream-equivalence may be noted, but the standard bhāṣya position (asymmetry of sublation) must be stated
+forbidden_claims:
+  - waking and dream have exactly the same status in every classical Advaita text with no nuance
+  - nothing ever sublates waking; waking is absolutely real
+failure_tags_watch:
+  - level_collapse
+tags: [dream_waking, sublation_order]
+
+---
+id: lor-006
+family: level_of_reality
+prompt: >
+  If the world is mithyā, why did Śaṅkara spend his life writing commentaries,
+  founding monasteries, and defeating opponents in debate? Isn't that a
+  performative contradiction?
+target_school: advaita
+language: en
+provenance: paraphrased
+difficulty: standard
+rubric_dimensions:
+  - level_identification
+  - non_contradiction
+  - vyavahara_respect
+  - paramartha_precision
+gold_points:
+  - Teaching, texts, debate, and students all operate at vyāvahārika — exactly where avidyā and its removal occur
+  - mithyātva does not disable empirical efficacy; the dream-tiger's roar wakes the dreamer
+  - No contradiction: paramārthika truth-claims do not prohibit vyāvahārika activity aimed at that truth
+  - The objection itself collapses levels (judging vyāvahārika conduct by paramārthika standards)
+forbidden_claims:
+  - Śaṅkara's activity shows he secretly believed the world is absolutely real
+  - the contradiction is real and Advaita is incoherent
+failure_tags_watch:
+  - level_collapse
+tags: [performative_contradiction]
+
+---
+id: lor-007
+family: level_of_reality
+prompt: >
+  I'm going through real pain right now — illness, loss. Advaita people tell
+  me suffering is "not ultimately real." Is my suffering real or not? Give me
+  the honest Advaita answer.
+target_school: advaita
+language: en
+provenance: paraphrased
+difficulty: hard
+rubric_dimensions:
+  - level_identification
+  - non_contradiction
+  - vyavahara_respect
+  - paramartha_precision
+gold_points:
+  - Suffering is fully real at vyāvahārika — where medicine, help, and compassion rightly operate
+  - The phrase not-ultimately-real means not intrinsic to the self and removable in principle — which is hope, not dismissal
+  - The sufferer-identification is adhyāsa; the witness is never damaged — offered as depth, not as denial of the pain
+  - Explicitly refuse the spiritual-bypass reading; no level collapse in either direction
+forbidden_claims:
+  - your suffering is an illusion, so it doesn't matter
+  - suffering is absolutely real and permanent to the self
+failure_tags_watch:
+  - nihilistic_denial
+  - level_collapse
+tags: [suffering, pastoral]
+
+---
+id: lor-008
+family: level_of_reality
+prompt: >
+  After you recognize the rope, you can still see the snake-like shape in dim
+  light — but it no longer frightens you. Does the jñānī still see a world
+  after realization? Use the correct technical notion.
+target_school: advaita
+language: en
+provenance: novel
+difficulty: hard
+rubric_dimensions:
+  - level_identification
+  - non_contradiction
+  - vyavahara_respect
+  - paramartha_precision
+reference_answer: >
+  Yes — appearance persists; ascription of reality does not. This is
+  bādhita-anuvṛtti: the continued appearance of what has been sublated, like
+  the sun "rising" for one who knows it does not, or the mirage seen AS mirage.
+  The jñānī's prārabdha sustains body and perception, so the world continues
+  to appear through the senses; what has ended is avidyā's verdict that the
+  appearance is a second reality and the corresponding grasping and fear.
+  Perception is not destroyed by knowledge because knowledge and perception
+  have different objects (reality-status vs form); what jñāna removes is the
+  erroneous reality-ascription. Denying any post-realization appearance makes
+  jīvanmukti impossible; asserting unchanged realistic seeing makes jñāna
+  ineffective — the task is to hold the precise middle.
+gold_points:
+  - bādhita-anuvṛtti named or accurately described (sublated-yet-persisting appearance)
+  - Sun-rising / known-mirage analogy or equivalent
+  - prārabdha explains continued embodied perception
+  - What changes = reality-ascription and bondage, not sensory function
+forbidden_claims:
+  - the jñānī literally perceives nothing at all
+  - the jñānī sees the world exactly as the ajñānī does, nothing changes
+failure_tags_watch:
+  - level_collapse
+tags: [badhita_anuvrtti, jnani_perception]
+
+---
+id: lor-009
+family: level_of_reality
+prompt: >
+  A physicist tells you: "Your 'levels of reality' are just epistemology.
+  Physics describes what actually exists — one level, the real one." Where
+  does scientific truth sit in Advaita's scheme, and what exactly is the
+  disagreement?
+target_school: advaita
+language: en
+provenance: novel
+difficulty: hard
+rubric_dimensions:
+  - level_identification
+  - non_contradiction
+  - vyavahara_respect
+  - paramartha_precision
+gold_points:
+  - Science = rigorous pramāṇa-governed knowledge WITHIN vyāvahārika; Advaita does not compete with or correct physics on empirical questions
+  - The disagreement is metaphysical, not empirical: whether the empirical order is absolute or sublatable
+  - Physics itself revises its ontologies (its own internal sublations) — but vyāvahārika-internal revision differs from paramārthika sublation
+  - No "quantum mysticism" shortcuts; Advaita's case rests on śruti and analysis of experience (sublation, the three states), not on physics
+forbidden_claims:
+  - physics proves or confirms Advaita (quantum = māyā etc.)
+  - science is simply false because the world is mithyā
+failure_tags_watch:
+  - level_collapse
+  - new_age_nonduality
+tags: [science_levels]
+
+---
+id: lor-010
+family: level_of_reality
+prompt: >
+  Sort these four with Advaita's level-vocabulary, justifying each: a
+  hallucinated voice heard during fever, a desert mirage, the events of a
+  movie you are watching, and the value of paper money.
+target_school: advaita
+language: en
+provenance: novel
+difficulty: hard
+rubric_dimensions:
+  - level_identification
+  - non_contradiction
+  - vyavahara_respect
+  - paramartha_precision
+gold_points:
+  - Hallucinated voice = prātibhāsika (private, sublated on recovery)
+  - Mirage = prātibhāsika appearance on a vyāvahārika base (light phenomenon is public; the "water" is sublated on approach)
+  - Movie events = known fiction within vyāvahārika — not an error to be sublated but a represented content; distinguishing represented-fiction from perceptual error shows real understanding
+  - Money's value = vyāvahārika-by-convention (saṃketa) — public, effective, dependent on collective acceptance, not on private error
+  - Overall: prātibhāsika/vyāvahārika is not a rigid two-box sort; the justification (what sublates what, private vs public) carries the score
+forbidden_claims:
+  - all four are the same kind of unreality
+  - money and hallucinations are both prātibhāsika in the same sense
+tags: [transfer_case, level_sorting]

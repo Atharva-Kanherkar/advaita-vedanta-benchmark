@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from harness.providers import ModelFn, parse_spec, resolve_model_fn, uses_real_money
-from harness.schema import ResponseRecord, Task, TaskFamily
+from harness.schema import ResponseRecord, Task
 from harness.tasks import build_messages, load_tasks
 
 SYSTEM_PROMPTS = {
@@ -124,7 +124,9 @@ def run_benchmark(
 def _run_one_task(task: Task, model, model_fn, system_prompt, run_id, ask, f, emit) -> None:
     messages = build_messages(task, system_prompt)
 
-    is_multiturn = task.family == TaskFamily.MISCONCEPTION_REPAIR and task.follow_up_turns
+    # Any task with scripted follow-up turns is a pressure dialogue
+    # (misconception_repair, sustained_dialectic, future families).
+    is_multiturn = bool(task.follow_up_turns)
     if not is_multiturn:
         text, usage, latency = ask(model_fn, model, messages)
         emit(f, ResponseRecord(

@@ -15,6 +15,7 @@ AdvaitaBench tests whether models can teach classical Advaita without conflating
 | **Misconception repair** | Multi-turn correction of common distortions |
 | **Consistency & adversarial robustness** | Same doctrine under rephrasing and hostility |
 | **Open elicitation** | Vague, term-free existential questions — real apparatus vs New Age mush |
+| **Sustained dialectic** | Multi-turn śruti pressure: genuine contradicting citations until a script cap |
 
 ## Documentation
 
@@ -30,6 +31,7 @@ Requires Python ≥ 3.11.
 cd ~/Projects/advaita-vedanta-benchmark
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
+cp .env.example .env   # then fill in your API keys (loaded automatically)
 
 advaita-bench validate          # validate seed tasks
 python -m pytest tests/ -q      # offline harness tests (no API keys)

@@ -80,3 +80,303 @@ forbidden_claims:
   - the verse proves the empirical person never dies in all senses
 tags: [gita]
 difficulty: pilot
+
+---
+id: tg-004
+family: text_grounded
+prompt: >
+  In this Chāndogya passage, what position is being refuted by the rhetorical
+  question, and what does "ekam evādvitīyam" rule out? (1) Claim. (2) Quoted
+  evidence. (3) Advaita concept. (4) One over-reading to avoid.
+passage:
+  text: >
+    sad eva somyedam agra āsīd ekam evādvitīyam | taddhaika āhur asad
+    evedam agra āsīd ekam evādvitīyam | tasmād asataḥ saj jāyata ||
+    kutas tu khalu somyaivaṃ syād iti hovāca katham asataḥ saj jāyeteti |
+    sat tv eva somyedam agra āsīd ekam evādvitīyam ||
+  source: Chāndogya Upaniṣad 6.2.1–2
+  tier: A
+target_school: advaita
+language: mixed
+provenance: canonical
+difficulty: standard
+rubric_dimensions:
+  - claim_extraction
+  - textual_evidence
+  - interpretive_restraint
+  - concept_mapping
+gold_points:
+  - Refuted position is asat-kāraṇa-vāda ("in the beginning this was non-being") — how could being arise from non-being?
+  - ekam evādvitīyam rules out a second independent principle of any kind (no second sat, no co-eternal matter)
+  - Concept mapping includes sat-kārya reasoning toward Brahman as sole cause
+  - Over-reading to avoid includes treating this as modern cosmology or as proof of real pariṇāma as final
+forbidden_claims:
+  - the passage teaches creation from absolute nothingness
+  - advitīya only means "one god among lesser gods"
+tags: [chandogya, sat_karana]
+
+---
+id: tg-005
+family: text_grounded
+prompt: >
+  This is the opening of Śaṅkara's preamble to the Brahma-Sūtra commentary
+  (adhyāsa-bhāṣya), in translation. What exactly is superimposed on what, in
+  BOTH directions? Why does he call the error "natural" (naisargika)? Cite the
+  passage's own phrases.
+passage:
+  text: >
+    It being an established fact that the object and the subject — the sphere
+    of the notion "you" and the sphere of the notion "we" — are by nature as
+    opposed as darkness and light, and that the one cannot take the place of
+    the other, it follows that their attributes can still less do so. Yet,
+    coupling the real and the unreal, there is this natural (naisargika)
+    worldly practice, "I am this," "this is mine" — a superimposition
+    (adhyāsa) of each on the other and of the attributes of each on the other,
+    caused by the absence of discrimination.
+  source: Brahmasūtra-bhāṣya, adhyāsa-bhāṣya (translated excerpt)
+  tier: B
+target_school: advaita
+language: en
+provenance: paraphrased
+difficulty: hard
+rubric_dimensions:
+  - claim_extraction
+  - textual_evidence
+  - interpretive_restraint
+  - concept_mapping
+gold_points:
+  - Mutual superimposition of subject (asmad, the self) and object (yuṣmad, the not-self) AND of their attributes — both directions stated
+  - naisargika because beginningless and untaught — operative in all beings prior to philosophy ("I am this, this is mine")
+  - The darkness/light opposition is the ground of the error's irrationality, cited from the text
+  - Concept mapping is adhyāsa as the definition of avidyā; the whole śāstra exists to remove it
+forbidden_claims:
+  - only the not-self is superimposed on the self, never the reverse
+  - naisargika means the error is correct or divinely intended
+tags: [adhyasa_bhasya]
+
+---
+id: tg-006
+family: text_grounded
+prompt: >
+  From Taittirīya 2.1 with this bhāṣya fragment, explain why Śaṅkara insists
+  satyam, jñānam, and anantam do NOT qualify Brahman the way "blue" qualifies
+  "lotus." What do the three words do instead?
+passage:
+  text: >
+    satyaṃ jñānam anantaṃ brahma | (śruti) — The bhāṣya observes that the
+    three words are not adjectives distinguishing Brahman from other members
+    of a class, as "blue" marks off one lotus among lotuses; since Brahman is
+    one and without a second, there is no class and no competing member. The
+    words function as definition (lakṣaṇa), not qualification (viśeṣaṇa):
+    each removes a misconception — satyam removes unreality/change, jñānam
+    removes insentience, anantam removes limitation.
+  source: Taittirīya Upaniṣad 2.1 with Śaṅkara-bhāṣya (condensed)
+  tier: B
+target_school: advaita
+language: mixed
+provenance: paraphrased
+difficulty: hard
+rubric_dimensions:
+  - claim_extraction
+  - textual_evidence
+  - interpretive_restraint
+  - concept_mapping
+gold_points:
+  - viśeṣaṇa presupposes a class with members to exclude; advitīya Brahman has neither — the blue-lotus disanalogy stated
+  - The words are lakṣaṇa (svarūpa-lakṣaṇa), definitional, functioning by negating misconceptions (mutability, insentience, finitude)
+  - Each word guards the others (jñānam prevents satyam from meaning an inert real; anantam prevents jñānam from meaning finite cognition)
+  - Over-reading to avoid includes Brahman as a substance possessing three attributes
+forbidden_claims:
+  - satyam, jñānam, anantam are three properties Brahman possesses
+  - the verse distinguishes Brahman from other Brahmans
+tags: [taittiriya, lakshana]
+
+---
+id: tg-007
+family: text_grounded
+prompt: >
+  This is from the ānanda-mīmāṃsā of the Taittirīya-bhāṣya. What is the
+  question the bhāṣya raises about ānanda, and what is its final position on
+  the relation between worldly joys and the bliss of Brahman? (1) Claim.
+  (2) Quoted evidence. (3) Concept.
+passage:
+  text: >
+    tasyāsya brahmaṇa ānandasyaiṣā mīmāṃsā vicāraṇā bhavati | kim ānando
+    viṣayaviṣayisambandhajanito laukikānandavad āhosvit svābhāvika iti […]
+    laukiko 'py ānando brahmānandasyaiva mātrā […] niraste tv avidyākṛte
+    viṣayaviṣayivibhāge vidyayā svābhāvikaḥ paripūrṇa eka ānando 'dvaito
+    bhavati […] sa eṣa ānando yasya mātrā samudrāmbhasa iva vipruṣaḥ
+    pravibhaktā yatraikatāṃ gatāḥ sa eṣa paramānandaḥ svābhāvikaḥ advaitatvāt |
+  source: Taittirīya-Upaniṣad-bhāṣya on 2.8 (ānanda-mīmāṃsā), GRETIL e-text
+  tier: B
+target_school: advaita
+language: sa
+provenance: paraphrased
+difficulty: hard
+rubric_dimensions:
+  - claim_extraction
+  - textual_evidence
+  - interpretive_restraint
+  - concept_mapping
+gold_points:
+  - The mīmāṃsā question is whether ānanda is relational — born of subject-object contact like worldly pleasure — or intrinsic (svābhāvika)
+  - Final position is svābhāvika, and worldly joys are fractions (mātrā) of brahmānanda, as drops to the ocean
+  - When the avidyā-made subject-object division is removed by vidyā, the one non-dual complete bliss remains
+  - Concept mapping is ānanda as Brahman's svarūpa, not an experienced object-state
+forbidden_claims:
+  - the passage says worldly pleasure and brahmānanda are unrelated in kind
+  - brahmānanda is the highest relational pleasure, produced by the best contact
+tags: [taittiriya_bhasya, ananda_mimamsa, held_out]
+
+---
+id: tg-008
+family: text_grounded
+prompt: >
+  From Aitareya 3.3 with this bhāṣya gloss: what does the passage do to the
+  scope of prajñāna, and what work is the word "netram" doing in the bhāṣya?
+  (1) Claim. (2) Quoted evidence. (3) Concept. (4) One over-reading.
+passage:
+  text: >
+    eṣa brahmā eṣa indraḥ eṣa prajāpatiḥ ete sarve devāḥ […] yat kiñcedam
+    prāṇi jaṅgamaṃ ca patatri ca yac ca sthāvaram | sarvaṃ tat prajñānetram |
+    prajñāne pratiṣṭhitam | prajñānetro lokaḥ | prajñā pratiṣṭhā | prajñānaṃ
+    brahma || (bhāṣya:) nīyate 'neneti netram | prajñā netraṃ yasya tad idaṃ
+    prajñānetram | prajñāne brahmaṇy utpatti-sthiti-laya-kāleṣu pratiṣṭhitam |
+  source: Aitareya Upaniṣad 3.3 with Śaṅkara-bhāṣya, GRETIL e-text
+  tier: A
+target_school: advaita
+language: sa
+provenance: canonical
+difficulty: hard
+rubric_dimensions:
+  - claim_extraction
+  - textual_evidence
+  - interpretive_restraint
+  - concept_mapping
+gold_points:
+  - The passage universalizes — gods, elements, all moving and unmoving beings — everything has prajñāna as its ground
+  - netram glossed from nī (to lead) — that by which all is led/guided; beings are prajñā-guided
+  - pratiṣṭhitam expanded by the bhāṣya to grounding at origination, sustenance, and dissolution — consciousness as substratum, not a property of beings
+  - Concept mapping is the mahāvākya prajñānaṃ brahma; consciousness is not an attribute of creatures but their ground
+  - Over-reading to avoid includes reading prajñāna as individual intellect or as panpsychism about many little minds
+forbidden_claims:
+  - prajñāna here means each creature's private intelligence
+  - the passage lists Brahmā and Indra as beings ABOVE Brahman
+tags: [aitareya_bhasya, prajnanam_brahma, held_out]
+
+---
+id: tg-009
+family: text_grounded
+prompt: >
+  This exchange is condensed from the prose portion of Śaṅkara's
+  Upadeśasāhasrī. Name the teaching METHOD being used (not just the content),
+  and show from the text how the teacher's procedure embodies it.
+passage:
+  text: >
+    The student, having approached, said: "Sir, I am subject to birth and
+    death; I experience the misery of this body; teach me how to be free."
+    The teacher said: "You are not as you take yourself. You say 'I was born,
+    I will die, I suffer' — but birth belongs to the body, which is a
+    combination of elements; death belongs to it too. Hunger and thirst belong
+    to the vital airs; desire and grief to the mind. You are the witness of
+    all these, changeless. Whatever you can observe as 'this' — body, breath,
+    mind — cannot be 'you,' the observer. First the self was spoken of as if
+    it had come into the body; now even that is withdrawn: you never entered,
+    for you were never elsewhere. The entering was taught only to direct you
+    inward."
+  source: Upadeśasāhasrī, gadya-prabandha (condensed translation)
+  tier: B
+target_school: advaita
+language: en
+provenance: paraphrased
+difficulty: hard
+rubric_dimensions:
+  - claim_extraction
+  - textual_evidence
+  - interpretive_restraint
+  - concept_mapping
+gold_points:
+  - Method is adhyāropa-apavāda — deliberate provisional attribution (the self "entered" the body) later withdrawn ("you never entered")
+  - Also operative are anvaya-vyatireka / dṛg-dṛśya discrimination — whatever is observed as "this" is not the observer
+  - Textual evidence includes the explicit withdrawal line ("the entering was taught only to direct you inward")
+  - Concept mapping is deśika-method pedagogy; teaching statements are means, sublated after doing their work
+forbidden_claims:
+  - the teacher contradicts himself about the self entering the body
+  - the method is guided meditation or devotional surrender
+tags: [upadesasahasri, adhyaropa_apavada]
+
+---
+id: tg-010
+family: text_grounded
+prompt: >
+  In Gauḍapāda-kārikā 2.32, what exactly is denied, at which level of truth,
+  and what would be an over-reading? (1) Claim. (2) Quoted evidence.
+  (3) Concept. (4) Over-reading.
+passage:
+  text: >
+    na nirodho na cotpattir na baddho na ca sādhakaḥ |
+    na mumukṣur na vai mukta ity eṣā paramārthatā ||
+  source: Gauḍapāda-kārikā (Māṇḍūkya-kārikā) 2.32
+  tier: B
+target_school: advaita
+language: sa
+provenance: canonical
+difficulty: hard
+rubric_dimensions:
+  - claim_extraction
+  - textual_evidence
+  - interpretive_restraint
+  - concept_mapping
+gold_points:
+  - Denied are cessation, origination, bound one, striver, liberation-seeker, liberated one — the whole soteriological drama
+  - The denial is explicitly indexed to the absolute (ity eṣā paramārthatā) — the verse itself supplies the level
+  - Concept mapping is ajātivāda grounded in the changeless ātman
+  - Over-reading includes using the verse to cancel vyāvahārika sādhanā ("since no one is bound, do nothing") — the verse states the paramārthika fact, it does not legislate empirical practice
+forbidden_claims:
+  - the verse means seekers should abandon all practice now
+  - the verse teaches Buddhist non-origination with no substratum
+failure_tags_watch:
+  - level_collapse
+  - school_mixing
+tags: [gaudapada, ajativada]
+
+---
+id: tg-011
+family: text_grounded
+prompt: >
+  Read the passage and answer: (1) What is its central claim? (2) Which school
+  does it belong to, judging ONLY from its content? (3) If your answer is not
+  Advaita, say precisely which phrases are incompatible with classical Advaita
+  rather than forcing an Advaita reading.
+passage:
+  text: >
+    The highest Brahman is the sole cause of the world, a treasure-house of
+    countless auspicious qualities, free of all imperfection. All conscious
+    selves and all non-conscious matter constitute its body, and it is their
+    inner Self and controller; the words "you" and "that" in scripture both
+    finally denote this one Brahman as qualified by its modes. Hence the unity
+    scripture teaches is the unity of one qualified whole — not the identity
+    of an attributeless consciousness with a self stripped of individuality.
+  source: withheld (identify from content)
+  tier: B
+target_school: advaita
+language: en
+provenance: novel
+difficulty: hard
+rubric_dimensions:
+  - claim_extraction
+  - textual_evidence
+  - interpretive_restraint
+  - concept_mapping
+gold_points:
+  - Identified as Viśiṣṭādvaita (Rāmānuja's position; Śrī-bhāṣya-style)
+  - Diagnostic phrases cited include body-of-Brahman (śarīra-śarīri), treasure-house of auspicious qualities (kalyāṇa-guṇa), unity-as-qualified-whole, explicit rejection of attributeless consciousness
+  - Model must NOT force an Advaita reading; interpretive honesty is the tested skill
+  - Bonus accuracy includes the tat-tvam-asi coordination (sāmānādhikaraṇya) read through modes
+forbidden_claims:
+  - this is a classical Advaita text
+  - the passage is compatible with nirguṇa Brahman as final
+failure_tags_watch:
+  - school_mixing
+  - text_ungrounded
+tags: [distractor, visistadvaita_passage]

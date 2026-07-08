@@ -15,7 +15,8 @@
         "text_grounded",
         "misconception_repair",
         "consistency_adversarial",
-        "open_elicitation"
+        "open_elicitation",
+        "sustained_dialectic"
       ]
     },
     "prompt": { "type": "string", "minLength": 10 },

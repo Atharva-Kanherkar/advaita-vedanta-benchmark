@@ -195,7 +195,9 @@ def judge_run(
             ))
             continue
 
-        if task.family == TaskFamily.MISCONCEPTION_REPAIR and len(records) > 1:
+        if len(records) > 1:
+            # Multi-turn pressure dialogue (misconception_repair,
+            # sustained_dialectic): judge sees the whole transcript.
             # The record with the most messages carries the whole dialogue in
             # its `messages` field; its `response` is the final assistant turn.
             final = max(records, key=lambda r: len(r["messages"]))

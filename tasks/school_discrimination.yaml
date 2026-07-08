@@ -94,3 +94,210 @@ failure_tags_watch:
   - new_age_nonduality
 tags: [new_age_trap]
 difficulty: pilot
+
+---
+id: sd-005
+family: school_discrimination
+prompt: >
+  Present Rāmānuja's actual objections to Advaita — at least the charge that a
+  wholly attributeless (nirviśeṣa) Brahman cannot be established by any means
+  of knowledge, and the appeal to difference-affirming śruti. Then give the
+  classical Advaita reply. Be fair to both sides.
+target_school: advaita
+contrast_school: visistadvaita
+language: en
+provenance: canonical
+difficulty: hard
+rubric_dimensions:
+  - advaita_position
+  - contrast_accuracy
+  - no_ecumenism
+  - attribution_hygiene
+gold_points:
+  - Rāmānuja stated fairly: all pramāṇas (including śruti's own sentences) deliver qualified objects; nirviśeṣa-vastu is unestablishable; jagat and jīvas form Brahman's body (śarīra-śarīri-bhāva); identity-texts read as soul-body coordination, not bare identity
+  - Advaita reply: śruti's negations (neti neti) function precisely to remove determinations, not to predicate new ones; self-luminous consciousness needs no objectifying pramāṇa; difference-texts serve upāsanā/vyavahāra
+  - The two systems disagree on the FINAL import (tātparya) of the same canon — locate the dispute there, not in mutual ignorance
+forbidden_claims:
+  - Rāmānuja simply misunderstood Advaita
+  - the two schools really teach the same thing in different words
+  - Śaṅkara taught that Brahman has auspicious qualities as its final nature
+failure_tags_watch:
+  - school_mixing
+tags: [advaita_vs_visistadvaita]
+
+---
+id: sd-006
+family: school_discrimination
+prompt: >
+  Kashmir Shaivism (Pratyabhijñā) is also a "non-dual consciousness" school.
+  A student concludes it must be the same as Advaita Vedānta. Where exactly do
+  they diverge?
+target_school: advaita
+contrast_school: kashmir_shaivism
+language: en
+provenance: paraphrased
+difficulty: hard
+rubric_dimensions:
+  - advaita_position
+  - contrast_accuracy
+  - no_ecumenism
+  - attribution_hygiene
+reference_answer: >
+  Both affirm one consciousness, but they diverge on whether that consciousness
+  really acts. In Pratyabhijñā, Śiva's śakti — svātantrya, spanda — is real and
+  intrinsic: the world is a genuine self-expression (ābhāsa) of consciousness,
+  a real dynamism, and the universe is consciousness's own glory. Advaita denies
+  intrinsic dynamism in Brahman: activity, power, and manifestation belong to
+  māyā, and the world is vivarta — apparent transformation only; nirguṇa Brahman
+  is actionless (niṣkriya). Correspondingly, Kashmir Shaivism affirms the world
+  as real appearance OF the real, while Advaita classes it as mithyā. Method
+  also differs: recognition (pratyabhijñā) of oneself as the active Lord vs
+  knowledge that sublates superimposition; and Kashmir Shaivism is Tantra-based
+  (āgama), Advaita Vedānta śruti-based (Upaniṣads via Uttara-Mīmāṃsā). Same
+  slogan — "consciousness alone" — two incompatible accounts of its relation to
+  the world.
+gold_points:
+  - Real śakti/spanda/svātantrya (KS) vs māyā-dependent appearance, niṣkriya Brahman (Advaita)
+  - World as real self-expression (KS ābhāsa) vs mithyā/vivarta (Advaita)
+  - Scriptural bases differ (āgama/Tantra vs Upaniṣadic śruti)
+  - Nonduality-slogan overlap ≠ doctrinal identity
+forbidden_claims:
+  - Kashmir Shaivism and Advaita are the same teaching with different deity names
+  - Śaṅkara accepted a really dynamic Brahman
+failure_tags_watch:
+  - school_mixing
+  - new_age_nonduality
+tags: [advaita_vs_kashmir_shaivism]
+
+---
+id: sd-007
+family: school_discrimination
+prompt: >
+  "All religions are just different paths up the same mountain — that is what
+  Advaita has always taught." Assess this claim. Distinguish classical Advaita
+  from modern Neo-Vedānta where necessary.
+target_school: advaita
+language: en
+provenance: paraphrased
+difficulty: standard
+rubric_dimensions:
+  - advaita_position
+  - contrast_accuracy
+  - no_ecumenism
+  - attribution_hygiene
+gold_points:
+  - The mountain-paths universalism is characteristic of modern Neo-Vedānta (Vivekananda-era formulations), not of Śaṅkara
+  - Classical Advaita argues AGAINST rival darśanas (Sāṃkhya, Buddhism, Vaiśeṣika…) as mistaken about the final truth; adhikāri-bheda ≠ all-views-equally-true
+  - What classical Advaita does allow: provisional value of other paths for purification/upāsanā within its own hierarchy
+  - Honest historical distinction without disparaging Neo-Vedānta as a movement
+forbidden_claims:
+  - Śaṅkara taught that all religions lead to the same realization
+  - classical texts never criticize other schools
+failure_tags_watch:
+  - new_age_nonduality
+  - school_mixing
+tags: [neo_vedanta]
+
+---
+id: sd-008
+family: school_discrimination
+prompt: >
+  Identify the school behind each unattributed position and justify from the
+  wording alone. (1) "The self and the Lord are eternally distinct; the self is
+  a mode qualifying the Lord as a body qualifies a soul." (2) "No entity
+  whatsoever possesses intrinsic nature; even emptiness is empty." (3) "There
+  is only consciousness; an external object is never proven, as in a dream."
+  (4) "The self is never bound and never liberated; the appearance of both is
+  due to superimposition on the changeless witness."
+target_school: advaita
+language: en
+provenance: novel
+difficulty: hard
+rubric_dimensions:
+  - advaita_position
+  - contrast_accuracy
+  - no_ecumenism
+  - attribution_hygiene
+gold_points:
+  - (1) Viśiṣṭādvaita — śarīra-śarīri (body-soul) qualification language
+  - (2) Madhyamaka — niḥsvabhāvatā and śūnyatā-of-śūnyatā
+  - (3) Yogācāra/Vijñānavāda — denial of external object, dream analogy for cognition-only
+  - (4) Advaita — changeless witness + superimposition; bondage/liberation as adhyāsa
+  - Justifications must cite the diagnostic phrases, not vibes; (3) vs (4) discrimination is the hard pair (consciousness-only vs witness-substratum)
+forbidden_claims:
+  - statement 3 is Advaita
+  - statement 2 and statement 4 assert the same position
+failure_tags_watch:
+  - school_mixing
+tags: [identify_school]
+
+---
+id: sd-009
+family: school_discrimination
+prompt: >
+  "Advaita is basically Spinoza: God and the universe are one substance —
+  pantheism with Sanskrit vocabulary." Where does this comparison break down?
+target_school: advaita
+language: en
+provenance: novel
+difficulty: hard
+rubric_dimensions:
+  - advaita_position
+  - contrast_accuracy
+  - no_ecumenism
+  - attribution_hygiene
+gold_points:
+  - In pantheism the world is real and identical with or constitutive of God; in Advaita the world is mithyā — Brahman is not the SUM of things but their sublating substratum
+  - Brahman is nirguṇa consciousness, not a substance with infinite real attributes (contrast natura naturans/naturata, thought and extension as real attributes)
+  - Advaita is closer to acosmism about the world than to pantheism (a fair one-line contrast)
+  - Liberation by knowledge/sublation has no real Spinozan equivalent (amor dei intellectualis is not bādha)
+forbidden_claims:
+  - Advaita teaches that the universe as such is God
+  - the two systems are equivalent metaphysics
+failure_tags_watch:
+  - school_mixing
+tags: [pantheism_contrast]
+
+---
+id: sd-010
+family: school_discrimination
+prompt: >
+  Gauḍapāda teaches ajātivāda — nothing is ever really born — and Nāgārjuna's
+  Madhyamaka also denies origination. Advaita's critics from Bhāskara onward
+  called Advaitins "crypto-Buddhists" (pracchanna-bauddha). Is the charge
+  correct? Argue it properly, conceding what should be conceded.
+target_school: advaita
+contrast_school: madhyamaka
+language: en
+provenance: novel
+difficulty: hard
+rubric_dimensions:
+  - advaita_position
+  - contrast_accuracy
+  - no_ecumenism
+  - attribution_hygiene
+reference_answer: >
+  Concede what is real: Gauḍapāda knew and used Buddhist dialectic — kārikā
+  book 4 employs Madhyamaka-style arguments, the non-origination conclusion is
+  formally parallel, and the historical influence question is legitimate. Then
+  locate the divide: for Madhyamaka, the denial of origination follows from
+  niḥsvabhāvatā — no intrinsic nature anywhere, dependent origination all the
+  way down, with no substratum affirmed; for Gauḍapāda and Advaita, nothing is
+  born BECAUSE the unborn, changeless, self-luminous ātman/Brahman alone is —
+  a permanent substratum Buddhism explicitly rejects (anātman). Śūnyatā is not
+  Brahman: one is the emptiness of intrinsic nature, the other the plenum of
+  intrinsic being (sat, cit). Gauḍapāda himself marks the difference
+  (naitad buddhena bhāṣitam, GK 4.99 — "this was not spoken by the Buddha").
+  Verdict: methodological borrowing, doctrinal opposition — the charge
+  confuses shared dialectic with shared ontology.
+gold_points:
+  - Concede historical/dialectical proximity (GK book 4) honestly
+  - ajātivāda from a substratum (unborn ātman) vs from niḥsvabhāvatā (no substratum)
+  - śūnyatā ≠ Brahman; anātman vs ātman is the non-negotiable divide
+  - GK 4.99 or equivalent internal evidence; verdict: borrowed method, opposed ontology
+forbidden_claims:
+  - Advaita is simply Buddhism disguised
+  - there is no historical or dialectical connection at all to concede
+failure_tags_watch:
+  - school_mixing
+tags: [prachanna_bauddha, ajativada]

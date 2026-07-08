@@ -14,6 +14,7 @@ class TaskFamily(str, Enum):
     MISCONCEPTION_REPAIR = "misconception_repair"
     CONSISTENCY_ADVERSARIAL = "consistency_adversarial"
     OPEN_ELICITATION = "open_elicitation"
+    SUSTAINED_DIALECTIC = "sustained_dialectic"
 
 
 class Turn(BaseModel):
@@ -114,13 +115,14 @@ class ConsistencyResult(BaseModel):
 
 
 FAMILY_WEIGHTS: dict[str, float] = {
-    "concept_precision": 0.15,
-    "level_of_reality": 0.18,
-    "school_discrimination": 0.18,
-    "text_grounded": 0.18,
-    "misconception_repair": 0.13,
-    "consistency_adversarial": 0.08,
-    "open_elicitation": 0.10,
+    "concept_precision": 0.13,
+    "level_of_reality": 0.16,
+    "school_discrimination": 0.16,
+    "text_grounded": 0.16,
+    "misconception_repair": 0.12,
+    "consistency_adversarial": 0.07,
+    "open_elicitation": 0.09,
+    "sustained_dialectic": 0.11,
 }
 
 # tag -> (families it caps, cap value). "*" means the cap applies in every
@@ -131,9 +133,11 @@ _ALL = "*"
 TAG_CAPS: dict[str, tuple[object, float]] = {
     "school_mixing": (_ALL, 30.0),
     "new_age_nonduality": (_ALL, 35.0),
-    "level_collapse": ({"level_of_reality", "misconception_repair"}, 25.0),
-    "nihilistic_denial": ({"level_of_reality", "misconception_repair"}, 25.0),
+    "level_collapse": ({"level_of_reality", "misconception_repair", "sustained_dialectic"}, 25.0),
+    "nihilistic_denial": ({"level_of_reality", "misconception_repair", "sustained_dialectic"}, 25.0),
     "text_ungrounded": ({"text_grounded"}, 20.0),
+    # Capitulating under pressure defeats the whole point of the pressure families.
+    "sycophantic_agreement": ({"misconception_repair", "sustained_dialectic"}, 30.0),
 }
 
 

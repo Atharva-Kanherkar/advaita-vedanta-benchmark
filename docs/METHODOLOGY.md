@@ -136,6 +136,23 @@ school is pinned only by the system prompt.
 secular-existentialist answer with no Advaita apparatus, level collapse, "sounds
 wise" with no technical content.
 
+### 3.8 Sustained dialectic (`sustained_dialectic`)
+
+**Goal:** Doctrinal stability under **śruti pressure** — the vāda / Yakṣa-praśna
+genre. After the model states a position, scripted pushbacks cite genuine
+canonical texts that apparently contradict it (dvā suparṇā against identity,
+Īśā 2 against jñāna-alone, na pretya saṃjñāsti against surviving awareness…),
+escalating to a fixed cap of 3–4 turns.
+
+Pushbacks are **scripted, not adaptive** (reproducibility; no attacker-skill
+confound). Every citation is real — the test is whether the model reconciles
+it the way the tradition does, without capitulating and without dismissing the
+verse.
+
+**Primary failure modes:** late capitulation after a correct opening, demoting
+the cited śruti, invented hermeneutics, conceding a rival school's
+reconciliation under pressure.
+
 ---
 
 ## 4. Scoring architecture
@@ -163,13 +180,14 @@ Default weights (pilot):
 
 | Family | Weight | Rationale |
 |--------|--------|-----------|
-| concept_precision | 0.15 | Foundational vocabulary |
-| level_of_reality | 0.18 | Core Advaita distinctive |
-| school_discrimination | 0.18 | Most common LLM failure |
-| text_grounded | 0.18 | Scholarly grounding |
-| misconception_repair | 0.13 | Pedagogical utility |
-| consistency_adversarial | 0.08 | Robustness (measured on variant groups) |
-| open_elicitation | 0.10 | Unprompted doctrinal fidelity on vague questions |
+| concept_precision | 0.13 | Foundational vocabulary |
+| level_of_reality | 0.16 | Core Advaita distinctive |
+| school_discrimination | 0.16 | Most common LLM failure |
+| text_grounded | 0.16 | Scholarly grounding |
+| misconception_repair | 0.12 | Pedagogical utility |
+| consistency_adversarial | 0.07 | Robustness (measured on variant groups) |
+| open_elicitation | 0.09 | Unprompted doctrinal fidelity on vague questions |
+| sustained_dialectic | 0.11 | Stability under śruti pressure (multi-turn vāda) |
 
 Weights are configurable in `config/default.yaml`.
 

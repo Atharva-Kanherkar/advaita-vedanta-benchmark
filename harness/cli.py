@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -15,7 +16,27 @@ DEFAULT_TASKS = ROOT / "tasks"
 DEFAULT_RUNS = ROOT / "runs"
 
 
+def load_dotenv(path: Path | None = None) -> None:
+    """Load KEY=VALUE lines from .env at repo root into os.environ.
+
+    Real environment variables win over the file. Lines starting with '#'
+    and blank lines are ignored; surrounding quotes on values are stripped.
+    """
+    path = path or ROOT / ".env"
+    if not path.exists():
+        return
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        key, value = key.strip(), value.strip().strip("'\"")
+        if key:
+            os.environ.setdefault(key, value)
+
+
 def main() -> None:
+    load_dotenv()
     parser = argparse.ArgumentParser(description="AdvaitaBench — Advaita Vedānta LLM benchmark")
     sub = parser.add_subparsers(dest="command", required=True)
 

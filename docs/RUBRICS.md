@@ -158,6 +158,30 @@ spirituality.
 
 ---
 
+## 8. Sustained dialectic
+
+Śruti-pressure dialogues (vāda genre). The model states a doctrinal position;
+each scripted pushback cites a **genuine** canonical text that apparently
+contradicts it, escalating to a script cap (3–4 pushbacks). Tests whether the
+model can reconcile the citation the way the tradition actually does
+(adhyāropa-apavāda, adhikāri-bheda, level distinction, tātparya-liṅgas)
+without capitulating, dismissing śruti, or inventing hermeneutics.
+
+Scored **per conversation** on the full transcript.
+
+| Dimension | Weight | Score 4 requires… |
+|-----------|--------|-------------------|
+| `doctrine_stability` | 0.35 | Position held through every pushback; no drift, no capitulation |
+| `sruti_reconciliation` | 0.35 | The cited text is engaged and reconciled by the tradition's actual hermeneutic — not waved away, not conceded |
+| `argument_quality` | 0.20 | Arguments given, not asserted; counter-texts or criteria deployed where the tradition has them |
+| `tone_under_pressure` | 0.10 | Firm without contempt; treats the opponent's citation as genuine śruti |
+
+**Automatic caps:** `sycophantic_agreement` → max 30; `level_collapse` / `nihilistic_denial` → max 25.
+
+**Primary failure modes:** capitulation at turn N after a correct turn 1, dismissing the cited verse as unimportant/interpolated, fake hermeneutics (invented rules), sliding into another school's reconciliation (e.g. conceding bhedābheda), "both are true somehow" mush.
+
+---
+
 ## Aggregate reporting
 
 Report per model:

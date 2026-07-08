@@ -81,3 +81,270 @@ forbidden_claims:
   - upādhi literally creates a second self
 tags: [sakshi_upadhi]
 difficulty: pilot
+
+---
+id: cp-004
+family: concept_precision
+prompt: >
+  In Advaita, what is the difference between Brahman and Īśvara? Is Īśvara
+  "less real" than Brahman — and if so, in what precise sense?
+target_school: advaita
+language: en
+provenance: canonical
+difficulty: standard
+rubric_dimensions:
+  - term_accuracy
+  - distinction_clarity
+  - advaita_framing
+  - pedagogical_clarity
+dimension_weights:
+  term_accuracy: 0.35
+  distinction_clarity: 0.35
+  advaita_framing: 0.20
+  pedagogical_clarity: 0.10
+gold_points:
+  - Īśvara = Brahman with the upādhi of māyā (saguṇa); nirguṇa Brahman in itself
+  - Not two entities; one reality viewed with/without adjunct
+  - Īśvara fully real at vyāvahārika (creator, karma-phala-dātā, object of worship)
+  - The sense of less-real is only upādhi-dependence at paramārthika, not that Īśvara is a fiction
+forbidden_claims:
+  - Īśvara is a second, separate deity below Brahman
+  - Īśvara is a mere illusion and worship is meaningless
+  - Brahman and Īśvara are simply synonyms with no distinction
+tags: [brahman_isvara]
+
+---
+id: cp-005
+family: concept_precision
+prompt: >
+  Place these three correctly on Advaita's reality scale, with the technical
+  term for each: (a) the snake seen on a rope, (b) the son of a barren woman,
+  (c) Brahman. What distinguishes the first two from each other?
+target_school: advaita
+language: en
+provenance: canonical
+difficulty: standard
+rubric_dimensions:
+  - term_accuracy
+  - distinction_clarity
+  - advaita_framing
+  - pedagogical_clarity
+dimension_weights:
+  term_accuracy: 0.35
+  distinction_clarity: 0.35
+  advaita_framing: 0.20
+  pedagogical_clarity: 0.10
+gold_points:
+  - Rope-snake = mithyā/prātibhāsika — appears, is experienced, then sublated (bādhita)
+  - Barren woman's son = tuccha/asat — never appears at all, no locus in experience
+  - Brahman = sat/paramārthika — never sublated
+  - Key distinction: mithyā is neither sat nor asat (sadasad-vilakṣaṇa); tuccha is simply asat
+forbidden_claims:
+  - the rope-snake and the barren woman's son have the same ontological status
+  - mithyā means totally non-existent
+tags: [mithya_tuccha_sat]
+
+---
+id: cp-006
+family: concept_precision
+prompt: >
+  The Upaniṣads define Brahman both as "satyaṃ jñānam anantam" and as "that
+  from which these beings are born." Advaita treats these as two different
+  KINDS of definition. Name the two kinds and explain why the difference
+  matters.
+target_school: advaita
+language: en
+provenance: paraphrased
+difficulty: hard
+rubric_dimensions:
+  - term_accuracy
+  - distinction_clarity
+  - advaita_framing
+  - pedagogical_clarity
+dimension_weights:
+  term_accuracy: 0.35
+  distinction_clarity: 0.35
+  advaita_framing: 0.20
+  pedagogical_clarity: 0.10
+reference_answer: >
+  satyaṃ jñānam anantam (Taittirīya 2.1) is the svarūpa-lakṣaṇa — a definition
+  by Brahman's own nature, holding always. "That from which beings are born…"
+  (Taittirīya 3.1, echoed in Brahma Sūtra 1.1.2 janmādy asya yataḥ) is the
+  taṭastha-lakṣaṇa — an accidental/indicative mark that identifies Brahman via
+  a relation (world-causality) that does not belong to its essence, as one
+  identifies a house by the crow momentarily sitting on it. The difference
+  matters because world-causality is upādhi-dependent and ultimately sublated:
+  if creatorship were Brahman's svarūpa, Brahman could never be known as
+  nirguṇa and mokṣa as dissociation from all relation would be impossible.
+  The taṭastha-lakṣaṇa points the seeker to the referent; the svarūpa-lakṣaṇa
+  states what it is.
+gold_points:
+  - svarūpa-lakṣaṇa vs taṭastha-lakṣaṇa, correctly assigned
+  - Crow-on-the-house (or equivalent) logic of the accidental mark
+  - Causality is not Brahman's essence; sublated with the world
+  - Why the distinction protects nirguṇatva and mokṣa
+forbidden_claims:
+  - both are essential definitions and Brahman is essentially a creator
+  - the two definitions contradict each other
+tags: [lakshana_types]
+
+---
+id: cp-007
+family: concept_precision
+prompt: >
+  If Brahman is self-luminous and never an object, what exactly does the final
+  cognition (the akhaṇḍākāra-vṛtti) DO in Advaita's account of liberation?
+  Distinguish vṛtti-jñāna from svarūpa-jñāna.
+target_school: advaita
+language: en
+provenance: paraphrased
+difficulty: hard
+rubric_dimensions:
+  - term_accuracy
+  - distinction_clarity
+  - advaita_framing
+  - pedagogical_clarity
+dimension_weights:
+  term_accuracy: 0.35
+  distinction_clarity: 0.35
+  advaita_framing: 0.20
+  pedagogical_clarity: 0.10
+reference_answer: >
+  svarūpa-jñāna is consciousness as Brahman's very nature — ever-present,
+  never produced, never absent. vṛtti-jñāna is a mental mode of the
+  antaḥkaraṇa. Liberating knowledge is a vṛtti (the akhaṇḍākāra-vṛtti shaped
+  by the mahāvākya), but its function is purely negative: it removes the
+  ignorance covering the ever-attained self. Advaita's standard formula: the
+  vṛtti destroys ajñāna (vṛtti-vyāpti) but the resulting "illumination" is not
+  the vṛtti's doing — Brahman, being self-luminous, needs no phala-vyāpti,
+  unlike a pot which needs both the mode and reflected consciousness to be
+  known. So nothing new is produced or reached: the vṛtti is the last cognition,
+  which removes the obstruction and lapses, like the medicine that purges
+  itself along with the disease.
+gold_points:
+  - svarūpa-jñāna = Brahman's nature, unproduced; vṛtti-jñāna = mental mode
+  - akhaṇḍākāra-vṛtti removes avidyā; does not illuminate or produce Brahman
+  - vṛtti-vyāpti without phala-vyāpti for Brahman (contrast with pot-cognition)
+  - mokṣa not a new attainment; obstruction-removal model
+forbidden_claims:
+  - the final cognition creates or reaches Brahman as a new object
+  - Brahman is known as an object the way a pot is known
+tags: [vritti_jnana]
+
+---
+id: cp-008
+family: concept_precision
+prompt: >
+  A student says: "The consciousness present in my thoughts right now — that
+  IS the witness, the sākṣī." Correct this with precision using the concept of
+  cidābhāsa. Note where classical sub-schools describe this differently.
+target_school: advaita
+language: en
+provenance: novel
+difficulty: hard
+rubric_dimensions:
+  - term_accuracy
+  - distinction_clarity
+  - advaita_framing
+  - pedagogical_clarity
+dimension_weights:
+  term_accuracy: 0.35
+  distinction_clarity: 0.35
+  advaita_framing: 0.20
+  pedagogical_clarity: 0.10
+reference_answer: >
+  The consciousness apparently located "in" thoughts is cidābhāsa — the
+  reflection/semblance of consciousness in the antaḥkaraṇa-vṛtti. It is
+  mind-bound, arises and subsides with the vṛtti, and appears as the finite
+  knower. The sākṣī is the original consciousness that illumines both the
+  vṛtti and its reflection, itself unmodified. Conflating them makes
+  consciousness an intermittent mental property. Sub-school tolerance:
+  pratibimba-vāda (Vivaraṇa) treats the jīva as a real-enough reflection;
+  ābhāsa-vāda (per Sureśvara's usage) treats it as a mere semblance;
+  avaccheda-vāda (Bhāmatī-associated) prefers delimitation by the upādhi over
+  reflection. Any of these frameworks, used consistently, is acceptable — the
+  non-negotiable is the distinction between reflected/delimited consciousness
+  and the unmodified witness.
+gold_points:
+  - cidābhāsa = reflected consciousness in the vṛtti; arises/subsides with it
+  - sākṣī = original, unmodified illuminator of vṛtti AND reflection
+  - Error diagnosed: making consciousness a mental, intermittent property
+  - Sub-school variation (pratibimba/ābhāsa/avaccheda) acknowledged, any used consistently
+forbidden_claims:
+  - the witness is a function or state of the mind
+  - cidābhāsa and sākṣī are just two words for the same thing
+tags: [cidabhasa_sakshi]
+
+---
+id: cp-009
+family: concept_precision
+prompt: >
+  "The snake was never on the rope" and "there is no pot on this table" — are
+  these the same kind of negation in Advaita? Explain bādha and why the
+  difference carries the whole doctrine of mithyātva.
+target_school: advaita
+language: en
+provenance: novel
+difficulty: hard
+rubric_dimensions:
+  - term_accuracy
+  - distinction_clarity
+  - advaita_framing
+  - pedagogical_clarity
+dimension_weights:
+  term_accuracy: 0.35
+  distinction_clarity: 0.35
+  advaita_framing: 0.20
+  pedagogical_clarity: 0.10
+reference_answer: >
+  No. "No pot on the table" is simple absence (abhāva): the pot exists
+  elsewhere and is merely not here; no error is corrected. "The snake was
+  never on the rope" is bādha (sublation): something was EXPERIENCED as
+  present and is then cancelled with a substratum-revealing cognition — "not
+  snake, only rope, and never was snake." Bādha thus involves three features
+  absent from mere negation: prior erroneous appearance, retrospective
+  cancellation (never was, even while seen), and a persisting substratum that
+  was mistaken. Mithyātva is defined by sublatability: the world is neither
+  sat (it is sublated in brahma-jñāna) nor asat (unlike the barren woman's
+  son, it appears and functions). Without the bādha/abhāva distinction,
+  "the world is false" collapses into either commonsense absence or
+  nihilism — the two misreadings Advaita most needs to block.
+gold_points:
+  - abhāva = simple absence; bādha = cancellation of an experienced error with substratum
+  - Retrospective force of bādha ("never was" while it appeared)
+  - mithyātva defined via sublatability (sadasad-vilakṣaṇa)
+  - Why the distinction blocks both nihilism and naive realism
+forbidden_claims:
+  - sublation and ordinary absence are the same negation
+  - mithyā means the world is absent the way the pot is absent from the table
+tags: [badha_abhava]
+
+---
+id: cp-010
+family: concept_precision
+prompt: >
+  Distinguish jīvanmukti from videhamukti. When the jñānī's body finally
+  falls, does the jñānī gain anything that jīvanmukti lacked?
+target_school: advaita
+language: en
+provenance: novel
+difficulty: standard
+rubric_dimensions:
+  - term_accuracy
+  - distinction_clarity
+  - advaita_framing
+  - pedagogical_clarity
+dimension_weights:
+  term_accuracy: 0.35
+  distinction_clarity: 0.35
+  advaita_framing: 0.20
+  pedagogical_clarity: 0.10
+gold_points:
+  - jīvanmukti = liberation while living; jñāna has destroyed sañcita and āgāmi karma; prārabdha runs on
+  - videhamukti = the same liberation with the prārabdha-sustained body ended; no new attainment
+  - mokṣa is knowledge, complete at jñāna; death adds nothing (no "final upgrade" event)
+  - Watch: treating videhamukti as the real liberation makes mokṣa an event for an agent — a category error at paramārthika
+forbidden_claims:
+  - final liberation only truly occurs at death
+  - the jīvanmukta is still partially bound until the body falls
+tags: [jivanmukti_videhamukti]
