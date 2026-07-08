@@ -157,13 +157,20 @@ Weights are configurable in `config/default.yaml`.
 
 ### 4.3 Consistency metric (family 6 only)
 
-For each variant group, compute **doctrine consistency**:
+Family 6 is scored at the **variant-group** level, not per task. A dedicated
+consistency judge compares the `doctrine_signature` of every variant in a group
+and assigns a max pairwise **distance** (0 equivalent … 3 direct contradiction).
+The harness then computes a single group score (implemented in
+`harness/judge.py`, one formula — the earlier draft listed three; this is
+canonical):
 
 ```
-consistency = 1 - (max_pairwise_doctrine_distance / max_possible_distance)
+consistency_score = 100 × (1 − max_distance / 3)
+group_score       = 0.6 × consistency_score + 0.4 × mean(variant final_scores)
 ```
 
-Judge extracts a normalized `doctrine_signature` (structured JSON) per response; distance is rubric-based, not embedding-only.
+Distance is rubric-based (signature comparison), not embedding-only. Group
+scores are written to `consistency.jsonl` and feed the family-6 family score.
 
 ---
 
@@ -171,13 +178,14 @@ Judge extracts a normalized `doctrine_signature` (structured JSON) per response;
 
 See `JUDGING.md` for full specification. Summary:
 
-1. **Structured LLM judge** (primary at scale) — separate model from subject, temperature 0, JSON output
-2. **Reference-assisted grading** — tasks include `gold_points`, `forbidden_claims`, `required_distinctions`
+1. **Structured LLM judge** (primary at scale) — separate model from subject, temperature 0, JSON output. The harness **hard-fails** if the judge model also appears as a subject model (override only with `--allow-self-judge`, which marks the run non-publication-grade).
+2. **Reference-assisted grading** — tasks carry a full prose `reference_answer` (verify against it, don't generate from prior) plus `gold_points`, `forbidden_claims`, `required_distinctions`. The judge is told to grade against the reference, not its own knowledge — the main mitigation for judge circularity.
 3. **Human adjudication subset** — minimum 10% of pilot tasks, target κ ≥ 0.65 inter-annotator agreement before publication
 4. **Blinding** — judges never see model identity during scoring
 5. **Failure tagging** — every sub-3 score requires ≥1 machine-readable failure tag
+6. **Score computed by harness, not judge** — the judge emits only dimension scores + tags; the harness applies weights and caps deterministically.
 
-Judge model must differ from subject model in publication runs.
+Judge model must differ from subject model in publication runs (enforced).
 
 ---
 
@@ -194,12 +202,23 @@ tasks/*.yaml  →  run (subject models)  →  responses.jsonl
 Commands:
 
 ```bash
-advaita-bench run --models gpt-4.1,claude-sonnet-4 --tasks tasks/
-advaita-bench judge --responses runs/<id>/responses.jsonl
-advaita-bench report --judged runs/<id>/judged.jsonl
+advaita-bench run --models @frontier,@openrouter    # or explicit specs / @all
+advaita-bench judge --run runs/<id>                 # rubric + consistency judges
+advaita-bench report --run runs/<id>
 ```
 
-Each run records: model ID, temperature, system prompt variant, task schema version, git SHA, timestamp.
+Each run records model IDs, per-model provider routing, temperature, system
+prompt variant, closed-book flag, task count, token usage, and (for OpenRouter
+models) actual dollar cost, in `manifest.json`.
+
+### 6.1 Provider routing and cost
+
+Model specs route by provider (`harness/providers.py`), which is also a billing
+decision: **OpenAI, Anthropic, and Google** specs hit their native APIs and draw
+on first-party credits; **everything else** (xAI/Grok, DeepSeek, Qwen, GLM, Kimi,
+Llama, Mistral, …) routes through **OpenRouter** — real out-of-pocket spend,
+reported per run. A `provider:` prefix forces a route. Models are declared in
+`config/models.yaml` and expanded via `@group` / `@all`.
 
 ---
 
@@ -215,14 +234,20 @@ Three conditions (report all in publication):
 
 Default for leaderboard: **school_pinned**.
 
+**Closed-book.** All conditions are closed-book: subject models receive no
+tools, retrieval, or web access. The harness passes no tools and records
+`closed_book: true` in the manifest. An open-book track (model + retrieval over
+the `corpus/`) is a possible future condition but must be reported separately,
+never mixed into a closed-book leaderboard.
+
 ---
 
 ## 8. Validity threats and mitigations
 
 | Threat | Mitigation |
 |--------|------------|
-| Judge bias / leniency | Separate judge model; human spot-check; report judge-model sensitivity |
-| Training-data contamination | Hold-out passages; variant groups; periodic refresh |
+| Judge bias / leniency | Enforced judge≠subject; grade against `reference_answer` not judge prior; human spot-check; report judge-model sensitivity |
+| Training-data contamination | `provenance` field (`canonical`/`paraphrased`/`novel`) reported stratified; held-out corpus passages from less-famous sections; the **canonical−novel score gap** is a headline result |
 | Sanskrit vs English asymmetry | Tag language; report stratified scores |
 | “Sounds wise” without doctrine | Rubric requires explicit distinctions, not tone |
 | Ecumenical politeness | `school_discrimination` and `forbidden_claims` penalties |

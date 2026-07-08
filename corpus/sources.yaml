@@ -1,0 +1,55 @@
+# AdvaitaBench corpus manifest.
+#
+# Primary source for held-out, less-famous passages and judge reference
+# material. Each entry is fetched by scripts/fetch_corpus.py into corpus/raw/
+# (gitignored) and hashed into corpus/manifest.json for reproducibility.
+#
+# `verified: true` means the URL was confirmed to resolve. Others are best-known
+# locations to confirm before use — GRETIL reorganizes paths over time.
+
+base_url: https://gretil.sub.uni-goettingen.de/
+
+# Śaṅkara's Upaniṣad-bhāṣyas — the commentary text, ideal for text_grounded
+# tasks mined from interior sections (not just the famous mahāvākya verses).
+sources:
+  - id: aitareya_bhasya
+    title: Aitareya-Upaniṣad with Śaṅkara-bhāṣya
+    path: gretil/corpustei/transformations/plaintext/sa_aitareyopaniSad-comm.txt
+    license: GRETIL terms (free for non-commercial scholarly use; attribute)
+    verified: true
+
+  - id: taittiriya_bhasya
+    title: Taittirīya-Upaniṣad with Śaṅkara-bhāṣya
+    path: gretil/corpustei/transformations/plaintext/sa_taittirIyopaniSad-zaMkarabhASya.txt
+    license: GRETIL terms
+    verified: true
+
+  - id: aitareya_bhasya_html
+    title: Aitareya-Upaniṣad-bhāṣya (HTML fallback)
+    path: gretil/corpustei/transformations/html/sa_aitareyopaniSad-comm.htm
+    license: GRETIL terms
+    verified: true
+
+  # Confirm these plaintext paths against the GRETIL index before a real fetch.
+  - id: chandogya_bhasya
+    title: Chāndogya-Upaniṣad with commentary
+    path: gretil/corpustei/transformations/plaintext/sa_chAndogyopaniSad-comm.txt
+    license: GRETIL terms
+    verified: false
+
+  - id: mandukya_karika
+    title: Māṇḍūkya-Upaniṣad with Gauḍapāda-kārikā and commentary
+    path: gretil/corpustei/transformations/plaintext/sa_mANDUkyopaniSad-comm.txt
+    license: GRETIL terms
+    verified: false
+
+# English reference translations (public domain) used to scaffold task
+# `reference_answer` fields. Not auto-fetched (archive.org needs manual export);
+# listed here as the provenance record.
+english_reference:
+  - title: Bhagavad-Gītā with the Commentary of Śrī Śaṅkarācārya, tr. A. Mahādeva Śāstrī (1897)
+    url: https://archive.org/details/Bhagavad-Gita.with.the.Commentary.of.Sri.Shankaracharya
+    license: Public domain (pre-1929)
+  - title: The Vedānta-Sūtras with Śaṅkara's commentary, tr. George Thibaut (SBE 34/38)
+    url: https://archive.org/details/sacredbooksofeas34unse
+    license: Public domain

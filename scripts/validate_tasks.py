@@ -4,7 +4,7 @@ from pathlib import Path
 
 import yaml
 
-from harness.schema import TaskFamily
+from harness.schema import PROVENANCE_VALUES, TaskFamily
 from harness.tasks import load_tasks
 
 
@@ -42,6 +42,11 @@ def validate(tasks_dir: Path) -> list[str]:
 
         if task.family == TaskFamily.MISCONCEPTION_REPAIR and not task.gold_points:
             errors.append(f"{task.id}: misconception_repair should have gold_points")
+
+        if task.provenance not in PROVENANCE_VALUES:
+            errors.append(
+                f"{task.id}: provenance '{task.provenance}' not in {PROVENANCE_VALUES}"
+            )
 
         weights = task.dimension_weights
         if weights:

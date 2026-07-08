@@ -55,8 +55,17 @@
     "gold_points": { "type": "array", "items": { "type": "string" } },
     "required_distinctions": { "type": "array", "items": { "type": "string" } },
     "forbidden_claims": { "type": "array", "items": { "type": "string" } },
+    "reference_answer": {
+      "type": "string",
+      "description": "Full prose answer the judge grades against (verification, not generation)"
+    },
     "failure_tags_watch": { "type": "array", "items": { "type": "string" } },
     "tags": { "type": "array", "items": { "type": "string" } },
-    "difficulty": { "enum": ["pilot", "standard", "hard"], "default": "pilot" }
+    "difficulty": { "enum": ["pilot", "standard", "hard"], "default": "pilot" },
+    "provenance": {
+      "enum": ["canonical", "paraphrased", "novel"],
+      "default": "canonical",
+      "description": "Relation to widely-available training data; reported stratified as a memorization control"
+    }
   }
 }

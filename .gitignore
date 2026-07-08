@@ -9,3 +9,5 @@ dist/
 build/
 .env
 .DS_Store
+corpus/raw/
+corpus/manifest.json

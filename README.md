@@ -23,24 +23,52 @@ AdvaitaBench tests whether models can teach classical Advaita without conflating
 
 ## Quick start
 
+Requires Python ≥ 3.11.
+
 ```bash
 cd ~/Projects/advaita-vedanta-benchmark
 python -m venv .venv && source .venv/bin/activate
-pip install -e .
+pip install -e ".[dev]"
 
-# Validate seed tasks
-advaita-bench validate
+advaita-bench validate          # validate seed tasks
+python -m pytest tests/ -q      # offline harness tests (no API keys)
+advaita-bench models            # show the model registry
 
-# Dry-run harness (no API calls)
-advaita-bench run --models gpt-4.1 --dry-run
+# Dry-run the whole pipeline (no API calls)
+advaita-bench run --models @smoke --dry-run
 advaita-bench judge --run runs/<run_id> --dry-run
 advaita-bench report --run runs/<run_id>
 
-# Live run (requires OPENAI_API_KEY and/or ANTHROPIC_API_KEY)
-advaita-bench run --models gpt-4.1,claude-sonnet-4-20250514
-advaita-bench judge --run runs/<run_id> --judge-model gpt-4.1
+# Live run — see provider/keys below
+advaita-bench run --models @frontier,@openrouter
+advaita-bench judge --run runs/<run_id>          # judge from config/models.yaml
 advaita-bench report --run runs/<run_id>
 ```
+
+### Providers and keys
+
+Models route by provider — which is also a billing choice:
+
+| Provider | Route | Key |
+|----------|-------|-----|
+| OpenAI (`gpt-*`, `o*`) | direct | `OPENAI_API_KEY` |
+| Anthropic (`claude-*`) | direct | `ANTHROPIC_API_KEY` |
+| Google (`gemini-*`) | direct | `GEMINI_API_KEY` |
+| everything else (Grok, DeepSeek, Qwen, GLM, Kimi, …) | **OpenRouter** (real $) | `OPENROUTER_API_KEY` |
+
+Force a route with a `provider:` prefix (`openrouter:anthropic/claude-3.5-sonnet`).
+Model sets live in [`config/models.yaml`](config/models.yaml); `@frontier`,
+`@openrouter`, `@smoke`, `@all` expand there. Each run records provider routing,
+token usage, and OpenRouter dollar cost in `manifest.json`. The judge model must
+differ from every subject model (enforced).
+
+### Corpus
+
+```bash
+python -m scripts.fetch_corpus          # fetch + hash held-out source passages
+```
+
+See [corpus/SOURCES.md](corpus/SOURCES.md) for sources and licensing.
 
 ## Project structure
 
@@ -48,8 +76,10 @@ advaita-bench report --run runs/<run_id>
 docs/           Methodology, rubrics, judging spec
 tasks/          YAML task bank (pilot: ~20 seed tasks)
 judges/         LLM judge prompt templates
-harness/        Python CLI (run → judge → report)
-config/         Default weights and run settings
+harness/        Python package (providers → run → judge → report)
+config/         Family weights, run settings, model registry
+corpus/         Source-text manifest + fetch script (raw/ gitignored)
+tests/          Offline harness tests (no API keys)
 runs/           Output artifacts (gitignored)
 ```
 

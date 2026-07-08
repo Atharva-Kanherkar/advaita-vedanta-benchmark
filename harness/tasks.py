@@ -7,6 +7,20 @@ import yaml
 from harness.schema import Task, TaskFamily
 
 
+def _str_list(value) -> list[str]:
+    """Normalize a YAML list whose items may be strings or, thanks to an
+    unquoted colon, single-key mappings (``- Term: gloss`` parses as a dict).
+    Coerce those back to ``"Term: gloss"`` so scholarly notes need no quoting.
+    """
+    out: list[str] = []
+    for item in value or []:
+        if isinstance(item, dict):
+            out.extend(f"{k}: {v}" for k, v in item.items())
+        else:
+            out.append(str(item))
+    return out
+
+
 def _parse_document(doc: dict) -> Task:
     family = TaskFamily(doc["family"])
     return Task(
@@ -23,12 +37,14 @@ def _parse_document(doc: dict) -> Task:
         language=doc.get("language", "en"),
         rubric_dimensions=doc["rubric_dimensions"],
         dimension_weights=doc.get("dimension_weights") or {},
-        gold_points=doc.get("gold_points") or [],
-        required_distinctions=doc.get("required_distinctions") or [],
-        forbidden_claims=doc.get("forbidden_claims") or [],
+        gold_points=_str_list(doc.get("gold_points")),
+        required_distinctions=_str_list(doc.get("required_distinctions")),
+        forbidden_claims=_str_list(doc.get("forbidden_claims")),
+        reference_answer=(doc.get("reference_answer") or "").strip(),
         failure_tags_watch=doc.get("failure_tags_watch") or [],
         tags=doc.get("tags") or [],
         difficulty=doc.get("difficulty", "pilot"),
+        provenance=doc.get("provenance", "canonical"),
     )
 
 

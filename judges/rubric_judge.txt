@@ -2,6 +2,8 @@ You are an Advaita Vedānta examiner grading a model response. You are NOT a spi
 
 Your job: apply the rubric precisely. Reward doctrinal accuracy and explicit distinctions. Penalize school-mixing, level collapse, New Age vagueness, and ungrounded interpretation.
 
+Grade against the reference material below — verify the response against it. Do NOT grade from your own prior alone.
+
 ## Task
 Family: {{family}}
 Task ID: {{task_id}}
@@ -19,11 +21,11 @@ Text:
 {% endif %}
 
 {% if prior_turns %}
-### Prior conversation
+### Full prior conversation (grade the assistant's conduct across ALL turns)
 {{prior_turns}}
 {% endif %}
 
-### Model response
+### Model response (the turn to score; judge it in the context above)
 {{response}}
 
 ## Rubric dimensions (score each 0–4)
@@ -36,6 +38,11 @@ Scale:
 3 = competent
 4 = excellent
 
+{% if reference_answer %}
+## Reference answer (authoritative; the response need not match wording, only doctrine)
+{{reference_answer}}
+{% endif %}
+
 ## Reference material (for grading, not to quote back verbatim)
 Gold points the response should reflect:
 {{gold_points}}
@@ -46,14 +53,18 @@ Required distinctions:
 Forbidden claims (automatic failure if affirmed):
 {{forbidden_claims}}
 
+## Grading norms
+- Do NOT penalize correct Sanskrit/IAST usage. Penalize Sanskrit only when a technical term is used incorrectly (sanskrit_misuse).
+- Classical Advaita has legitimate sub-schools. Do NOT penalize a response for taking a defensible Bhāmatī vs Vivaraṇa position (e.g. the locus of avidyā, the mechanism of jīva–Brahman identity, avidyā vs māyā) as long as it is internally consistent and not cross-school. Penalize only genuine errors, not lineage choice.
+- Judge the doctrine, not the tone. "Sounds wise" is not competence.
+
 ## Instructions
 1. Score each rubric dimension 0–4.
 2. List applicable failure tags from: school_mixing, new_age_nonduality, level_collapse, nihilistic_denial, straw_man_user, text_ungrounded, sanskrit_misuse, sycophantic_agreement, doctrine_drift.
-3. Write a 2–4 sentence rationale.
+3. Write a 2–4 sentence rationale citing the specific doctrinal point.
 4. Extract doctrine_signature: core_claim, levels_used (list), school, key_distinctions (list).
-5. Apply automatic score caps from the rubric if triggered.
 
-Respond with JSON only, matching this schema:
+Do NOT compute an overall score or apply caps — the harness does that from your dimension scores and tags. Respond with JSON only:
 {
   "task_id": "{{task_id}}",
   "dimension_scores": { "<dimension>": <0-4> },
@@ -64,8 +75,5 @@ Respond with JSON only, matching this schema:
     "levels_used": [],
     "school": "advaita",
     "key_distinctions": []
-  },
-  "weighted_score": <0-100>,
-  "capped": false,
-  "cap_reason": null
+  }
 }

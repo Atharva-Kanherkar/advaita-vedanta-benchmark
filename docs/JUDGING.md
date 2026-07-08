@@ -18,12 +18,16 @@ This document defines how responses become scores. The harness implements this v
 
 ### 2.1 Independence requirements
 
-- Judge model **≠** subject model
+- Judge model **≠** subject model — **enforced** by the harness (`judge_run` raises `SelfJudgeError` if the judge id matches any subject id; `--allow-self-judge` overrides and flags the run non-publication-grade)
 - Temperature **0**
-- Judge receives: task prompt, rubric dimensions, `gold_points`, `forbidden_claims`, `required_distinctions`, response(s)
+- Judge receives: task prompt, rubric dimensions, `reference_answer`, `gold_points`, `forbidden_claims`, `required_distinctions`, response(s), and — for multi-turn tasks — the **full conversation transcript** (all user + assistant turns)
 - Judge does **not** receive: model name, prior run history, other models’ answers (unless consistency group)
+- Judge is instructed to grade **against the reference material**, not from its own parametric knowledge
 
 ### 2.2 Judge output schema
+
+The judge emits **only** the fields below — no score, no cap. The harness owns
+scoring so a judge cannot anchor its dimension marks to a target number.
 
 ```json
 {
@@ -37,18 +41,17 @@ This document defines how responses become scores. The harness implements this v
   "doctrine_signature": {
     "core_claim": "jiva is atman plus limiting adjuncts under avidya",
     "levels_used": ["vyavaharika", "paramarthika"],
-    "school": "advaita"
-  },
-  "weighted_score": 87.5,
-  "capped": false
+    "school": "advaita",
+    "key_distinctions": ["jiva vs atman"]
+  }
 }
 ```
 
 ### 2.3 Scoring algorithm
 
-1. Judge assigns 0–4 per dimension
-2. Harness computes weighted mean → raw 0–100
-3. Apply **automatic caps** from `RUBRICS.md` if failure tags trigger
+1. Judge assigns 0–4 per dimension (dimension names not in the task rubric are ignored; omitted dimensions are logged)
+2. Harness computes weighted mean → raw 0–100 (weights from the task or uniform)
+3. Apply **automatic caps** from `RUBRICS.md` if failure tags trigger (`school_mixing`/`new_age_nonduality` cap in every family; `level_collapse`/`nihilistic_denial` in level-of-reality and misconception-repair; `text_ungrounded` in text-grounded; tightest cap wins)
 4. Store both `raw_score` and `final_score`
 
 ```python
@@ -95,7 +98,10 @@ Group fails robustness if any pair has distance ≥ 2.
 
 For `misconception_repair` and multi-turn tasks:
 
-- Judge sees **full transcript** (user + assistant)
+- Judge sees the **full transcript** (all user + assistant turns). The harness
+  reconstructs it from the final response record's `messages` (which already
+  accumulate the whole dialogue) plus its final answer — passed as the judge's
+  prior-conversation context, with the last assistant turn as the graded response.
 - Turn-level flags recorded but **conversation-level dimensions** determine score
 - Early correct + late capitulation → `dialogue_stability ≤ 1`, tag `sycophantic_agreement`
 

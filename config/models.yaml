@@ -1,0 +1,40 @@
+# Model registry for AdvaitaBench.
+#
+# Routing (see harness/providers.py): OpenAI, Anthropic, and Gemini specs hit
+# their native APIs and draw on first-party credits; everything else routes
+# through OpenRouter, which is real out-of-pocket spend. A spec may force a
+# route with a `provider:` prefix (e.g. openrouter:anthropic/claude-3.5-sonnet).
+#
+# `advaita-bench run --models @frontier` expands a group; `--models @all`
+# expands every enabled entry. Model ids drift — verify against each provider's
+# current catalogue before a paid run. A model that errors is skipped and
+# recorded in the run manifest, so one stale id will not sink the batch.
+
+groups:
+  # Direct-billed frontier models (Anthropic + OpenAI + Google credits).
+  frontier:
+    - anthropic:claude-opus-4-1
+    - anthropic:claude-sonnet-4-5
+    - openai:gpt-4.1
+    - openai:gpt-4o
+    - google:gemini-2.5-pro
+
+  # Everything below routes through OpenRouter (spends real money).
+  openrouter:
+    - x-ai/grok-3
+    - deepseek/deepseek-chat
+    - deepseek/deepseek-r1
+    - qwen/qwen-2.5-72b-instruct
+    - zhipuai/glm-4-plus
+    - moonshotai/kimi-k2
+    - mistralai/mistral-large
+    - meta-llama/llama-3.3-70b-instruct
+
+  # A cheap smoke set for wiring checks.
+  smoke:
+    - openai:gpt-4o-mini
+    - anthropic:claude-3-5-haiku-latest
+
+# Default judge. MUST differ from every subject model in a publication run;
+# the harness enforces this unless --allow-self-judge is passed.
+judge: openai:gpt-4.1
