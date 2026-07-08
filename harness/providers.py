@@ -166,14 +166,16 @@ def _anthropic_fn(model_id: str) -> ModelFn:
             else:
                 chat.append(m)
 
-        def once() -> tuple[str, dict[str, Any]]:
-            resp = client.messages.create(
-                model=model_id,
-                max_tokens=4096,
-                system=system,
-                messages=chat,
-                temperature=0,
-            )
+        def once(include_temp: bool) -> tuple[str, dict[str, Any]]:
+            params: dict[str, Any] = {
+                "model": model_id,
+                "max_tokens": 4096,
+                "system": system,
+                "messages": chat,
+            }
+            if include_temp:
+                params["temperature"] = 0
+            resp = client.messages.create(**params)
             text = "".join(b.text for b in resp.content if getattr(b, "type", None) == "text")
             usage = {
                 "input_tokens": resp.usage.input_tokens,
@@ -181,7 +183,13 @@ def _anthropic_fn(model_id: str) -> ModelFn:
             }
             return text, usage
 
-        return _with_retries(once)
+        try:
+            return _with_retries(lambda: once(True))
+        except Exception as exc:  # noqa: BLE001
+            # Claude 5 / 4.8-generation models reject `temperature`.
+            if "temperature" in str(exc).lower():
+                return _with_retries(lambda: once(False))
+            raise
 
     return call
 
