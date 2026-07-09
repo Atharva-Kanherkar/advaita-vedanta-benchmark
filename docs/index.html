@@ -7,7 +7,7 @@
 <meta name="description" content="Measuring whether AI models actually understand humanity's oldest answers to Who am I, or just sound wise.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#f7f4ec; --panel:#f0ebe1; --ink:#1a1814; --sub:#5c574e; --faint:#8a8478;
@@ -21,33 +21,33 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font:15px/1.65 "Source Sans 3",sans-serif}
-.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+body{background:var(--bg);color:var(--ink);font:15.5px/1.65 "Inter",-apple-system,sans-serif}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace}
 a{color:var(--ink)}
 .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
 
 nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:50}
 nav .wrap{display:flex;align-items:center;gap:24px;height:56px}
-.brand{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:20px;letter-spacing:-.2px;text-decoration:none}
-nav a.item{color:var(--sub);font-size:13.5px;text-decoration:none}
+.brand{font-family:"Newsreader",Georgia,serif;font-weight:500;font-size:20px;letter-spacing:-.2px;text-decoration:none}
+nav a.item{color:var(--sub);font-size:13.5px;text-decoration:none;font-weight:500}
 nav a.item:hover{color:var(--ink)}
 nav .right{margin-left:auto;display:flex;gap:14px;align-items:center}
 .toggle{border:1px solid var(--line2);background:transparent;color:var(--ink);border-radius:6px;width:32px;height:32px;cursor:pointer;font-size:14px;line-height:1}
 
 /* Hero — light, quiet, brand-led */
-.hero{padding:88px 0 64px;border-bottom:1px solid var(--line)}
+.hero{padding:96px 0 72px;border-bottom:1px solid var(--line)}
 .hero-brand{
-  font-family:"Instrument Serif",Georgia,serif;
-  font-size:clamp(48px,8vw,80px);line-height:.95;letter-spacing:-1.8px;font-weight:400;
+  font-family:"Newsreader",Georgia,serif;
+  font-size:clamp(48px,8vw,80px);line-height:.95;letter-spacing:-1.8px;font-weight:500;
 }
 .hero-brand em{font-style:italic;font-weight:400}
 .hero h1{
-  margin-top:28px;max-width:18ch;
-  font-family:"Instrument Serif",Georgia,serif;font-weight:400;
+  margin-top:28px;max-width:20ch;
+  font-family:"Newsreader",Georgia,serif;font-weight:500;
   font-size:clamp(26px,3.4vw,36px);line-height:1.22;letter-spacing:-.4px;
 }
 .hero .lede{
-  margin-top:20px;max-width:36em;font-size:17px;line-height:1.55;color:var(--sub);
+  margin-top:20px;max-width:38em;font-size:17px;line-height:1.6;color:var(--sub);
 }
 .hero .cta{margin-top:32px;display:flex;gap:10px;flex-wrap:wrap}
 .btn{display:inline-block;padding:10px 18px;border-radius:6px;font-size:14px;font-weight:600;text-decoration:none;border:1px solid var(--ink)}
@@ -62,15 +62,15 @@ nav .right{margin-left:auto;display:flex;gap:14px;align-items:center}
 .metric .l{font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
 
 section{padding:72px 0;border-bottom:1px solid var(--line)}
-h2{font-family:"Instrument Serif",Georgia,serif;font-size:34px;letter-spacing:-.6px;font-weight:400;margin-bottom:6px}
+h2{font-family:"Newsreader",Georgia,serif;font-size:34px;letter-spacing:-.6px;font-weight:500;margin-bottom:6px}
 .sub{color:var(--sub);font-size:14.5px;margin-bottom:34px;max-width:720px}
-h3.chart{font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:1px;text-transform:uppercase;color:var(--sub);margin:44px 0 16px}
+h3.chart{font-family:"JetBrains Mono",monospace;font-size:12.5px;letter-spacing:1px;text-transform:uppercase;color:var(--sub);margin:44px 0 16px}
 
-svg text{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;fill:var(--sub)}
+svg text{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;fill:var(--sub)}
 svg .axis{stroke:var(--line2);stroke-width:1}
 svg .grid{stroke:var(--line);stroke-width:1}
 .chartbox{border:1px solid var(--line);border-radius:12px;padding:22px 18px 12px;background:var(--panel);overflow-x:auto}
-.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;padding:0 6px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--sub)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;padding:0 6px;font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--sub)}
 .legend .d{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:baseline}
 
 .tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);border-radius:8px;padding:9px 13px;font-size:12.5px;z-index:99;display:none;max-width:270px;line-height:1.5}
@@ -78,7 +78,7 @@ svg .grid{stroke:var(--line);stroke-width:1}
 /* fingerprint matrix */
 .fp{overflow-x:auto}
 .fp table{border-collapse:collapse;min-width:760px;width:100%}
-.fp th{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:500;text-transform:uppercase;letter-spacing:.8px;color:var(--faint);padding:0 6px 12px;text-align:center}
+.fp th{font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:500;text-transform:uppercase;letter-spacing:.8px;color:var(--faint);padding:0 6px 12px;text-align:center}
 .fp th.l{text-align:left}
 .fp td{padding:7px 6px;border-top:1px solid var(--line);text-align:center}
 .fp td.l{text-align:left;font-weight:600;font-size:13.5px;white-space:nowrap}
@@ -90,7 +90,7 @@ svg .grid{stroke:var(--line);stroke-width:1}
 .toc a{display:flex;align-items:baseline;gap:18px;padding:18px 22px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
 .toc a:last-child{border-bottom:0}
 .toc a:hover{background:var(--panel)}
-.toc .num{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--faint)}
+.toc .num{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--faint)}
 .toc .t{font-size:16px;font-weight:600;flex:1}
 .toc .d{font-size:13px;color:var(--sub)}
 
@@ -101,7 +101,7 @@ svg .grid{stroke:var(--line);stroke-width:1}
 .fbtn.on{background:var(--ink);border-color:var(--ink);color:var(--bg);font-weight:600}
 .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px}
 .task{border:1px solid var(--line);border-radius:12px;padding:18px 20px;background:var(--panel)}
-.task .meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;font-family:"IBM Plex Mono",monospace}
+.task .meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;font-family:"JetBrains Mono",monospace}
 .chip{font-size:10px;letter-spacing:.5px;text-transform:uppercase;border-radius:4px;padding:2px 8px;border:1px solid var(--line2);color:var(--sub)}
 .chip.hl{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .task p{font-size:13.5px}
@@ -109,7 +109,7 @@ svg .grid{stroke:var(--line);stroke-width:1}
 .more{margin:26px auto 0;display:block}
 
 footer{padding:46px 0 64px;color:var(--faint);font-size:13px}
-footer .q{font-family:"Instrument Serif",Georgia,serif;font-size:20px;color:var(--sub);margin-bottom:10px;font-style:italic}
+footer .q{font-family:"Newsreader",Georgia,serif;font-size:20px;color:var(--sub);margin-bottom:10px;font-style:italic}
 @media(max-width:720px){
   .hero{padding:56px 0 48px}
   .hero-brand{font-size:48px;letter-spacing:-1.2px}
@@ -136,8 +136,8 @@ footer .q{font-family:"Instrument Serif",Georgia,serif;font-size:20px;color:var(
 <header class="hero" aria-label="AdvaitaBench">
   <div class="wrap">
     <p class="hero-brand">Advaita<em>Bench</em></p>
-    <h1>Can AI hold the non-dual line — or only sound wise?</h1>
-    <p class="lede">Eighty-four questions from classical Advaita Vedānta. Ten frontier models. Two independent judges. No retrieval — just the model and the question.</p>
+    <h1>Testing AI against humanity's oldest science of consciousness.</h1>
+    <p class="lede">Advaita Vedānta is a rigorous, 1,200-year-old framework of non-duality. Modern LLMs often blur it with generic New Age spirituality. AdvaitaBench tests 10 frontier models on 84 hard doctrinal questions to see which AI actually understands classical Indian philosophy—and which ones are just parroting tropes.</p>
     <div class="cta">
       <a class="btn solid" href="#leaderboard">See the results</a>
       <a class="btn" href="blog.html">Read the write-up</a>
@@ -146,10 +146,10 @@ footer .q{font-family:"Instrument Serif",Georgia,serif;font-size:20px;color:var(
 </header>
 
 <div class="metrics-strip"><div class="wrap">
-  <div class="metric"><div class="n">10</div><div class="l">Models</div></div>
-  <div class="metric"><div class="n">84</div><div class="l">Tasks</div></div>
-  <div class="metric"><div class="n">8</div><div class="l">Skill families</div></div>
-  <div class="metric"><div class="n">2</div><div class="l">Judges, debiased</div></div>
+  <div class="metric"><div class="n">10</div><div class="l">Frontier Models</div></div>
+  <div class="metric"><div class="n">84</div><div class="l">Doctrinal Tasks</div></div>
+  <div class="metric"><div class="n">8</div><div class="l">Skill Families</div></div>
+  <div class="metric"><div class="n">2</div><div class="l">Debiased Judges</div></div>
 </div></div>
 
 <section id="leaderboard"><div class="wrap">
