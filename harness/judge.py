@@ -100,8 +100,19 @@ def judge_response(
     if judge_fn is None:
         judge_fn = resolve_model_fn(judge_model)
 
-    raw_text, _ = judge_fn(judge_model, messages)
-    data = _extract_json(raw_text)
+    # Small/fast judges occasionally emit malformed JSON. Re-prompt a few times
+    # before giving up so one bad reply doesn't discard the whole judgment.
+    data = None
+    last_err: Exception | None = None
+    for _ in range(4):
+        raw_text, _ = judge_fn(judge_model, messages)
+        try:
+            data = _extract_json(raw_text)
+            break
+        except (json.JSONDecodeError, ValueError) as err:
+            last_err = err
+    if data is None:
+        raise ValueError(f"judge returned unparseable JSON after retries: {last_err}")
 
     dimension_scores = {
         k: int(v)
@@ -180,38 +191,48 @@ def judge_run(
 
     judge_fn = None if dry_run else resolve_model_fn(judge_model)
     judgments: list[Judgment] = []
+    skipped: list[tuple[str, str]] = []
 
-    for (model, base_id), records in grouped.items():
-        task = task_map.get(base_id)
-        if not task:
-            continue
+    # Write each judgment as it is produced so a mid-run failure never discards
+    # completed work (the whole pass died once on a single malformed reply).
+    with judged_path.open("w", encoding="utf-8") as jf:
+        for (model, base_id), records in grouped.items():
+            task = task_map.get(base_id)
+            if not task:
+                continue
 
-        if dry_run:
-            judgments.append(Judgment(
-                task_id=base_id, model=model, judge_model=judge_model,
-                dimension_scores={d: 2 for d in task.rubric_dimensions},
-                rationale="[dry-run]", raw_score=50.0, final_score=50.0,
-                provenance=task.provenance,
-            ))
-            continue
+            if dry_run:
+                j = Judgment(
+                    task_id=base_id, model=model, judge_model=judge_model,
+                    dimension_scores={d: 2 for d in task.rubric_dimensions},
+                    rationale="[dry-run]", raw_score=50.0, final_score=50.0,
+                    provenance=task.provenance,
+                )
+            else:
+                try:
+                    if len(records) > 1:
+                        # Multi-turn pressure dialogue (misconception_repair,
+                        # sustained_dialectic): judge sees the whole transcript.
+                        # The record with the most messages carries the whole
+                        # dialogue; its `response` is the final assistant turn.
+                        final = max(records, key=lambda r: len(r["messages"]))
+                        prior = _render_transcript(final["messages"])
+                        j = judge_response(task, final["response"], model, judge_model,
+                                           judge_fn=judge_fn, prior_turns=prior)
+                    else:
+                        j = judge_response(task, records[0]["response"], model, judge_model,
+                                           judge_fn=judge_fn)
+                except Exception as exc:  # noqa: BLE001 - one bad judgment must not sink the run
+                    skipped.append((model, base_id))
+                    print(f"    ! judge skipped {model}/{base_id}: {exc}")
+                    continue
 
-        if len(records) > 1:
-            # Multi-turn pressure dialogue (misconception_repair,
-            # sustained_dialectic): judge sees the whole transcript.
-            # The record with the most messages carries the whole dialogue in
-            # its `messages` field; its `response` is the final assistant turn.
-            final = max(records, key=lambda r: len(r["messages"]))
-            prior = _render_transcript(final["messages"])
-            j = judge_response(task, final["response"], model, judge_model,
-                               judge_fn=judge_fn, prior_turns=prior)
-        else:
-            j = judge_response(task, records[0]["response"], model, judge_model,
-                               judge_fn=judge_fn)
-        judgments.append(j)
+            judgments.append(j)
+            jf.write(j.model_dump_json() + "\n")
+            jf.flush()
 
-    with judged_path.open("w", encoding="utf-8") as f:
-        for j in judgments:
-            f.write(j.model_dump_json() + "\n")
+    if skipped:
+        print(f"    judge skipped {len(skipped)} task(s) after retries")
 
     if not dry_run:
         _judge_consistency(run_dir, task_map, judgments, judge_model, judge_fn)
@@ -259,11 +280,20 @@ def _judge_consistency(run_dir, task_map, judgments, judge_model, judge_fn) -> P
         prompt = tmpl.render(
             variant_group_id=group_id, gold_doctrine_key=gold_key, variants_json=variants_json
         )
-        raw_text, _ = judge_fn(judge_model, [
-            {"role": "system", "content": "You compare Advaita doctrine signatures. Output JSON only."},
-            {"role": "user", "content": prompt},
-        ])
-        data = _extract_json(raw_text)
+        data = None
+        for _ in range(4):
+            raw_text, _ = judge_fn(judge_model, [
+                {"role": "system", "content": "You compare Advaita doctrine signatures. Output JSON only."},
+                {"role": "user", "content": prompt},
+            ])
+            try:
+                data = _extract_json(raw_text)
+                break
+            except (json.JSONDecodeError, ValueError):
+                pass
+        if data is None:
+            print(f"    ! consistency judge skipped {model}/{group_id}: unparseable JSON")
+            continue
 
         pairwise = [
             PairwiseDistance(a=p.get("a", ""), b=p.get("b", ""),
