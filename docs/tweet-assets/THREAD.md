@@ -5,7 +5,7 @@ Copy-paste ready. No emojis. Attach the PNGs from `docs/tweet-assets/` where not
 ---
 
 **Tweet 1/8**  
-Introducing AdvaitaBench — a closed-book pressure test for whether frontier models can hold precise philosophical distinctions under attack, or only sound wise.
+Introducing AdvaitaBench — a closed-book eval of whether frontier models can hold precise Advaita distinctions under pressure, or only sound wise.
 
 84 tasks. 10 models. Two independent judges. Bias-corrected headline score.
 
@@ -16,20 +16,23 @@ Thread below.
 ---
 
 **Tweet 2/8**  
-Why model makers should care:
+LLMs are fluent on "non-duality." They are weaker at keeping Advaita distinct from Dvaita, Buddhism, Sāṃkhya, or New Age mush — and at keeping doctrine stable when the user pushes.
 
-Your users do not only ask for code and math. They ask for careful reasoning in domains where sounding right is cheap and being right is hard.
-
-If a model melts Advaita into New Age mush the moment you push, that is not a niche religion bug. It is a reliability failure: confident vagueness, school-mixing, and doctrine that flips under pressure.
+That is the failure mode this benchmark is built to measure.
 
 ---
 
 **Tweet 3/8**  
-The product question for labs is simple:
+What we test (8 families):
 
-Can your model keep a precise position stable when the user argues back — with scripture, hostility, grief, or a rival school?
-
-Trivia leaderboards do not answer that. AdvaitaBench does, because classical Advaita is a web of exact distinctions. Get one wrong and a trained reader notices immediately.
+- Concept precision
+- Level-of-reality reasoning
+- School discrimination
+- Text-grounded interpretation
+- Misconception repair (multi-turn)
+- Consistency under rephrasing
+- Open elicitation ("Who am I?")
+- Sustained dialectic (scripture quoted against the model)
 
 **Attach:** `06-tasks.png`
 
@@ -92,15 +95,11 @@ Top of the field is tight. Verbosity does not buy understanding.
 ---
 
 **Tweet 8/8**  
-Use it if you ship models that reason with people:
-
 Site: https://docs-alpha-smoky.vercel.app  
 Blog / methodology: https://docs-alpha-smoky.vercel.app/blog.html  
 Code + tasks: https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark
 
-Pilot caveats: single sample per task, two-judge ensemble, no human adjudication yet. Ranks 1–4 sit within judge disagreement. This measures doctrinal competence — not spiritual attainment.
-
-If you run evals at a lab: what failure mode should we add next?
+Pilot caveats: single sample per task, two-judge ensemble, no human adjudication yet. Ranks 1–4 sit within judge disagreement. Measures doctrinal competence only.
 
 **Attach:** `05-leaderboard-section.png`
 
