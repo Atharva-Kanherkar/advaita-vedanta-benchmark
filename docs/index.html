@@ -7,62 +7,61 @@
 <meta name="description" content="Measuring whether AI models actually understand humanity's oldest answers to Who am I, or just sound wise.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f7f4ec; --panel:#f0ebe1; --ink:#1a1814; --sub:#5c574e; --faint:#8a8478;
-  --line:#e2dccf; --line2:#cdc6b6; --accent:#1a1814;
+  --bg:#ffffff; --panel:#f9f9f9; --ink:#111111; --sub:#666666; --faint:#999999;
+  --line:#eaeaea; --line2:#dddddd; --accent:#000000;
   --anthropic:#d97e55; --openai:#0f9d78; --google:#4a8fe2; --alibaba:#b0578d;
   --deepseek:#5b6ee1; --zhipu:#8a6fc8; --xai:#7a766c;
 }
 [data-theme="dark"]{
-  --bg:#141412; --panel:#1c1b18; --ink:#f0ece0; --sub:#b3ada0; --faint:#7c766a;
-  --line:#2b2a25; --line2:#3b392f; --accent:#f0ece0;
+  --bg:#0a0a0a; --panel:#111111; --ink:#eeeeee; --sub:#999999; --faint:#666666;
+  --line:#222222; --line2:#333333; --accent:#ffffff;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font:15.5px/1.65 "Inter",-apple-system,sans-serif}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 "Inter",-apple-system,sans-serif}
 .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace}
 a{color:var(--ink)}
 .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
 
-nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:50}
-nav .wrap{display:flex;align-items:center;gap:24px;height:56px}
-.brand{font-family:"Newsreader",Georgia,serif;font-weight:500;font-size:20px;letter-spacing:-.2px;text-decoration:none}
+nav{position:sticky;top:0;background:color-mix(in srgb,var(--bg) 95%,transparent);border-bottom:1px solid var(--line);z-index:50;backdrop-filter:blur(10px)}
+nav .wrap{display:flex;align-items:center;gap:24px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;letter-spacing:-.4px;text-decoration:none}
 nav a.item{color:var(--sub);font-size:13.5px;text-decoration:none;font-weight:500}
 nav a.item:hover{color:var(--ink)}
-nav .right{margin-left:auto;display:flex;gap:14px;align-items:center}
-.toggle{border:1px solid var(--line2);background:transparent;color:var(--ink);border-radius:6px;width:32px;height:32px;cursor:pointer;font-size:14px;line-height:1}
+nav .right{margin-left:auto;display:flex;gap:16px;align-items:center}
+.toggle{border:none;background:transparent;color:var(--sub);width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:color .2s}
+.toggle:hover{color:var(--ink)}
 
-/* Hero — light, quiet, brand-led */
-.hero{padding:96px 0 72px;border-bottom:1px solid var(--line)}
+/* Hero — DeepSWE style */
+.hero{padding:96px 0 80px;border-bottom:1px solid var(--line)}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:64px}
+.hero-title-group{display:flex;align-items:center;gap:16px}
 .hero-brand{
-  font-family:"Newsreader",Georgia,serif;
-  font-size:clamp(48px,8vw,80px);line-height:.95;letter-spacing:-1.8px;font-weight:500;
+  font-size:clamp(40px,6vw,64px);line-height:1;letter-spacing:-2px;font-weight:600;margin:0;
 }
-.hero-brand em{font-style:italic;font-weight:400}
+.hero-stats{font-size:12px;color:var(--sub);display:flex;flex-direction:column;gap:6px;text-align:right}
+.stat-row{display:flex;justify-content:space-between;gap:32px}
+.stat-row span:last-child{color:var(--ink);font-weight:500}
+
+.hero-mid{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;flex-wrap:wrap}
+.hero-desc{max-width:440px}
 .hero h1{
-  margin-top:28px;max-width:20ch;
-  font-family:"Newsreader",Georgia,serif;font-weight:500;
-  font-size:clamp(26px,3.4vw,36px);line-height:1.22;letter-spacing:-.4px;
+  font-weight:500;font-size:20px;line-height:1.4;letter-spacing:-.2px;color:var(--sub);margin-bottom:12px;
 }
 .hero .lede{
-  margin-top:20px;max-width:38em;font-size:17px;line-height:1.6;color:var(--sub);
+  font-size:15px;line-height:1.6;color:var(--faint);margin-bottom:24px;
 }
-.hero .cta{margin-top:32px;display:flex;gap:10px;flex-wrap:wrap}
-.btn{display:inline-block;padding:10px 18px;border-radius:6px;font-size:14px;font-weight:600;text-decoration:none;border:1px solid var(--ink)}
-.btn.solid{background:var(--ink);color:var(--bg)}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 18px;border-radius:4px;font-size:14px;font-weight:500;text-decoration:none;border:1px solid var(--line2);transition:all .2s}
+.btn.solid{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .btn:not(.solid){color:var(--ink);background:transparent}
-
-.metrics-strip{border-bottom:1px solid var(--line)}
-.metrics-strip .wrap{display:flex;width:100%;gap:0}
-.metric{flex:1;padding:18px 20px 18px 0;border-right:1px solid var(--line)}
-.metric:last-child{border-right:0;padding-right:0}
-.metric .n{font-family:"IBM Plex Mono",monospace;font-size:20px;font-weight:500}
-.metric .l{font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.btn:not(.solid):hover{background:var(--panel);border-color:var(--line)}
 
 section{padding:72px 0;border-bottom:1px solid var(--line)}
-h2{font-family:"Newsreader",Georgia,serif;font-size:34px;letter-spacing:-.6px;font-weight:500;margin-bottom:6px}
+h2{font-size:28px;letter-spacing:-.8px;font-weight:600;margin-bottom:8px}
 .sub{color:var(--sub);font-size:14.5px;margin-bottom:34px;max-width:720px}
 h3.chart{font-family:"JetBrains Mono",monospace;font-size:12.5px;letter-spacing:1px;text-transform:uppercase;color:var(--sub);margin:44px 0 16px}
 
@@ -123,34 +122,48 @@ footer .q{font-family:"Newsreader",Georgia,serif;font-size:20px;color:var(--sub)
 <body>
 
 <nav><div class="wrap">
-  <a class="brand" href="#">AdvaitaBench</a>
-  <a class="item" href="#leaderboard">Leaderboard</a>
-  <a class="item" href="#tasks">Tasks</a>
-  <a class="item" href="blog.html">Blog</a>
+  <a class="brand" href="#">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;vertical-align:middle"><path d="M12 2L2 22h20L12 2z"></path><path d="M12 10L6 20h12L12 10z"></path></svg>
+    AdvaitaBench
+  </a>
   <div class="right">
+    <a class="item" href="blog.html">Blog</a>
+    <a class="item" href="#leaderboard">Leaderboard</a>
+    <a class="item" href="#tasks">Tasks</a>
     <a class="item" href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark">GitHub</a>
-    <button class="toggle" id="toggle" title="Toggle theme">◐</button>
+    <button class="toggle" id="toggle" title="Toggle theme">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+    </button>
   </div>
 </div></nav>
 
 <header class="hero" aria-label="AdvaitaBench">
   <div class="wrap">
-    <p class="hero-brand">Advaita<em>Bench</em></p>
-    <h1>Testing AI against humanity's oldest science of consciousness.</h1>
-    <p class="lede">Advaita Vedānta is a rigorous, 1,200-year-old framework of non-duality. Modern LLMs often blur it with generic New Age spirituality. AdvaitaBench tests 10 frontier models on 84 hard doctrinal questions to see which AI actually understands classical Indian philosophy—and which ones are just parroting tropes.</p>
-    <div class="cta">
-      <a class="btn solid" href="#leaderboard">See the results</a>
-      <a class="btn" href="blog.html">Read the write-up</a>
+    <div class="hero-top">
+      <div class="hero-title-group">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 22h20L12 2z"></path><path d="M12 10L6 20h12L12 10z"></path></svg>
+        <h1 class="hero-brand">AdvaitaBench</h1>
+      </div>
+      <div class="hero-stats mono">
+        <div class="stat-row"><span>tasks</span> <span>84</span></div>
+        <div class="stat-row"><span>repos</span> <span>1</span></div>
+        <div class="stat-row"><span>languages</span> <span>2</span></div>
+        <div class="stat-row"><span>models</span> <span>10</span></div>
+      </div>
+    </div>
+    
+    <div class="hero-mid">
+      <div class="hero-desc">
+        <h2 style="font-family:'Inter',sans-serif;font-size:20px;font-weight:400;letter-spacing:-.2px;line-height:1.4;margin-bottom:12px;color:var(--sub)">Measuring frontier AI models on classical Advaita Vedānta doctrinal competence.</h2>
+        <a href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark" class="scroll-link" style="display:inline-block;margin-top:8px;font-size:14px;color:var(--faint);text-decoration:none">Get notified when new models drop ↓</a>
+      </div>
+      <div class="hero-actions">
+        <a class="btn solid" href="blog.html">Read the blog →</a>
+        <a class="btn" href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark">Run AdvaitaBench</a>
+      </div>
     </div>
   </div>
 </header>
-
-<div class="metrics-strip"><div class="wrap">
-  <div class="metric"><div class="n">10</div><div class="l">Frontier Models</div></div>
-  <div class="metric"><div class="n">84</div><div class="l">Doctrinal Tasks</div></div>
-  <div class="metric"><div class="n">8</div><div class="l">Skill Families</div></div>
-  <div class="metric"><div class="n">2</div><div class="l">Debiased Judges</div></div>
-</div></div>
 
 <section id="leaderboard"><div class="wrap">
   <h2>Leaderboard</h2>
@@ -217,8 +230,20 @@ if(saved)root.dataset.theme=saved;
 document.getElementById('toggle').onclick=()=>{
   root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';
   localStorage.setItem('ab-theme',root.dataset.theme);
+  
+  // update icon
+  const btn = document.getElementById('toggle');
+  if(root.dataset.theme==='dark') {
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+  } else {
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+  }
+  
   draw(); /* redraw charts with new css vars */
 };
+if(root.dataset.theme==='dark') {
+  document.getElementById('toggle').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+}
 
 const ORG_COLOR={Anthropic:'var(--anthropic)',OpenAI:'var(--openai)',Google:'var(--google)',
   Alibaba:'var(--alibaba)',DeepSeek:'var(--deepseek)',Zhipu:'var(--zhipu)',xAI:'var(--xai)'};
