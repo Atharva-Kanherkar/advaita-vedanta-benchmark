@@ -5,79 +5,103 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AdvaitaBench: can AI hold the non-dual line? · Blog</title>
 <meta name="description" content="Why we built a benchmark out of humanity's oldest questions, what frontier models got right, and where every one of them breaks.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f5f2e9; --panel:#efebe0; --ink:#161513; --sub:#57534a; --faint:#8f897b;
-  --line:#dcd6c6; --line2:#c9c2af;
+  --bg:#ffffff; --panel:#f9f9f9; --ink:#111111; --sub:#666666; --faint:#999999;
+  --line:#eaeaea; --line2:#dddddd;
 }
 [data-theme="dark"]{
-  --bg:#141412; --panel:#1c1b18; --ink:#f0ece0; --sub:#b3ada0; --faint:#7c766a;
-  --line:#2b2a25; --line2:#3b392f;
+  --bg:#0a0a0a; --panel:#111111; --ink:#eeeeee; --sub:#999999; --faint:#666666;
+  --line:#222222; --line2:#333333;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);font:16px/1.75 -apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;transition:background .2s,color .2s}
-.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:15.5px/1.7 "Inter",-apple-system,sans-serif}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace}
 a{color:var(--ink)}
 .wrap{max-width:720px;margin:0 auto;padding:0 24px}
-nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:50}
-nav .inner{max-width:1040px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:24px;height:58px}
-.brand{font-weight:700;font-size:16px;text-decoration:none}
-nav a.item{color:var(--sub);font-size:13.5px;text-decoration:none}
-nav a.item:hover{color:var(--ink)}
-nav .right{margin-left:auto;display:flex;gap:14px;align-items:center}
-.toggle{border:1px solid var(--line2);background:transparent;color:var(--ink);border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:15px}
 
-header{padding:80px 0 40px}
-.kicker{font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--faint);margin-bottom:18px}
-h1{font-size:40px;line-height:1.15;letter-spacing:-.8px;font-weight:700}
-.meta{margin-top:16px;color:var(--faint);font-size:13.5px;font-family:ui-monospace,Menlo,monospace}
+nav{position:sticky;top:0;background:color-mix(in srgb,var(--bg) 95%,transparent);border-bottom:1px solid var(--line);z-index:50;backdrop-filter:blur(10px)}
+nav .inner{max-width:1040px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:24px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;letter-spacing:-.4px;text-decoration:none}
+nav a.item{color:var(--sub);font-size:13.5px;text-decoration:none;font-weight:500}
+nav a.item:hover,nav a.item.on{color:var(--ink)}
+nav .right{margin-left:auto;display:flex;gap:16px;align-items:center}
+.toggle{border:none;background:transparent;color:var(--sub);width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.toggle:hover{color:var(--ink)}
 
-.toc{border:1px solid var(--line);border-radius:12px;margin:36px 0 8px;overflow:hidden}
-.toc a{display:flex;gap:16px;align-items:baseline;padding:13px 20px;border-bottom:1px solid var(--line);text-decoration:none}
+header{padding:72px 0 36px}
+.kicker{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);margin-bottom:18px}
+h1{font-size:clamp(28px,5vw,40px);line-height:1.18;letter-spacing:-.8px;font-weight:600}
+.meta{margin-top:16px;color:var(--faint);font-size:13px;font-family:"JetBrains Mono",monospace}
+
+.toc{border:1px solid var(--line);border-radius:8px;margin:36px 0 8px;overflow:hidden}
+.toc a{display:flex;gap:16px;align-items:baseline;padding:13px 18px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
 .toc a:last-child{border-bottom:0}
 .toc a:hover{background:var(--panel)}
-.toc .n{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--faint)}
-.toc .t{font-weight:600;font-size:15px}
+.toc .n{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--faint)}
+.toc .t{font-weight:600;font-size:14.5px}
 
-article{padding:28px 0 80px}
-h2{font-size:26px;letter-spacing:-.4px;margin:56px 0 16px;font-weight:700}
-h2 .n{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--faint);font-weight:500;margin-right:12px}
-h3{font-size:17px;margin:30px 0 10px}
-p{margin:14px 0;color:var(--ink)}
+article{padding:20px 0 72px}
+h2{font-size:24px;letter-spacing:-.4px;margin:52px 0 14px;font-weight:600}
+h2 .n{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--faint);font-weight:500;margin-right:12px}
+h3{font-size:16px;margin:28px 0 10px;font-weight:600}
+p{margin:14px 0}
 p.dim,li{color:var(--sub)}
 ul,ol{margin:14px 0 14px 22px}
 li{margin:6px 0}
-b{color:var(--ink)}
-blockquote{border-left:3px solid var(--line2);padding:4px 0 4px 18px;margin:20px 0;color:var(--sub);font-style:italic}
-.callout{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin:22px 0;font-size:14.5px;color:var(--sub)}
+b{color:var(--ink);font-weight:600}
+blockquote{border-left:2px solid var(--line2);padding:4px 0 4px 18px;margin:22px 0;color:var(--sub);font-style:italic}
+.callout{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px 18px;margin:22px 0;font-size:14px;color:var(--sub)}
 .callout b{color:var(--ink)}
-code,pre{font-family:ui-monospace,Menlo,monospace;font-size:13px}
-pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 20px;overflow-x:auto;line-height:1.7;margin:20px 0}
+code,pre{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:12.5px}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px 18px;overflow-x:auto;line-height:1.7;margin:20px 0}
 table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}
-th{text-align:left;font-family:ui-monospace,Menlo,monospace;font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--faint);padding:0 10px 10px 0;font-weight:500}
+th{text-align:left;font-family:"JetBrains Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--faint);padding:0 10px 10px 0;font-weight:500}
 td{border-top:1px solid var(--line);padding:8px 10px 8px 0;color:var(--sub)}
 td:first-child{color:var(--ink);font-weight:600}
 td.r,th.r{text-align:right}
 footer{border-top:1px solid var(--line);padding:40px 0 64px;color:var(--faint);font-size:13px}
-.fsteps{border:1px solid var(--line);border-radius:12px;margin:22px 0;overflow:hidden}
-.fstep{display:flex;gap:18px;padding:18px 22px;border-bottom:1px solid var(--line);background:var(--panel)}
+.fsteps{border:1px solid var(--line);border-radius:8px;margin:22px 0;overflow:hidden}
+.fstep{display:flex;gap:18px;padding:16px 18px;border-bottom:1px solid var(--line);background:var(--panel)}
 .fstep:last-child{border-bottom:0}
-.fnum{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--faint);border:1px solid var(--line2);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.fmath{font-family:ui-monospace,Menlo,monospace;font-size:14.5px;color:var(--ink);margin-bottom:6px;overflow-x:auto}
+.fnum{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--faint);border:1px solid var(--line2);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.fmath{font-family:"JetBrains Mono",monospace;font-size:13.5px;color:var(--ink);margin-bottom:6px;overflow-x:auto}
 .fmath sub{font-size:10px;color:var(--sub)}
-.fdesc{font-size:13.5px;color:var(--sub)}
+.fdesc{font-size:13px;color:var(--sub)}
+@media(max-width:720px){
+  .wrap{padding:0 16px}
+  nav .inner{height:56px;gap:12px;padding:0 16px}
+  .brand{font-size:15px}
+  nav .right{gap:0 12px;overflow-x:auto;max-width:58vw;scrollbar-width:none}
+  nav .right::-webkit-scrollbar{display:none}
+  nav a.item{font-size:12.5px;white-space:nowrap}
+  header{padding:48px 0 28px}
+  h1{font-size:28px}
+  .toc a{display:block}
+  .toc .n,.toc .t{display:block}
+  .toc .t{margin-top:4px}
+}
 </style>
 </head>
 <body>
 
 <nav><div class="inner">
-  <a class="brand" href="index.html">AdvaitaBench</a>
-  <a class="item" href="index.html#leaderboard">Leaderboard</a>
-  <a class="item" href="index.html#tasks">Tasks</a>
-  <a class="item" href="blog.html" style="color:var(--ink)">Blog</a>
+  <a class="brand" href="index.html">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 22h20L12 2z"></path><path d="M12 10L6 20h12L12 10z"></path></svg>
+    AdvaitaBench
+  </a>
   <div class="right">
+    <a class="item on" href="blog.html">Blog</a>
+    <a class="item" href="index.html#leaderboard">Leaderboard</a>
+    <a class="item" href="index.html#tasks">Tasks</a>
     <a class="item" href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark">GitHub</a>
-    <button class="toggle" id="toggle" title="Toggle theme">◐</button>
+    <button class="toggle" id="toggle" title="Toggle theme">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+    </button>
   </div>
 </div></nav>
 
@@ -253,9 +277,15 @@ top four should be read as a cluster, not a ranking.</p>
 const root=document.documentElement;
 const saved=localStorage.getItem('ab-theme');
 if(saved)root.dataset.theme=saved;
-document.getElementById('toggle').onclick=()=>{
+const sun='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+const moon='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+const btn=document.getElementById('toggle');
+const syncIcon=()=>{btn.innerHTML=root.dataset.theme==='dark'?moon:sun};
+syncIcon();
+btn.onclick=()=>{
   root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';
   localStorage.setItem('ab-theme',root.dataset.theme);
+  syncIcon();
 };
 </script>
 </body>
