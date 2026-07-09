@@ -1,106 +1,128 @@
 # AdvaitaBench
 
-Research-grade benchmark for **Advaita Vedānta doctrinal competence** in large language models.
+**A research benchmark for Advaita Vedānta doctrinal competence in large language models.**
 
-AdvaitaBench tests whether models can teach classical Advaita without conflating schools, collapsing levels of reality, or reproducing popular misconceptions. It is not a general Hinduism quiz or a “spiritual vibes” eval.
+[**Leaderboard & site**](https://atharva-kanherkar.github.io/advaita-vedanta-benchmark/) ·
+[Methodology](docs/METHODOLOGY.md) ·
+[Rubrics](docs/RUBRICS.md) ·
+[Judging protocol](docs/JUDGING.md)
 
-## Task families
+AdvaitaBench measures whether a model can **teach, interpret, and defend classical Advaita
+Vedānta** (Śaṅkara tradition) — without conflating schools, collapsing levels of reality,
+reproducing popular misconceptions, or capitulating under pressure. It is not a Hinduism
+trivia quiz and not a "spiritual vibes" eval: every task is graded against reference
+answers, required distinctions, and forbidden claims, with automatic score caps for
+doctrinal failure modes.
 
-| Family | What it tests |
-|--------|----------------|
-| **Concept precision** | Brahman, Ātman, jīva, māyā, avidyā, sākṣī, upādhi, mithyā, … |
-| **Level-of-reality reasoning** | paramārthika / vyāvahārika / prātibhāsika without contradiction |
-| **School discrimination** | No Dvaita/Buddhist/Yoga/New Age mixing |
-| **Text-grounded interpretation** | Claims justified from supplied passages |
-| **Misconception repair** | Multi-turn correction of common distortions |
-| **Consistency & adversarial robustness** | Same doctrine under rephrasing and hostility |
-| **Open elicitation** | Vague, term-free existential questions — real apparatus vs New Age mush |
-| **Sustained dialectic** | Multi-turn śruti pressure: genuine contradicting citations until a script cap |
+## Results (pilot, July 2026)
 
-## Documentation
+10 frontier models · 84 tasks · closed-book · temperature 0 · school-pinned prompt.
+**AdvaitaBench-N** is a two-judge ensemble score (strict GPT-5.4 + Haiku 4.5) with a
+measured self-preference correction — see [normalization](docs/METHODOLOGY.md#51-judge-ensemble-and-score-normalization-advaitabench-n).
 
-- [Methodology](docs/METHODOLOGY.md) — research design, validity, publication checklist
-- [Rubrics](docs/RUBRICS.md) — per-family scoring dimensions and caps
-- [Judging](docs/JUDGING.md) — judge protocol, human adjudication, reproducibility
+| # | Model | AdvaitaBench-N | Strict | Lenient |
+|---|-------|---------------:|-------:|--------:|
+| 1 | Claude Fable 5 | **62.7** | 73.5 | 99.4 |
+| 2 | Claude Opus 4.8 | 59.9 | 71.5 | 99.7 |
+| 3 | GPT-5.5 | 58.0 | 75.3 | 98.8 |
+| 4 | GPT-5.2 | 56.2 | 73.8 | 99.2 |
+| 5 | Qwen 3.7 Max | 48.8 | 66.9 | 98.9 |
+| 6 | DeepSeek V4 Pro | 48.0 | 67.7 | 98.1 |
+| 7 | GLM 5.2 | 46.6 | 66.3 | 98.6 |
+| 8 | Gemini 3.1 Pro | 46.4 | 66.0 | 98.7 |
+| 9 | Grok 4.3 | 43.5 | 69.6 | 95.2 |
+| 10 | Claude Sonnet 5 | 16.8 | 62.5 | 90.6 |
+
+Headline findings:
+
+- **Judges are family-biased.** Each single judge ranked its own lab's models on top
+  (Kendall τ between the two judge rankings: 0.29). The published score standardizes both
+  judges and subtracts a difference-in-differences self-preference estimate. The top-4 gap
+  is within judge disagreement — treat ranks 1–4 as a cluster.
+- **Sustained dialectic is the differentiator.** Multi-turn śruti pressure (genuine
+  contradicting citations, escalating for 3–4 scripted turns) spreads models 35–71 where
+  single-turn families cluster.
+- **No memorization win.** The canonical−novel provenance gap is ≈ 0 under strict grading:
+  models succeed (and fail) on reasoning, not recall.
+- Sonnet 5's score reflects 14/123 blank responses, carried as failures by design.
+
+*Pilot caveats: single sample per task, two-judge ensemble, no human adjudication yet.
+Publication-grade claims require the expanded bank (≥ 30 tasks/family), κ ≥ 0.65 human
+agreement, and a third family-neutral judge.*
+
+## Eight task families
+
+| Family | Tests | Weight |
+|--------|-------|-------:|
+| Concept precision | Brahman ≠ Īśvara ≠ Ātman ≠ jīva; māyā/avidyā/mithyā; bādha vs abhāva | 0.13 |
+| Levels of reality | paramārthika / vyāvahārika / prātibhāsika without contradiction | 0.16 |
+| School discrimination | vs Dvaita, Viśiṣṭādvaita, Madhyamaka, Sāṃkhya, Kashmir Shaivism, Neo-Vedānta, New Age | 0.16 |
+| Text-grounded | Claims justified from supplied passages, incl. held-out bhāṣya excerpts and a distractor text | 0.16 |
+| Misconception repair | Multi-turn correction under scripted pushback | 0.12 |
+| Consistency | Same doctrine across hostile / Sanskrit / academic / grief framings | 0.07 |
+| Open elicitation | "Who am I?" with zero technical vocabulary — apparatus vs mush | 0.09 |
+| Sustained dialectic | Yakṣa-praśna-style śruti pressure until a script cap | 0.11 |
+
+Contamination control: every task is tagged `canonical` / `paraphrased` / `novel`, scores
+reported stratified. Held-out passages are mined from less-quoted bhāṣya sections
+([GRETIL](https://gretil.sub.uni-goettingen.de/) e-texts; see [corpus/SOURCES.md](corpus/SOURCES.md)).
 
 ## Quick start
 
 Requires Python ≥ 3.11.
 
 ```bash
-cd ~/Projects/advaita-vedanta-benchmark
+git clone https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark
+cd advaita-vedanta-benchmark
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
-cp .env.example .env   # then fill in your API keys (loaded automatically)
+cp .env.example .env            # add your API keys
 
-advaita-bench validate          # validate seed tasks
-python -m pytest tests/ -q      # offline harness tests (no API keys)
-advaita-bench models            # show the model registry
+advaita-bench validate          # validate the task bank
+python -m pytest tests/ -q      # offline tests, no keys needed
 
-# Dry-run the whole pipeline (no API calls)
-advaita-bench run --models @smoke --dry-run
-advaita-bench judge --run runs/<run_id> --dry-run
-advaita-bench report --run runs/<run_id>
-
-# Live run — see provider/keys below
-advaita-bench run --models @frontier,@openrouter
-advaita-bench judge --run runs/<run_id>          # judge from config/models.yaml
-advaita-bench report --run runs/<run_id>
+advaita-bench run --models @frontier,@openrouter   # subject responses
+advaita-bench judge --run runs/<run_id>            # rubric + consistency judges
+advaita-bench report --run runs/<run_id>           # scores, tags, stratification
+python scripts/normalize_scores.py                 # two-judge AdvaitaBench-N
 ```
 
-### Providers and keys
+### Provider routing
 
-Models route by provider — which is also a billing choice:
+Model specs route by provider — which is also a billing decision:
 
-| Provider | Route | Key |
-|----------|-------|-----|
-| OpenAI (`gpt-*`, `o*`) | direct | `OPENAI_API_KEY` |
-| Anthropic (`claude-*`) | direct | `ANTHROPIC_API_KEY` |
-| Google (`gemini-*`) | direct | `GEMINI_API_KEY` |
-| everything else (Grok, DeepSeek, Qwen, GLM, Kimi, …) | **OpenRouter** (real $) | `OPENROUTER_API_KEY` |
+| Spec | Route | Key |
+|------|-------|-----|
+| `anthropic:claude-*` | Anthropic API | `ANTHROPIC_API_KEY` |
+| `openai:gpt-*` | OpenAI API | `OPENAI_API_KEY` |
+| `google:gemini-*` | Gemini API | `GEMINI_API_KEY` |
+| everything else (Grok, DeepSeek, Qwen, GLM, Kimi, …) | OpenRouter | `OPENROUTER_API_KEY` |
 
-Force a route with a `provider:` prefix (`openrouter:anthropic/claude-3.5-sonnet`).
-Model sets live in [`config/models.yaml`](config/models.yaml); `@frontier`,
-`@openrouter`, `@smoke`, `@all` expand there. Each run records provider routing,
-token usage, and OpenRouter dollar cost in `manifest.json`. The judge model must
-differ from every subject model (enforced).
+Model sets live in [`config/models.yaml`](config/models.yaml) (`@frontier`, `@openrouter`,
+`@smoke`, `@all`). Each run records routing, token usage, and OpenRouter dollar cost in its
+manifest. The harness **enforces judge ≠ subject**.
 
-### Corpus
-
-```bash
-python -m scripts.fetch_corpus          # fetch + hash held-out source passages
-```
-
-See [corpus/SOURCES.md](corpus/SOURCES.md) for sources and licensing.
-
-## Project structure
+## Repository layout
 
 ```
-docs/           Methodology, rubrics, judging spec
-tasks/          YAML task bank (pilot: ~20 seed tasks)
-judges/         LLM judge prompt templates
-harness/        Python package (providers → run → judge → report)
-config/         Family weights, run settings, model registry
-corpus/         Source-text manifest + fetch script (raw/ gitignored)
-tests/          Offline harness tests (no API keys)
-runs/           Output artifacts (gitignored)
+docs/          Methodology, rubrics, judging spec + the static site (GitHub Pages)
+tasks/         YAML task bank (84 tasks, 8 families)
+judges/        Judge prompt templates (v1 + strict v2)
+harness/       Python package: providers → runner → judge → report
+scripts/       Task validation, corpus fetch, score normalization
+config/        Family weights, model registry
+corpus/        Source-text manifest + fetch/hash script
+results/       Published normalized results
+tests/         Offline test suite (no API keys)
 ```
 
-## Pilot status
+## Scope and ethics
 
-Current task bank is a **pilot seed set** (3–4 tasks per family). Publication requires:
-
-- ≥30 tasks per family
-- Human adjudication (κ ≥ 0.65)
-- ≥3 subject models + distinct judge model
-- Full failure analysis appendix
-
-## Scope
-
-**In scope:** Classical Advaita (Śaṅkara tradition), doctrinal precision, pedagogy under pressure.
-
-**Out of scope:** Spiritual attainment, guru authentication, caste/politics, non-Advaita schools except where contrast is explicit.
+**In scope:** classical Advaita (Śaṅkara tradition), doctrinal precision, pedagogy under
+pressure. **Out of scope:** spiritual attainment, guru authentication, caste/politics,
+non-Advaita schools except as explicit contrast. Results must not be marketed as "which AI
+is enlightened."
 
 ## License
 
-MIT (suggested — update if you prefer another license)
+MIT.

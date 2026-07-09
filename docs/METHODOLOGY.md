@@ -225,6 +225,36 @@ Judge model must differ from subject model in publication runs (enforced).
 
 ---
 
+
+### 5.1 Judge ensemble and score normalization (AdvaitaBench-N)
+
+Single-judge scores proved family-biased in both directions: an Anthropic
+judge (Haiku 4.5, rubric v1) ranked Claude models 1–2, while an OpenAI judge
+(GPT-5.4, strict rubric v2) penalized GPT subjects ~5 points less than
+non-GPT subjects and ranked them 1–2 (Kendall τ between the two rankings:
+0.29). A manual audit additionally found a systematic strict-judge cap
+misfire on `text_ungrounded`.
+
+The published headline score is therefore **AdvaitaBench-N**, computed as:
+
+```
+c_ij   = composite of model i under judge j (after cap-misfire fix)
+z_ij   = (c_ij − μ_j) / σ_j                      # per-judge standardization
+sp_j   = max(0, mean_{i∈F_j}(z_ij − z_i,other))   # DiD self-preference, F_j = judge j's model family
+z'_ij  = z_ij − sp_j · 1[i ∈ F_j]
+AdvaitaBench-N_i = 50 + 15 · mean_j(z'_ij)        # T-score scale
+```
+
+Cap-misfire fix: the `text_ungrounded` cap applies only when the judge's own
+`textual_evidence` score is ≤ 1 (the passage genuinely was not cited); citing
+*additional* canonical material is not "ungrounded".
+
+**Limitations (disclosed):** with two judges, the DiD correction cannot
+separate genuine quality from bias perfectly; the lenient judge's compressed
+distribution weakens its z-scores; models with incomplete responses (blank
+answers) carry that penalty into the normalized score. A third, family-neutral
+judge (e.g. Gemini) is the planned tie-breaker for publication runs.
+
 ## 6. Harness workflow
 
 ```

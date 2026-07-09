@@ -1,0 +1,159 @@
+{
+  "formula": "AdvaitaBench-N = 50 + 15 * mean_j( z_ij - sp_j*1[i in family(j)] ); z per-judge standardized composite; sp_j = DiD self-preference; text_ungrounded cap only when textual_evidence<=1",
+  "self_preference": {
+    "strict": 0.868,
+    "lenient": 0.0
+  },
+  "models": {
+    "anthropic:claude-fable-5": {
+      "normalized": 62.7,
+      "strict_composite": 73.5,
+      "lenient_composite": 99.4,
+      "family_scores_strict": {
+        "concept_precision": 76.1,
+        "consistency_adversarial": 75.7,
+        "level_of_reality": 79.4,
+        "misconception_repair": 59.1,
+        "open_elicitation": 75.0,
+        "school_discrimination": 75.6,
+        "sustained_dialectic": 71.2,
+        "text_grounded": 73.9
+      }
+    },
+    "anthropic:claude-opus-4-8": {
+      "normalized": 59.9,
+      "strict_composite": 71.5,
+      "lenient_composite": 99.7,
+      "family_scores_strict": {
+        "concept_precision": 71.9,
+        "consistency_adversarial": 74.0,
+        "level_of_reality": 69.4,
+        "misconception_repair": 63.0,
+        "open_elicitation": 73.9,
+        "school_discrimination": 74.8,
+        "sustained_dialectic": 67.7,
+        "text_grounded": 76.7
+      }
+    },
+    "anthropic:claude-sonnet-5": {
+      "normalized": 16.8,
+      "strict_composite": 62.5,
+      "lenient_composite": 90.6,
+      "family_scores_strict": {
+        "concept_precision": 53.9,
+        "consistency_adversarial": 73.3,
+        "level_of_reality": 68.1,
+        "misconception_repair": 60.4,
+        "open_elicitation": 71.7,
+        "school_discrimination": 66.9,
+        "sustained_dialectic": 34.8,
+        "text_grounded": 70.5
+      }
+    },
+    "deepseek/deepseek-v4-pro": {
+      "normalized": 48.0,
+      "strict_composite": 67.7,
+      "lenient_composite": 98.1,
+      "family_scores_strict": {
+        "concept_precision": 63.8,
+        "consistency_adversarial": 69.8,
+        "level_of_reality": 71.2,
+        "misconception_repair": 53.5,
+        "open_elicitation": 72.4,
+        "school_discrimination": 72.5,
+        "sustained_dialectic": 65.4,
+        "text_grounded": 71.0
+      }
+    },
+    "google:gemini-3.1-pro-preview": {
+      "normalized": 46.4,
+      "strict_composite": 66.0,
+      "lenient_composite": 98.7,
+      "family_scores_strict": {
+        "concept_precision": 67.6,
+        "consistency_adversarial": 70.5,
+        "level_of_reality": 67.5,
+        "misconception_repair": 61.0,
+        "open_elicitation": 63.6,
+        "school_discrimination": 69.8,
+        "sustained_dialectic": 53.5,
+        "text_grounded": 71.0
+      }
+    },
+    "openai:gpt-5.2": {
+      "normalized": 56.2,
+      "strict_composite": 73.8,
+      "lenient_composite": 99.2,
+      "family_scores_strict": {
+        "concept_precision": 75.4,
+        "consistency_adversarial": 75.0,
+        "level_of_reality": 74.4,
+        "misconception_repair": 74.4,
+        "open_elicitation": 73.3,
+        "school_discrimination": 73.2,
+        "sustained_dialectic": 67.7,
+        "text_grounded": 76.1
+      }
+    },
+    "openai:gpt-5.5": {
+      "normalized": 58.0,
+      "strict_composite": 75.3,
+      "lenient_composite": 98.8,
+      "family_scores_strict": {
+        "concept_precision": 75.0,
+        "consistency_adversarial": 76.0,
+        "level_of_reality": 75.6,
+        "misconception_repair": 71.6,
+        "open_elicitation": 74.0,
+        "school_discrimination": 80.6,
+        "sustained_dialectic": 71.2,
+        "text_grounded": 75.6
+      }
+    },
+    "qwen/qwen3.7-max": {
+      "normalized": 48.8,
+      "strict_composite": 66.9,
+      "lenient_composite": 98.9,
+      "family_scores_strict": {
+        "concept_precision": 68.9,
+        "consistency_adversarial": 67.9,
+        "level_of_reality": 66.9,
+        "misconception_repair": 58.4,
+        "open_elicitation": 71.7,
+        "school_discrimination": 69.1,
+        "sustained_dialectic": 69.0,
+        "text_grounded": 65.2
+      }
+    },
+    "x-ai/grok-4.3": {
+      "normalized": 43.5,
+      "strict_composite": 69.6,
+      "lenient_composite": 95.2,
+      "family_scores_strict": {
+        "concept_precision": 70.4,
+        "consistency_adversarial": 74.0,
+        "level_of_reality": 70.0,
+        "misconception_repair": 70.4,
+        "open_elicitation": 71.4,
+        "school_discrimination": 75.0,
+        "sustained_dialectic": 56.9,
+        "text_grounded": 68.3
+      }
+    },
+    "z-ai/glm-5.2": {
+      "normalized": 46.6,
+      "strict_composite": 66.3,
+      "lenient_composite": 98.6,
+      "family_scores_strict": {
+        "concept_precision": 65.9,
+        "consistency_adversarial": 70.5,
+        "level_of_reality": 68.1,
+        "misconception_repair": 57.9,
+        "open_elicitation": 68.9,
+        "school_discrimination": 70.4,
+        "sustained_dialectic": 60.8,
+        "text_grounded": 67.6
+      }
+    }
+  }
+}

@@ -1,0 +1,219 @@
+836 already judged, 4 remaining
+  skip anthropic:claude-sonnet-5 cp-003 1 validation error for DoctrineSignature
+core_claim
+  Input should be a valid st
+  skip anthropic:claude-sonnet-5 cp-007 1 validation error for DoctrineSignature
+core_claim
+  Input should be a valid st
+  skip openai:gpt-5.5 ca-003d judge returned unparseable JSON after retries: Expecting ',' delimiter: line 10 
+rubric judging complete (+1)
+   AdvaitaBench — openai:gpt-5.5   
+┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┓
+┃ Family                  ┃ Score ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━┩
+│ concept_precision       │ 100.0 │
+│ consistency_adversarial │  93.3 │
+│ level_of_reality        │ 100.0 │
+│ misconception_repair    │ 100.0 │
+│ open_elicitation        │  97.2 │
+│ school_discrimination   │ 100.0 │
+│ sustained_dialectic     │  94.8 │
+│ text_grounded           │  97.7 │
+│ Composite               │  98.3 │
+└─────────────────────────┴───────┘
+By provenance:
+{'canonical': 87.87, 'paraphrased': 88.53, 'novel': 98.21}
+(canonical − novel = -10.34)
+Top failure tags:
+[('text_ungrounded', 1)]
+
+   AdvaitaBench — openai:gpt-5.2   
+┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┓
+┃ Family                  ┃ Score ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━┩
+│ concept_precision       │ 100.0 │
+│ consistency_adversarial │  93.3 │
+│ level_of_reality        │ 100.0 │
+│ misconception_repair    │ 100.0 │
+│ open_elicitation        │ 100.0 │
+│ school_discrimination   │ 100.0 │
+│ sustained_dialectic     │  94.8 │
+│ text_grounded           │  98.3 │
+│ Composite               │  98.7 │
+└─────────────────────────┴───────┘
+By provenance:
+{'canonical': 88.2, 'paraphrased': 88.28, 'novel': 98.96}
+(canonical − novel = -10.76)
+Top failure tags:
+[('text_ungrounded', 1)]
+
+          AdvaitaBench —           
+   google:gemini-3.1-pro-preview   
+┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┓
+┃ Family                  ┃ Score ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━┩
+│ concept_precision       │ 100.0 │
+│ consistency_adversarial │  96.7 │
+│ level_of_reality        │ 100.0 │
+│ misconception_repair    │ 100.0 │
+│ open_elicitation        │  97.4 │
+│ school_discrimination   │  99.4 │
+│ sustained_dialectic     │  94.8 │
+│ text_grounded           │  97.7 │
+│ Composite               │  98.5 │
+└─────────────────────────┴───────┘
+By provenance:
+{'canonical': 88.43, 'paraphrased': 88.27, 'novel': 98.15}
+(canonical − novel = -9.72)
+Top failure tags:
+[('text_ungrounded', 1)]
+
+   AdvaitaBench — x-ai/grok-4.3    
+┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┓
+┃ Family                  ┃ Score ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━┩
+│ concept_precision       │ 100.0 │
+│ consistency_adversarial │  90.0 │
+│ level_of_reality        │  93.8 │
+│ misconception_repair    │  97.5 │
+│ open_elicitation        │  95.6 │
+│ school_discrimination   │  98.8 │
+│ sustained_dialectic     │  79.8 │
+│ text_grounded           │  96.0 │
+│ Composite               │  94.5 │
+└─────────────────────────┴───────┘
+By provenance:
+{'canonical': 86.64, 'paraphrased': 87.31, 'novel': 92.44}
+(canonical − novel = -5.8)
+Top failure tags:
+[('text_ungrounded', 3), ('level_collapse', 1)]
+
+          AdvaitaBench —           
+     deepseek/deepseek-v4-pro      
+┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┓
+┃ Family                  ┃ Score ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━┩
+│ concept_precision       │ 100.0 │
+│ consistency_adversarial │  90.0 │
+│ level_of_reality        │  98.8 │
+│ misconception_repair    │  92.5 │
+│ open_elicitation        │  98.2 │
+│ school_discrimination   │ 100.0 │
+│ sustained_dialectic     │  97.1 │
+│ text_grounded           │  98.3 │
+│ Composite               │  97.4 │
+└─────────────────────────┴───────┘
+By provenance:
+{'canonical': 85.72, 'paraphrased': 88.05, 'novel': 97.83}
+(canonical − novel = -12.11)
+Top failure tags:
+[('level_collapse', 1), ('text_ungrounded', 1)]
+
+  AdvaitaBench — qwen/qwen3.7-max  
+┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┓
+┃ Family                  ┃ Score ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━┩
+│ concept_precision       │ 100.0 │
+│ consistency_adversarial │  93.3 │
+│ level_of_reality        │ 100.0 │
+│ misconception_repair    │ 100.0 │
+│ open_elicitation        │  96.4 │
+│ school_discrimination   │ 100.0 │
+│ sustained_dialectic     │  94.8 │
+│ text_grounded           │  98.9 │
+│ Composite               │  98.5 │
+└─────────────────────────┴───────┘
+By provenance:
+{'canonical': 88.2, 'paraphrased': 88.05, 'novel': 98.47}
+(canonical − novel = -10.27)
+Top failure tags:
+[('text_ungrounded', 1)]
+
+    AdvaitaBench — z-ai/glm-5.2    
+┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┓
+┃ Family                  ┃ Score ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━┩
+│ concept_precision       │  99.5 │
+│ consistency_adversarial │  86.3 │
+│ level_of_reality        │  99.4 │
+│ misconception_repair    │ 100.0 │
+│ open_elicitation        │ 100.0 │
+│ school_discrimination   │ 100.0 │
+│ sustained_dialectic     │  93.3 │
+│ text_grounded           │  97.2 │
+│ Composite               │  97.7 │
+└─────────────────────────┴───────┘
+By provenance:
+{'canonical': 87.38, 'paraphrased': 87.46, 'novel': 98.09}
+(canonical − novel = -10.71)
+Top failure tags:
+[('text_ungrounded', 1)]
+
+          AdvaitaBench —           
+     anthropic:claude-fable-5      
+┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┓
+┃ Family                  ┃ Score ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━┩
+│ concept_precision       │ 100.0 │
+│ consistency_adversarial │  93.3 │
+│ level_of_reality        │ 100.0 │
+│ misconception_repair    │ 100.0 │
+│ open_elicitation        │ 100.0 │
+│ school_discrimination   │  96.2 │
+│ sustained_dialectic     │ 100.0 │
+│ text_grounded           │ 100.0 │
+│ Composite               │  98.9 │
+└─────────────────────────┴───────┘
+By provenance:
+{'canonical': 87.33, 'paraphrased': 88.53, 'novel': 99.53}
+(canonical − novel = -12.2)
+Top failure tags:
+[('text_ungrounded', 1)]
+
+          AdvaitaBench —           
+     anthropic:claude-opus-4-8     
+┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┓
+┃ Family                  ┃ Score ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━┩
+│ concept_precision       │ 100.0 │
+│ consistency_adversarial │  86.7 │
+│ level_of_reality        │ 100.0 │
+│ misconception_repair    │ 100.0 │
+│ open_elicitation        │ 100.0 │
+│ school_discrimination   │ 100.0 │
+│ sustained_dialectic     │  98.5 │
+│ text_grounded           │  99.4 │
+│ Composite               │  98.8 │
+└─────────────────────────┴───────┘
+By provenance:
+{'canonical': 87.9, 'paraphrased': 88.07, 'novel': 98.91}
+(canonical − novel = -11.01)
+
+          AdvaitaBench —           
+     anthropic:claude-sonnet-5     
+┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┓
+┃ Family                  ┃ Score ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━┩
+│ concept_precision       │  94.2 │
+│ consistency_adversarial │  90.0 │
+│ level_of_reality        │  95.0 │
+│ misconception_repair    │  98.1 │
+│ open_elicitation        │ 100.0 │
+│ school_discrimination   │  89.4 │
+│ sustained_dialectic     │  47.7 │
+│ text_grounded           │  98.9 │
+│ Composite               │  89.9 │
+└─────────────────────────┴───────┘
+By provenance:
+{'canonical': 87.93, 'novel': 83.13, 'paraphrased': 87.72}
+(canonical − novel = 4.8)
+Top failure tags:
+[
+    ('text_ungrounded', 5),
+    ('level_collapse', 4),
+    ('doctrine_drift', 4),
+    ('school_mixing', 1),
+    ('sycophantic_agreement', 1)
+]
+
+REPORT_DONE

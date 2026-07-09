@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AdvaitaBench — Advaita Vedānta Doctrinal Competence in LLMs</title>
+<meta name="description" content="A research benchmark measuring how reliably large language models teach, interpret, and defend classical Advaita Vedānta under pressure.">
+<style>
+:root{
+  --bg:#0a0c17; --surface:#11142a; --line:#1e2240; --line2:#2a2f52;
+  --gold:#d4a24e; --gold-dim:#8a6a2e; --bone:#f2ecdc; --ink:#c9cbdc; --dim:#8b8fa8; --muted:#5c6080;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.serif{font-family:Baskerville,"Hoefler Text",Georgia,serif}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+nav{position:sticky;top:0;background:rgba(10,12,23,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:50}
+nav .wrap{display:flex;align-items:center;gap:26px;height:56px}
+nav .brand{font-family:Baskerville,Georgia,serif;font-size:19px;color:var(--bone)}
+nav .brand span{color:var(--gold)}
+nav a.item{color:var(--dim);font-size:13px;letter-spacing:.4px}
+nav a.item:hover{color:var(--bone);text-decoration:none}
+nav .gh{margin-left:auto;border:1px solid var(--line2);border-radius:8px;padding:5px 14px;font-size:13px;color:var(--bone)}
+
+header{padding:84px 0 64px;background:radial-gradient(900px 480px at 50% -12%,#1a1f3d,transparent)}
+h1{font-family:Baskerville,Georgia,serif;font-weight:500;font-size:54px;line-height:1.12;color:var(--bone);letter-spacing:.3px}
+h1 .om{color:var(--gold)}
+.tagline{margin-top:18px;font-size:18px;color:var(--dim);max-width:680px}
+.stats{display:flex;gap:44px;margin-top:40px;flex-wrap:wrap}
+.stat .n{font-family:Baskerville,Georgia,serif;font-size:34px;color:var(--gold)}
+.stat .l{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);margin-top:2px}
+
+section{padding:64px 0;border-top:1px solid var(--line)}
+h2{font-family:Baskerville,Georgia,serif;font-weight:500;font-size:30px;color:var(--bone);margin-bottom:8px}
+.sub{color:var(--dim);font-size:14px;margin-bottom:34px;max-width:760px}
+
+/* Leaderboard */
+.lb{display:flex;flex-direction:column;gap:6px}
+.row{display:grid;grid-template-columns:34px 220px 1fr 74px;align-items:center;gap:14px;
+  padding:9px 12px;border-radius:10px;position:relative}
+.row:hover{background:var(--surface)}
+.row .rk{font-family:Baskerville,Georgia,serif;font-size:17px;color:var(--gold);text-align:center}
+.row .nm{color:var(--bone);font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .nm small{display:block;color:var(--muted);font-weight:400;font-size:11px}
+.trk{position:relative;height:14px;background:#161a33;border-radius:4px;overflow:visible}
+.bar{position:absolute;left:0;top:2px;bottom:2px;background:linear-gradient(90deg,var(--gold-dim),var(--gold));border-radius:2px 4px 4px 2px}
+.row:nth-child(-n+0) .bar{}
+.ci{position:absolute;top:50%;height:1.5px;background:var(--bone);opacity:.65}
+.ci::before,.ci::after{content:"";position:absolute;top:-3.25px;width:1.5px;height:8px;background:var(--bone)}
+.ci::before{left:0}.ci::after{right:0}
+.row .sc{font-weight:700;color:var(--gold);font-size:15px;text-align:right;font-variant-numeric:tabular-nums}
+.legend{display:flex;gap:22px;margin:18px 2px 0;color:var(--muted);font-size:12px;align-items:center;flex-wrap:wrap}
+.legend .k{display:inline-block;width:18px;height:8px;border-radius:2px;background:linear-gradient(90deg,var(--gold-dim),var(--gold));margin-right:7px;vertical-align:middle}
+.legend .kci{display:inline-block;width:16px;height:1.5px;background:var(--bone);opacity:.65;margin-right:7px;vertical-align:middle;position:relative}
+
+.tip{position:fixed;pointer-events:none;background:#181c36;border:1px solid var(--line2);border-radius:10px;
+  padding:10px 14px;font-size:12.5px;color:var(--ink);z-index:99;display:none;max-width:280px;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.tip b{color:var(--bone)} .tip .g{color:var(--gold);font-weight:700}
+
+/* Heatmap */
+.hm{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:12.5px;min-width:840px}
+th{color:var(--muted);font-weight:500;font-size:10.5px;text-transform:uppercase;letter-spacing:.9px;padding:0 8px 12px;text-align:center}
+th.l{text-align:left}
+td{padding:8px;border-top:1px solid var(--line);text-align:center;font-variant-numeric:tabular-nums}
+td.l{text-align:left;color:var(--bone);font-weight:600;white-space:nowrap}
+td .cell{display:inline-block;min-width:44px;padding:4px 0;border-radius:5px;color:#0a0c17;font-weight:700}
+
+/* Methodology */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-top:8px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.card h3{font-size:15px;color:var(--bone);margin-bottom:6px;font-weight:600}
+.card p{font-size:13px;color:var(--dim)}
+.formula{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--gold);
+  border-radius:10px;padding:18px 22px;margin-top:22px;font:12.5px/1.8 ui-monospace,Menlo,monospace;color:var(--ink);overflow-x:auto;white-space:pre}
+
+/* Tasks */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.fbtn{border:1px solid var(--line2);background:transparent;color:var(--dim);border-radius:20px;
+  padding:5px 14px;font-size:12.5px;cursor:pointer;font-family:inherit}
+.fbtn:hover{color:var(--bone)}
+.fbtn.on{background:var(--gold);border-color:var(--gold);color:#0a0c17;font-weight:600}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.task{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.task .meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{font-size:10px;letter-spacing:.6px;text-transform:uppercase;border-radius:20px;padding:2px 9px;border:1px solid var(--line2);color:var(--dim)}
+.chip.fam{color:var(--gold);border-color:#453a1e}
+.chip.novel{color:#8fae6a;border-color:#33421f}
+.chip.paraphrased{color:#9a8fd0;border-color:#37305c}
+.chip.hard{color:#c07a5b;border-color:#4b2c1e}
+.task p{font-size:13px;color:var(--ink)}
+.task .src{margin-top:10px;font-size:11.5px;color:var(--muted);font-style:italic}
+.more{margin:26px auto 0;display:block}
+
+footer{border-top:1px solid var(--line);padding:44px 0 60px;color:var(--muted);font-size:13px}
+footer .mantra{font-family:Baskerville,Georgia,serif;color:var(--dim);font-size:15px;margin-bottom:10px}
+@media(max-width:720px){h1{font-size:38px}.row{grid-template-columns:26px 130px 1fr 56px;gap:8px}.stats{gap:26px}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <div class="brand">Advaita<span>Bench</span></div>
+  <a class="item" href="#leaderboard">Leaderboard</a>
+  <a class="item" href="#families">Families</a>
+  <a class="item" href="#methodology">Methodology</a>
+  <a class="item" href="#tasks">Tasks</a>
+  <a class="gh" href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark">GitHub ↗</a>
+</div></nav>
+
+<header><div class="wrap">
+  <h1>Can a language model<br>hold the <span class="om">non&#8209;dual</span> line?</h1>
+  <p class="tagline">AdvaitaBench measures how reliably frontier LLMs teach, interpret, and defend
+  classical Advaita Vedānta — without conflating schools, collapsing levels of reality,
+  or capitulating under śruti pressure.</p>
+  <div class="stats">
+    <div class="stat"><div class="n" id="s-models">—</div><div class="l">Frontier models</div></div>
+    <div class="stat"><div class="n" id="s-tasks">—</div><div class="l">Tasks</div></div>
+    <div class="stat"><div class="n">8</div><div class="l">Task families</div></div>
+    <div class="stat"><div class="n">2</div><div class="l">Judges, debiased</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Tools / retrieval</div></div>
+  </div>
+</div></header>
+
+<section id="leaderboard"><div class="wrap">
+  <h2>Leaderboard</h2>
+  <p class="sub"><b style="color:var(--bone)">AdvaitaBench-N</b> — a judge-ensemble score normalized
+  across a strict GPT-5.4 grader and a Haiku 4.5 grader, with a measured self-preference correction
+  applied to each judge's own model family. 50 = field mean; higher is better. Whiskers show the ±95% CI
+  of task-level scores under the strict judge.</p>
+  <div class="lb" id="lb"></div>
+  <div class="legend">
+    <span><span class="k"></span>AdvaitaBench-N (T-score)</span>
+    <span><span class="kci"></span>±95% CI (strict-judge task spread)</span>
+    <span>Hover a row for per-judge composites.</span>
+  </div>
+</div></section>
+
+<section id="families"><div class="wrap">
+  <h2>Where models break</h2>
+  <p class="sub">Per-family scores under the strict judge (0–100). <b style="color:var(--bone)">Sustained
+  Dialectic</b> — multi-turn śruti pressure with genuine contradicting citations — is the widest
+  differentiator: models that answer well in one turn often concede doctrine by turn four.</p>
+  <div class="hm"><table id="hm"></table></div>
+</div></section>
+
+<section id="methodology"><div class="wrap">
+  <h2>Methodology</h2>
+  <p class="sub">Closed-book (no tools, no retrieval), temperature 0, school-pinned system prompt.
+  Every task carries reference answers, gold points, required distinctions, and forbidden claims;
+  judges verify against the reference material rather than their own prior.
+  Full detail: <a href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark/blob/main/docs/METHODOLOGY.md">METHODOLOGY.md</a>.</p>
+  <div class="cards">
+    <div class="card"><h3>①&nbsp; Eight task families</h3><p>Concept precision, levels of reality,
+      school discrimination, text-grounded interpretation, misconception repair, consistency under
+      rephrasing, open elicitation ("Who am I?" with no technical vocabulary), and sustained
+      dialectic — Yakṣa-praśna-style multi-turn pressure with genuine canonical citations.</p></div>
+    <div class="card"><h3>②&nbsp; Contamination control</h3><p>Every task is tagged
+      <i>canonical / paraphrased / novel</i>. Held-out passages are mined from less-quoted
+      bhāṣya sections (GRETIL e-texts), and scores are reported stratified — the canonical−novel
+      gap measures memorization.</p></div>
+    <div class="card"><h3>③&nbsp; Strict rubric with hard caps</h3><p>4/4 is reserved for answers a
+      śāstric examiner could not fault. School-mixing, level collapse, an affirmed forbidden claim,
+      or capitulation under pressure trigger automatic score caps regardless of eloquence.</p></div>
+    <div class="card"><h3>④&nbsp; Judge ensemble, debiased</h3><p>Both single judges showed measurable
+      same-family preference (each ranked its own lab's models on top). The headline score standardizes
+      each judge, subtracts a difference-in-differences self-preference estimate, and averages.</p></div>
+  </div>
+  <div class="formula">c_ij  = composite of model i under judge j        (after cap-misfire fix)
+z_ij  = (c_ij − μ_j) / σ_j                       per-judge standardization
+sp_j  = max(0, mean over j's own family of (z_ij − z_i,other))
+z′_ij = z_ij − sp_j · 1[i ∈ family(j)]           self-preference correction
+AdvaitaBench-N = 50 + 15 · mean_j( z′_ij )</div>
+</div></section>
+
+<section id="tasks"><div class="wrap">
+  <h2>The tasks</h2>
+  <p class="sub">The public pilot bank — 84 tasks. Filter by family. Multi-turn tasks include scripted
+  pushback sequences (shown abridged); reference answers and grading fields live in the repo.</p>
+  <div class="filters" id="filters"></div>
+  <div class="tgrid" id="tgrid"></div>
+  <button class="fbtn more" id="more">Show all</button>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="mantra">tat tvam asi — thou art That</div>
+  <div>AdvaitaBench · pilot release, July 2026 · MIT ·
+    <a href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark">github.com/Atharva-Kanherkar/advaita-vedanta-benchmark</a></div>
+  <div style="margin-top:8px;max-width:720px">Results are a pilot snapshot (84 tasks, single sample,
+  two-judge ensemble). Publication-grade claims require the expanded task bank, human adjudication
+  (κ ≥ 0.65), and a third family-neutral judge — see the methodology.</div>
+</div></footer>
+
+<div class="tip" id="tip"></div>
+
+<script src="data.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+$('#s-models').textContent=DATA.meta.n_models;
+$('#s-tasks').textContent=DATA.meta.n_tasks;
+
+/* Leaderboard: bars scaled to a 0..max domain across normalized scores */
+const max=Math.max(...DATA.models.map(m=>m.normalized))*1.06;
+const lb=$('#lb'), tip=$('#tip');
+DATA.models.forEach((m,i)=>{
+  const w=100*m.normalized/max, cw=100*(m.ci*0.3)/max; /* CI is on 0-100 strict scale; scale visually */
+  const row=document.createElement('div');row.className='row';
+  row.innerHTML=`<div class="rk">${i+1}</div>
+    <div class="nm">${m.name}<small>${m.org}${m.note?' · '+m.note:''}</small></div>
+    <div class="trk"><div class="bar" style="width:${w}%"></div>
+      <div class="ci" style="left:${Math.max(0,w-cw)}%;width:${2*cw}%;"></div></div>
+    <div class="sc">${m.normalized.toFixed(1)}</div>`;
+  row.addEventListener('mousemove',e=>{
+    tip.style.display='block';
+    tip.innerHTML=`<b>${m.name}</b> · ${m.org}<br>
+      AdvaitaBench-N: <span class="g">${m.normalized.toFixed(1)}</span><br>
+      Strict judge (GPT-5.4): ${m.strict.toFixed(1)} ± ${m.ci}<br>
+      Lenient judge (Haiku 4.5): ${m.lenient.toFixed(1)}${m.note?'<br><i>'+m.note+'</i>':''}`;
+    tip.style.left=Math.min(e.clientX+16,innerWidth-300)+'px';
+    tip.style.top=(e.clientY+14)+'px';
+  });
+  row.addEventListener('mouseleave',()=>tip.style.display='none');
+  lb.appendChild(row);
+});
+
+/* Heatmap: sequential gold ramp on dark */
+function ramp(v){ /* 0..100 -> dark slate .. gold .. pale gold */
+  if(v==null)return['#1a1e38','#5c6080'];
+  const stops=[[35,'#3a2f22'],[50,'#6b5426'],[62,'#93712f'],[72,'#b8903c'],[82,'#d4a24e'],[101,'#ecc87e']];
+  for(const[t,c]of stops)if(v<t)return[c,'#0a0c17'];
+  return['#ecc87e','#0a0c17'];
+}
+const hm=$('#hm');
+hm.innerHTML='<thead><tr><th class="l">Model</th>'+DATA.families.map(f=>`<th>${f[1].replace(' ','&nbsp;')}</th>`).join('')+'</tr></thead>'
+ +'<tbody>'+DATA.models.map(m=>'<tr><td class="l">'+m.name+'</td>'+DATA.families.map(f=>{
+    const v=m.families[f[0]];const[bg,fg]=ramp(v);
+    return `<td><span class="cell" style="background:${bg};color:${fg}">${v==null?'—':v.toFixed(0)}</span></td>`;
+  }).join('')+'</tr>').join('')+'</tbody>';
+
+/* Task browser */
+const famName=Object.fromEntries(DATA.families);
+let fam='all', shown=12;
+const fdiv=$('#filters'), tg=$('#tgrid'), more=$('#more');
+const fbtn=(id,label)=>{const b=document.createElement('button');b.className='fbtn'+(id===fam?' on':'');
+  b.textContent=label;b.onclick=()=>{fam=id;shown=12;render()};return b};
+function render(){
+  fdiv.innerHTML='';fdiv.appendChild(fbtn('all','All ('+DATA.tasks.length+')'));
+  DATA.families.forEach(f=>{const n=DATA.tasks.filter(t=>t.family===f[0]).length;
+    fdiv.appendChild(fbtn(f[0],f[1]+' ('+n+')'))});
+  const list=DATA.tasks.filter(t=>fam==='all'||t.family===fam);
+  tg.innerHTML=list.slice(0,shown).map(t=>`
+    <div class="task"><div class="meta">
+      <span class="chip fam">${famName[t.family]}</span>
+      <span class="chip ${t.provenance}">${t.provenance}</span>
+      ${t.difficulty==='hard'?'<span class="chip hard">hard</span>':''}
+      ${t.multiturn?'<span class="chip">multi-turn</span>':''}
+    </div><p>${t.prompt.length>300?t.prompt.slice(0,300)+'…':t.prompt}</p>
+    ${t.source?`<div class="src">${t.source}</div>`:''}</div>`).join('');
+  more.style.display=list.length>shown?'block':'none';
+  more.textContent=`Show all ${list.length}`;
+}
+more.onclick=()=>{shown=1e4;render()};
+render();
+</script>
+</body>
+</html>

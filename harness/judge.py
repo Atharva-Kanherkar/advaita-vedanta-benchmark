@@ -56,8 +56,10 @@ def _render_transcript(messages: list[dict[str, str]]) -> str:
     return "\n\n".join(lines)
 
 
-def render_rubric_prompt(task: Task, response: str, prior_turns: str = "") -> str:
-    tmpl = _load_template("rubric_judge.txt")
+def render_rubric_prompt(
+    task: Task, response: str, prior_turns: str = "", template: str = "rubric_judge.txt"
+) -> str:
+    tmpl = _load_template(template)
     passage_text = passage_source = passage_tier = ""
     if task.passage:
         passage_text = task.passage.text
@@ -90,8 +92,9 @@ def judge_response(
     judge_model: str,
     judge_fn=None,
     prior_turns: str = "",
+    template: str = "rubric_judge.txt",
 ) -> Judgment:
-    prompt = render_rubric_prompt(task, response, prior_turns=prior_turns)
+    prompt = render_rubric_prompt(task, response, prior_turns=prior_turns, template=template)
     messages = [
         {"role": "system", "content": "You grade Advaita Vedānta exam answers. Output JSON only."},
         {"role": "user", "content": prompt},
@@ -169,10 +172,23 @@ def judge_run(
     judge_model: str,
     dry_run: bool = False,
     allow_self_judge: bool = False,
+    resume: bool = False,
 ) -> Path:
     task_map = load_task_map(tasks_dir)
     responses_path = run_dir / "responses.jsonl"
     judged_path = run_dir / "judged.jsonl"
+
+    # Resume: keep judgments already on disk and skip re-judging them, so a run
+    # killed midway (sleep / teardown) continues instead of starting over.
+    done: set[tuple[str, str]] = set()
+    prior_judgments: list[Judgment] = []
+    if resume and judged_path.exists():
+        for line in judged_path.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            j = Judgment(**json.loads(line))
+            prior_judgments.append(j)
+            done.add((j.model, j.task_id))
 
     # Group every response record under its base task id (strips the @N
     # multi-turn suffix). Keeping full records — not just response strings —
@@ -295,11 +311,16 @@ def _judge_consistency(run_dir, task_map, judgments, judge_model, judge_fn) -> P
             print(f"    ! consistency judge skipped {model}/{group_id}: unparseable JSON")
             continue
 
-        pairwise = [
-            PairwiseDistance(a=p.get("a", ""), b=p.get("b", ""),
-                             distance=int(p.get("distance", 0)), note=p.get("note", ""))
-            for p in (data.get("pairwise_distances") or [])
-        ]
+        pairwise = []
+        for p in (data.get("pairwise_distances") or []):
+            try:
+                pairwise.append(PairwiseDistance(
+                    a=str(p.get("a", "")), b=str(p.get("b", "")),
+                    distance=int(p.get("distance", 0) or 0),
+                    note=p.get("note", "") if isinstance(p.get("note"), str) else json.dumps(p.get("note", ""), ensure_ascii=False),
+                ))
+            except Exception:  # noqa: BLE001 - tolerate judge schema drift per pair
+                continue
         max_distance = int(data.get("max_distance", max((p.distance for p in pairwise), default=0)))
         # Recompute from distance for determinism rather than trusting the
         # judge's own arithmetic.
@@ -312,7 +333,9 @@ def _judge_consistency(run_dir, task_map, judgments, judge_model, judge_fn) -> P
             member_task_ids=[m.task_id for m in members], pairwise_distances=pairwise,
             max_distance=max_distance, consistency_score=round(consistency_score, 2),
             mean_variant_score=round(mean_variant, 2), group_score=round(group_score, 2),
-            drift_flags=list(data.get("drift_flags") or []), summary=data.get("summary", ""),
+            drift_flags=[f if isinstance(f, str) else json.dumps(f, ensure_ascii=False)
+                         for f in (data.get("drift_flags") or [])],
+            summary=str(data.get("summary", "")),
         ))
 
     out = run_dir / "consistency.jsonl"
