@@ -12,3 +12,5 @@ build/
 corpus/raw/
 corpus/manifest.json
 marketing/
+*.log
+complete_run.sh
