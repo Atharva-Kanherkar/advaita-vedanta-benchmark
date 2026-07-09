@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  width:1200px;height:630px;overflow:hidden;
+  background:#fff;color:#111;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:64px 72px;
+  border:1px solid #eaeaea;
+}
+.top{display:flex;align-items:center;gap:18px}
+.logo{width:48px;height:48px}
+.brand{font-size:42px;font-weight:600;letter-spacing:-1.2px}
+.mid{max-width:920px}
+.mid h1{font-size:48px;line-height:1.15;font-weight:500;letter-spacing:-1px;color:#333}
+.mid p{margin-top:22px;font-size:24px;line-height:1.45;color:#777;max-width:860px}
+.bottom{display:flex;justify-content:space-between;align-items:flex-end}
+.stats{display:flex;gap:36px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:16px;color:#666}
+.stats b{color:#111;font-weight:500;margin-left:10px}
+.url{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:16px;color:#999}
+</style>
+</head>
+<body>
+  <div class="top">
+    <svg class="logo" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 22h20L12 2z"></path><path d="M12 10L6 20h12L12 10z"></path></svg>
+    <div class="brand">AdvaitaBench</div>
+  </div>
+  <div class="mid">
+    <h1>Most models can sound profound. Few can hold a precise position when you argue back.</h1>
+    <p>A closed-book philosophy pressure test for frontier AI: classical Advaita Vedanta, 84 tasks, 10 models, two debiased judges.</p>
+  </div>
+  <div class="bottom">
+    <div class="stats">
+      <span>tasks<b>84</b></span>
+      <span>models<b>10</b></span>
+      <span>judges<b>2</b></span>
+    </div>
+    <div class="url">advaitabench.atharvakanherkar.com</div>
+  </div>
+</body>
+</html>
