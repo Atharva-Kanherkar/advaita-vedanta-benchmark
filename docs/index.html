@@ -10,99 +10,55 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f3efe6; --panel:#ebe6da; --ink:#161513; --sub:#57534a; --faint:#8f897b;
-  --line:#dcd6c6; --line2:#c9c2af; --accent:#161513;
-  --hero-bg:#0e1210; --hero-ink:#efe8d8; --hero-sub:#a8a090; --hero-faint:#6e6a5e;
-  --hero-line:rgba(239,232,216,.14); --hero-glow:#2a3a32;
+  --bg:#f7f4ec; --panel:#f0ebe1; --ink:#1a1814; --sub:#5c574e; --faint:#8a8478;
+  --line:#e2dccf; --line2:#cdc6b6; --accent:#1a1814;
   --anthropic:#d97e55; --openai:#0f9d78; --google:#4a8fe2; --alibaba:#b0578d;
   --deepseek:#5b6ee1; --zhipu:#8a6fc8; --xai:#7a766c;
 }
 [data-theme="dark"]{
   --bg:#141412; --panel:#1c1b18; --ink:#f0ece0; --sub:#b3ada0; --faint:#7c766a;
   --line:#2b2a25; --line2:#3b392f; --accent:#f0ece0;
-  --hero-bg:#080a09; --hero-ink:#f0ece0; --hero-sub:#b3ada0; --hero-faint:#7c766a;
-  --hero-line:rgba(240,236,224,.12); --hero-glow:#1a2420;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font:15px/1.65 "Source Sans 3",sans-serif;transition:background .2s,color .2s}
+body{background:var(--bg);color:var(--ink);font:15px/1.65 "Source Sans 3",sans-serif}
 .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
 a{color:var(--ink)}
 .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
 
-nav{position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);border-bottom:1px solid var(--line);z-index:50;backdrop-filter:blur(10px)}
-nav .wrap{display:flex;align-items:center;gap:24px;height:58px}
-.brand{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:22px;letter-spacing:-.3px;text-decoration:none}
+nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:50}
+nav .wrap{display:flex;align-items:center;gap:24px;height:56px}
+.brand{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:20px;letter-spacing:-.2px;text-decoration:none}
 nav a.item{color:var(--sub);font-size:13.5px;text-decoration:none}
 nav a.item:hover{color:var(--ink)}
 nav .right{margin-left:auto;display:flex;gap:14px;align-items:center}
-.toggle{border:1px solid var(--line2);background:transparent;color:var(--ink);border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:15px;line-height:1}
+.toggle{border:1px solid var(--line2);background:transparent;color:var(--ink);border-radius:6px;width:32px;height:32px;cursor:pointer;font-size:14px;line-height:1}
 
-/* —— Hero: one composition, brand-first —— */
-.hero{
-  position:relative;isolation:isolate;overflow:hidden;
-  min-height:min(92vh,860px);display:flex;align-items:center;
-  background:var(--hero-bg);color:var(--hero-ink);
-  border-bottom:1px solid var(--line);
-}
-.hero-plane{
-  position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 70% 55% at 78% 42%, var(--hero-glow) 0%, transparent 62%),
-    radial-gradient(ellipse 50% 40% at 12% 80%, rgba(42,58,50,.45) 0%, transparent 55%),
-    linear-gradient(165deg, #0c100e 0%, #121816 48%, #0a0e0c 100%);
-}
-.hero-mark{
-  position:absolute;right:-6%;top:50%;transform:translateY(-52%);
-  width:min(58vw,620px);height:min(58vw,620px);opacity:.22;
-  animation:mark-drift 28s ease-in-out infinite alternate;
-}
-.hero-mark svg{width:100%;height:100%}
-.hero-grain{
-  position:absolute;inset:0;opacity:.07;mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.hero .wrap{position:relative;z-index:1;padding-top:72px;padding-bottom:80px;width:100%}
+/* Hero — light, quiet, brand-led */
+.hero{padding:88px 0 64px;border-bottom:1px solid var(--line)}
 .hero-brand{
-  font-family:"Instrument Serif",Georgia,serif;font-size:clamp(56px,11vw,112px);
-  line-height:.92;letter-spacing:-2.5px;font-weight:400;margin:0;
-  animation:rise .9s cubic-bezier(.22,1,.36,1) both;
+  font-family:"Instrument Serif",Georgia,serif;
+  font-size:clamp(48px,8vw,80px);line-height:.95;letter-spacing:-1.8px;font-weight:400;
 }
-.hero-brand em{font-style:italic;color:#c8b896}
+.hero-brand em{font-style:italic;font-weight:400}
 .hero h1{
-  margin-top:28px;max-width:16ch;
+  margin-top:28px;max-width:18ch;
   font-family:"Instrument Serif",Georgia,serif;font-weight:400;
-  font-size:clamp(28px,4.2vw,42px);line-height:1.18;letter-spacing:-.6px;
-  color:var(--hero-ink);animation:rise .9s .12s cubic-bezier(.22,1,.36,1) both;
+  font-size:clamp(26px,3.4vw,36px);line-height:1.22;letter-spacing:-.4px;
 }
 .hero .lede{
-  margin-top:22px;max-width:34em;font-size:clamp(16px,1.7vw,19px);
-  line-height:1.55;color:var(--hero-sub);font-weight:400;
-  animation:rise .9s .22s cubic-bezier(.22,1,.36,1) both;
+  margin-top:20px;max-width:36em;font-size:17px;line-height:1.55;color:var(--sub);
 }
-.hero .cta{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap;animation:rise .9s .32s cubic-bezier(.22,1,.36,1) both}
-.btn{display:inline-block;padding:12px 22px;border-radius:2px;font-size:14px;font-weight:600;text-decoration:none;border:1px solid var(--ink);transition:transform .2s ease,background .2s,color .2s}
-.btn:hover{transform:translateY(-1px)}
+.hero .cta{margin-top:32px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-block;padding:10px 18px;border-radius:6px;font-size:14px;font-weight:600;text-decoration:none;border:1px solid var(--ink)}
 .btn.solid{background:var(--ink);color:var(--bg)}
-.hero .btn{border-color:var(--hero-ink);color:var(--hero-ink)}
-.hero .btn.solid{background:var(--hero-ink);color:var(--hero-bg);border-color:var(--hero-ink)}
-.hero .btn:not(.solid):hover{background:rgba(239,232,216,.08)}
-.hero-scroll{
-  position:absolute;left:24px;bottom:28px;z-index:1;
-  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:1.4px;
-  text-transform:uppercase;color:var(--hero-faint);
-  animation:rise .9s .5s cubic-bezier(.22,1,.36,1) both;
-}
-@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-@keyframes mark-drift{from{transform:translateY(-52%) rotate(0deg)}to{transform:translateY(-48%) rotate(4deg)}}
+.btn:not(.solid){color:var(--ink);background:transparent}
 
-.metrics-strip{
-  display:flex;gap:0;border-bottom:1px solid var(--line);background:var(--panel);
-}
+.metrics-strip{border-bottom:1px solid var(--line)}
 .metrics-strip .wrap{display:flex;width:100%;gap:0}
-.metric{flex:1;padding:20px 20px 20px 0;border-right:1px solid var(--line)}
+.metric{flex:1;padding:18px 20px 18px 0;border-right:1px solid var(--line)}
 .metric:last-child{border-right:0;padding-right:0}
-.metric .n{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:500}
+.metric .n{font-family:"IBM Plex Mono",monospace;font-size:20px;font-weight:500}
 .metric .l{font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
 
 section{padding:72px 0;border-bottom:1px solid var(--line)}
@@ -155,17 +111,12 @@ svg .grid{stroke:var(--line);stroke-width:1}
 footer{padding:46px 0 64px;color:var(--faint);font-size:13px}
 footer .q{font-family:"Instrument Serif",Georgia,serif;font-size:20px;color:var(--sub);margin-bottom:10px;font-style:italic}
 @media(max-width:720px){
-  .hero{min-height:auto}
-  .hero .wrap{padding-top:56px;padding-bottom:64px}
-  .hero-brand{font-size:56px;letter-spacing:-1.5px}
-  .hero h1{font-size:26px;max-width:none}
-  .hero-mark{opacity:.12;right:-20%;width:90vw;height:90vw}
+  .hero{padding:56px 0 48px}
+  .hero-brand{font-size:48px;letter-spacing:-1.2px}
+  .hero h1{font-size:24px;max-width:none}
   .metrics-strip .wrap{flex-wrap:wrap}
   .metric{min-width:45%;padding:16px 0}
   .metric:nth-child(2){border-right:0}
-}
-@media(prefers-reduced-motion:reduce){
-  .hero-brand,.hero h1,.hero .lede,.hero .cta,.hero-scroll,.hero-mark{animation:none}
 }
 </style>
 </head>
@@ -183,21 +134,6 @@ footer .q{font-family:"Instrument Serif",Georgia,serif;font-size:20px;color:var(
 </div></nav>
 
 <header class="hero" aria-label="AdvaitaBench">
-  <div class="hero-plane" aria-hidden="true"></div>
-  <div class="hero-mark" aria-hidden="true">
-    <!-- Concentric rings: a quiet visual for the non-dual inquiry -->
-    <svg viewBox="0 0 620 620" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="310" cy="310" r="292" stroke="#efe8d8" stroke-width="1" opacity=".35"/>
-      <circle cx="310" cy="310" r="236" stroke="#efe8d8" stroke-width="1" opacity=".45"/>
-      <circle cx="310" cy="310" r="178" stroke="#efe8d8" stroke-width="1.2" opacity=".55"/>
-      <circle cx="310" cy="310" r="118" stroke="#efe8d8" stroke-width="1.4" opacity=".7"/>
-      <circle cx="310" cy="310" r="58" stroke="#efe8d8" stroke-width="1.6" opacity=".85"/>
-      <circle cx="310" cy="310" r="8" fill="#efe8d8" opacity=".9"/>
-      <line x1="310" y1="18" x2="310" y2="602" stroke="#efe8d8" stroke-width=".6" opacity=".25"/>
-      <line x1="18" y1="310" x2="602" y2="310" stroke="#efe8d8" stroke-width=".6" opacity=".25"/>
-    </svg>
-  </div>
-  <div class="hero-grain" aria-hidden="true"></div>
   <div class="wrap">
     <p class="hero-brand">Advaita<em>Bench</em></p>
     <h1>Can AI hold the non-dual line — or only sound wise?</h1>
@@ -207,7 +143,6 @@ footer .q{font-family:"Instrument Serif",Georgia,serif;font-size:20px;color:var(
       <a class="btn" href="blog.html">Read the write-up</a>
     </div>
   </div>
-  <div class="hero-scroll">Scroll for the leaderboard</div>
 </header>
 
 <div class="metrics-strip"><div class="wrap">
