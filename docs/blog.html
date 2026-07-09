@@ -59,6 +59,13 @@ td{border-top:1px solid var(--line);padding:8px 10px 8px 0;color:var(--sub)}
 td:first-child{color:var(--ink);font-weight:600}
 td.r,th.r{text-align:right}
 footer{border-top:1px solid var(--line);padding:40px 0 64px;color:var(--faint);font-size:13px}
+.fsteps{border:1px solid var(--line);border-radius:12px;margin:22px 0;overflow:hidden}
+.fstep{display:flex;gap:18px;padding:18px 22px;border-bottom:1px solid var(--line);background:var(--panel)}
+.fstep:last-child{border-bottom:0}
+.fnum{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--faint);border:1px solid var(--line2);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.fmath{font-family:ui-monospace,Menlo,monospace;font-size:14.5px;color:var(--ink);margin-bottom:6px;overflow-x:auto}
+.fmath sub{font-size:10px;color:var(--sub)}
+.fdesc{font-size:13.5px;color:var(--sub)}
 </style>
 </head>
 <body>
@@ -167,10 +174,25 @@ with an OpenAI judge (GPT-5.4, strict rubric). Each judge put its own maker's mo
 <p class="dim">A manual audit also caught the strict judge misfiring a penalty: it capped answers for
 "not citing the passage" when the model had cited the passage and then quoted <i>additional</i>
 scripture. We fixed the cap logic, then normalized:</p>
-<pre>z_ij  = (c_ij - mean_j) / sd_j          standardize each judge
-sp_j  = max(0, own-family advantage measured against the other judge)
-z'_ij = z_ij - sp_j  if model i belongs to judge j's family
-score = 50 + 15 * average over judges of z'_ij</pre>
+<div class="fsteps">
+  <div class="fstep"><div class="fnum">1</div>
+    <div><div class="fmath">z<sub>i,j</sub> = ( c<sub>i,j</sub> &minus; &mu;<sub>j</sub> ) / &sigma;<sub>j</sub></div>
+    <div class="fdesc">Standardize each judge. c<sub>i,j</sub> is model i's composite under judge j;
+    subtract that judge's mean and divide by its spread, so a harsh judge and a generous judge land
+    on the same scale.</div></div></div>
+  <div class="fstep"><div class="fnum">2</div>
+    <div><div class="fmath">sp<sub>j</sub> = max( 0,&nbsp; avg over judge j's own models of ( z<sub>i,j</sub> &minus; z<sub>i,other</sub> ) )</div>
+    <div class="fdesc">Measure self-preference. For the models made by judge j's own company, how much
+    higher does judge j place them than the other judge does? Averaged, floored at zero.</div></div></div>
+  <div class="fstep"><div class="fnum">3</div>
+    <div><div class="fmath">z&prime;<sub>i,j</sub> = z<sub>i,j</sub> &minus; sp<sub>j</sub> &nbsp;(only when model i is from judge j's family)</div>
+    <div class="fdesc">Subtract it. Each judge's score for its own family models is reduced by exactly
+    the advantage measured in step 2. All other scores are untouched.</div></div></div>
+  <div class="fstep"><div class="fnum">4</div>
+    <div><div class="fmath">AdvaitaBench&#8209;N<sub>i</sub> = 50 + 15 &times; avg over judges of z&prime;<sub>i,j</sub></div>
+    <div class="fdesc">Average the two corrected views and put the result on a familiar scale:
+    50 is the field average, each 15 points is one standard deviation.</div></div></div>
+</div>
 <p class="dim">The correction fired against the OpenAI judge (0.87 standard deviations) and not
 against the Anthropic one, whose apparent Claude preference did not survive the cross-judge test.
 With only two judges this cannot perfectly separate bias from genuine quality, which is why the
