@@ -68,7 +68,8 @@ h3.chart{font-family:"JetBrains Mono",monospace;font-size:12.5px;letter-spacing:
 svg text{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;fill:var(--sub)}
 svg .axis{stroke:var(--line2);stroke-width:1}
 svg .grid{stroke:var(--line);stroke-width:1}
-.chartbox{border:1px solid var(--line);border-radius:12px;padding:22px 18px 12px;background:var(--panel);overflow-x:auto}
+.chartbox{border:1px solid var(--line);border-radius:12px;padding:22px 18px 12px;background:var(--panel);overflow:hidden}
+.chartbox svg{display:block;width:100%;height:auto;min-height:320px}
 .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;padding:0 6px;font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--sub)}
 .legend .d{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:baseline}
 
@@ -110,12 +111,33 @@ svg .grid{stroke:var(--line);stroke-width:1}
 footer{padding:46px 0 64px;color:var(--faint);font-size:13px}
 footer .q{font-family:"Newsreader",Georgia,serif;font-size:20px;color:var(--sub);margin-bottom:10px;font-style:italic}
 @media(max-width:720px){
+  .wrap{padding:0 16px}
+  nav .wrap{gap:14px;height:auto;min-height:58px;padding-top:10px;padding-bottom:10px;align-items:flex-start}
+  .brand{font-size:16px}
+  nav .right{gap:10px;flex-wrap:wrap;justify-content:flex-end}
+  nav a.item{font-size:12.5px}
   .hero{padding:56px 0 48px}
-  .hero-brand{font-size:48px;letter-spacing:-1.2px}
-  .hero h1{font-size:24px;max-width:none}
-  .metrics-strip .wrap{flex-wrap:wrap}
-  .metric{min-width:45%;padding:16px 0}
-  .metric:nth-child(2){border-right:0}
+  .hero-top{display:block;margin-bottom:38px}
+  .hero-title-group{gap:12px}
+  .hero-title-group svg{width:32px;height:32px;flex:0 0 auto}
+  .hero-brand{font-size:clamp(34px,12vw,48px);letter-spacing:-1.2px;overflow-wrap:anywhere}
+  .hero-stats{margin-top:22px;text-align:left;max-width:260px}
+  .stat-row{gap:18px}
+  .hero-mid{gap:24px}
+  .hero h1{font-size:22px;max-width:none}
+  .hero-actions,.hero .cta{width:100%}
+  .btn{width:100%;padding:11px 14px}
+  section{padding:52px 0}
+  h2{font-size:24px}
+  h3.chart{line-height:1.45}
+  .chartbox{margin-left:-8px;margin-right:-8px;padding:16px 8px 10px;border-radius:8px}
+  .legend{gap:10px 14px;font-size:10.5px}
+  .toc a{display:block;padding:16px}
+  .toc .num,.toc .t,.toc .d{display:block}
+  .toc .t{margin-top:4px}
+  .toc .d{margin-top:6px}
+  .tgrid{grid-template-columns:1fr}
+  .fp{margin-left:-8px;margin-right:-8px}
 }
 </style>
 </head>
@@ -254,23 +276,39 @@ const show=(e,html)=>{tip.style.display='block';tip.innerHTML=html;
 const hide=()=>tip.style.display='none';
 const S=(tag,attrs)=>{const el=document.createElementNS('http://www.w3.org/2000/svg',tag);
   for(const k in attrs)el.setAttribute(k,attrs[k]);return el};
+const chartSize=(svg,desktopH,mobileH)=>{
+  const box=svg.closest('.chartbox');
+  const W=Math.max(320,Math.floor(box.getBoundingClientRect().width));
+  const compact=W<620;
+  const H=compact?mobileH:desktopH;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  svg.setAttribute('height',H);
+  return {W,H,compact};
+};
+const shortName=name=>name
+  .replace('claude-','')
+  .replace('deepseek-','ds-')
+  .replace('gemini-','gem-')
+  .replace('-preview','');
 
 /* ---------- chart 1: efficiency frontier scatter ---------- */
 function drawFrontier(){
   const svg=document.getElementById('frontier');svg.innerHTML='';
-  const M={l:64,r:30,t:18,b:46},W=960,H=440;
+  const {W,H,compact}=chartSize(svg,440,360);
+  const M=compact?{l:42,r:12,t:18,b:42}:{l:64,r:30,t:18,b:46};
   const xs=DATA.models.map(m=>m.tokens),ys=DATA.models.map(m=>m.normalized);
   const xmax=Math.max(...xs)*1.12,ymin=Math.min(...ys)-6,ymax=Math.max(...ys)+6;
   const X=v=>M.l+(W-M.l-M.r)*v/xmax, Y=v=>H-M.b-(H-M.t-M.b)*(v-ymin)/(ymax-ymin);
   for(let g=0;g<=4;g++){const yv=ymin+(ymax-ymin)*g/4;
     svg.appendChild(S('line',{x1:M.l,x2:W-M.r,y1:Y(yv),y2:Y(yv),class:'grid'}));
-    const t=S('text',{x:M.l-10,y:Y(yv)+4,'text-anchor':'end','font-size':11});t.textContent=yv.toFixed(0);svg.appendChild(t);}
+    const t=S('text',{x:M.l-8,y:Y(yv)+4,'text-anchor':'end','font-size':compact?10:11});t.textContent=yv.toFixed(0);svg.appendChild(t);}
   for(let g=0;g<=4;g++){const xv=xmax*g/4;
-    const t=S('text',{x:X(xv),y:H-M.b+20,'text-anchor':'middle','font-size':11});t.textContent=Math.round(xv/100)*100;svg.appendChild(t);}
+    if(compact&&g%2===1)continue;
+    const t=S('text',{x:X(xv),y:H-M.b+20,'text-anchor':'middle','font-size':compact?10:11});t.textContent=Math.round(xv/100)*100;svg.appendChild(t);}
   svg.appendChild(S('line',{x1:M.l,x2:W-M.r,y1:H-M.b,y2:H-M.b,class:'axis'}));
-  const xl=S('text',{x:(M.l+W-M.r)/2,y:H-8,'text-anchor':'middle','font-size':11});
-  xl.textContent='mean words per answer (output tokens)';svg.appendChild(xl);
-  const yl=S('text',{x:M.l,y:12,'font-size':11});yl.textContent='AdvaitaBench-N ↑';svg.appendChild(yl);
+  const xl=S('text',{x:(M.l+W-M.r)/2,y:H-8,'text-anchor':'middle','font-size':compact?10:11});
+  xl.textContent=compact?'words per answer':'mean words per answer (output tokens)';svg.appendChild(xl);
+  const yl=S('text',{x:M.l,y:12,'font-size':compact?10:11});yl.textContent='AdvaitaBench-N ↑';svg.appendChild(yl);
   /* pareto frontier line: sort by tokens, keep running max of score */
   const pts=[...DATA.models].sort((a,b)=>a.tokens-b.tokens);
   let best=-1;const front=[];
@@ -278,21 +316,25 @@ function drawFrontier(){
   const path=front.map((m,i)=>(i?'L':'M')+X(m.tokens)+' '+Y(m.normalized)).join(' ');
   svg.appendChild(S('path',{d:path,fill:'none',stroke:'var(--line2)','stroke-width':1.5,'stroke-dasharray':'5 4'}));
   const last=front[front.length-1];
-  const fe=S('text',{x:Math.min(X(last.tokens)+14,W-150),y:Y(last.normalized)+4,'font-size':10.5});
-  fe.textContent='← efficient frontier';svg.appendChild(fe);
+  if(!compact){
+    const fe=S('text',{x:Math.min(X(last.tokens)+14,W-150),y:Y(last.normalized)+4,'font-size':10.5});
+    fe.textContent='← efficient frontier';svg.appendChild(fe);
+  }
   const placed=[];
   DATA.models.forEach(m=>{
     const g=S('g',{cursor:'pointer'});
     const cx=X(m.tokens),cy=Y(m.normalized);
-    g.appendChild(S('circle',{cx,cy,r:7,fill:color(m.org),stroke:'var(--bg)','stroke-width':2}));
-    const w=m.name.length*6.6;
+    g.appendChild(S('circle',{cx,cy,r:compact?6:7,fill:color(m.org),stroke:'var(--bg)','stroke-width':2}));
+    const label=compact?shortName(m.name):m.name;
+    const w=label.length*(compact?5.6:6.6);
     let ly=cy-13; // try above; flip below on overlap with an already-placed label
     const hits=b=>placed.some(p=>Math.abs(p.x-cx)<(p.w+w)/2+6&&Math.abs(p.y-b)<14);
     if(hits(ly))ly=cy+22;
     if(hits(ly))ly=cy-26;
+    ly=Math.max(M.t+12,Math.min(H-M.b-10,ly));
     placed.push({x:cx,y:ly,w});
-    const lbl=S('text',{x:cx,y:ly,'text-anchor':'middle','font-size':11.5,'font-weight':600});
-    lbl.textContent=m.name;lbl.setAttribute('fill','var(--ink)');g.appendChild(lbl);
+    const lbl=S('text',{x:cx,y:ly,'text-anchor':'middle','font-size':compact?9.5:11.5,'font-weight':600});
+    lbl.textContent=label;lbl.setAttribute('fill','var(--ink)');g.appendChild(lbl);
     g.addEventListener('mousemove',e=>show(e,`<b>${m.name}</b> (${m.org})<br>score ${m.normalized.toFixed(1)} · ${m.tokens} tokens/answer<br>strict ${m.strict.toFixed(1)} / lenient ${m.lenient.toFixed(1)}${m.note?'<br>'+m.note:''}`));
     g.addEventListener('mouseleave',hide);
     svg.appendChild(g);
@@ -304,12 +346,13 @@ function drawFrontier(){
 /* ---------- chart 2: judge slope chart ---------- */
 function drawSlope(){
   const svg=document.getElementById('slope');svg.innerHTML='';
-  const W=960,H=430,L=300,R=660,T=44,B=36;
+  const {W,H,compact}=chartSize(svg,430,400);
+  const L=compact?Math.round(W*.38):300,R=compact?Math.round(W*.62):660,T=44,B=36;
   /* per-judge min-max scaling so both columns use full height */
   const ls=DATA.models.map(m=>m.lenient),ss=DATA.models.map(m=>m.strict);
   const sc=(v,arr)=>T+(H-T-B)*(1-(v-Math.min(...arr))/(Math.max(...arr)-Math.min(...arr)));
-  const hL=S('text',{x:L,y:22,'text-anchor':'end','font-size':12,'font-weight':600});hL.textContent='lenient · Haiku 4.5';hL.setAttribute('fill','var(--ink)');svg.appendChild(hL);
-  const hR=S('text',{x:R,y:22,'text-anchor':'start','font-size':12,'font-weight':600});hR.textContent='strict · GPT-5.4';hR.setAttribute('fill','var(--ink)');svg.appendChild(hR);
+  const hL=S('text',{x:L,y:22,'text-anchor':'end','font-size':compact?10.5:12,'font-weight':600});hL.textContent=compact?'lenient':'lenient · Haiku 4.5';hL.setAttribute('fill','var(--ink)');svg.appendChild(hL);
+  const hR=S('text',{x:R,y:22,'text-anchor':'start','font-size':compact?10.5:12,'font-weight':600});hR.textContent=compact?'strict':'strict · GPT-5.4';hR.setAttribute('fill','var(--ink)');svg.appendChild(hR);
   svg.appendChild(S('line',{x1:L,x2:L,y1:T,y2:H-B,class:'axis'}));
   svg.appendChild(S('line',{x1:R,x2:R,y1:T,y2:H-B,class:'axis'}));
   /* label collision avoidance: sort by y then nudge */
@@ -322,8 +365,12 @@ function drawSlope(){
     g.appendChild(S('line',{x1:L,x2:R,y1:sc(m.lenient,ls),y2:sc(m.strict,ss),stroke:c,'stroke-width':1.6,opacity:.85}));
     g.appendChild(S('circle',{cx:L,cy:sc(m.lenient,ls),r:5,fill:c}));
     g.appendChild(S('circle',{cx:R,cy:sc(m.strict,ss),r:5,fill:c}));
-    const t1=S('text',{x:L-12,y:y1+4,'text-anchor':'end','font-size':11.5});t1.textContent=`${m.name}  ${m.lenient.toFixed(1)}`;g.appendChild(t1);
-    const t2=S('text',{x:R+12,y:y2+4,'font-size':11.5});t2.textContent=`${m.strict.toFixed(1)}  ${m.name}`;g.appendChild(t2);
+    const t1=S('text',{x:L-10,y:y1+4,'text-anchor':'end','font-size':compact?9.5:11.5});t1.textContent=compact?m.lenient.toFixed(1):`${m.name}  ${m.lenient.toFixed(1)}`;g.appendChild(t1);
+    const t2=S('text',{x:R+10,y:y2+4,'font-size':compact?9.5:11.5});t2.textContent=compact?m.strict.toFixed(1):`${m.strict.toFixed(1)}  ${m.name}`;g.appendChild(t2);
+    if(compact){
+      const tm=S('text',{x:W/2,y:(sc(m.lenient,ls)+sc(m.strict,ss))/2-4,'text-anchor':'middle','font-size':8.5});
+      tm.textContent=shortName(m.name);g.appendChild(tm);
+    }
     g.addEventListener('mousemove',e=>show(e,`<b>${m.name}</b><br>lenient ${m.lenient.toFixed(1)} → strict ${m.strict.toFixed(1)}`));
     g.addEventListener('mouseleave',hide);
     svg.appendChild(g);
@@ -368,6 +415,11 @@ function renderTasks(){
 more.onclick=()=>{shown=1e4;renderTasks()};
 
 function draw(){drawFrontier();drawSlope();drawFP()}
+let resizeTimer;
+addEventListener('resize',()=>{
+  clearTimeout(resizeTimer);
+  resizeTimer=setTimeout(draw,120);
+});
 draw();renderTasks();
 </script>
 </body>
