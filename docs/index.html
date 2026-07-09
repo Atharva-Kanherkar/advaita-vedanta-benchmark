@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AdvaitaBench</title>
-<meta name="description" content="Measuring whether AI models actually understand humanity's oldest answers to Who am I, or just sound wise.">
+<meta name="description" content="A pressure test for whether frontier models can hold precise philosophical distinctions under attack — or only sound wise. Built for labs that care about reliability beyond trivia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -47,14 +47,16 @@ nav .right{margin-left:auto;display:flex;gap:16px;align-items:center}
 .stat-row span:last-child{color:var(--ink);font-weight:500}
 
 .hero-mid{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;flex-wrap:wrap}
-.hero-desc{max-width:440px}
-.hero h1{
-  font-weight:500;font-size:20px;line-height:1.4;letter-spacing:-.2px;color:var(--sub);margin-bottom:12px;
+.hero-desc{max-width:520px}
+.hero-pitch{
+  font-family:"Inter",sans-serif;font-size:20px;font-weight:400;letter-spacing:-.2px;
+  line-height:1.45;margin-bottom:14px;color:var(--sub);
 }
 .hero .lede{
-  font-size:15px;line-height:1.6;color:var(--faint);margin-bottom:24px;
+  font-size:14.5px;line-height:1.65;color:var(--faint);margin:0 0 10px;max-width:38em;
 }
-.hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+.hero .scroll-link{display:inline-block;margin-top:10px;font-size:14px;color:var(--faint);text-decoration:none}
+.hero .cta,.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 18px;border-radius:4px;font-size:14px;font-weight:500;text-decoration:none;border:1px solid var(--line2);transition:all .2s}
 .btn.solid{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .btn:not(.solid){color:var(--ink);background:transparent}
@@ -109,35 +111,52 @@ svg .grid{stroke:var(--line);stroke-width:1}
 .more{margin:26px auto 0;display:block}
 
 footer{padding:46px 0 64px;color:var(--faint);font-size:13px}
-footer .q{font-family:"Newsreader",Georgia,serif;font-size:20px;color:var(--sub);margin-bottom:10px;font-style:italic}
+footer .q{font-family:Georgia,serif;font-size:18px;color:var(--sub);margin-bottom:10px;font-style:italic;line-height:1.45}
+@media(max-width:860px){
+  .hero-mid{flex-direction:column;gap:28px}
+  .hero-desc{max-width:none}
+  .hero-actions{width:100%}
+}
 @media(max-width:720px){
   .wrap{padding:0 16px}
-  nav .wrap{gap:14px;height:auto;min-height:58px;padding-top:10px;padding-bottom:10px;align-items:flex-start}
-  .brand{font-size:16px}
-  nav .right{gap:10px;flex-wrap:wrap;justify-content:flex-end}
-  nav a.item{font-size:12.5px}
-  .hero{padding:56px 0 48px}
-  .hero-top{display:block;margin-bottom:38px}
+  nav .wrap{height:56px;gap:12px}
+  .brand{font-size:15px;gap:8px;min-width:0}
+  .brand svg{width:18px;height:18px;margin-right:0!important;flex:0 0 auto}
+  nav .right{gap:0 12px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;max-width:58vw;padding-bottom:2px}
+  nav .right::-webkit-scrollbar{display:none}
+  nav a.item{font-size:12.5px;white-space:nowrap;flex:0 0 auto}
+  .toggle{flex:0 0 auto}
+  .hero{padding:48px 0 44px}
+  .hero-top{flex-direction:column;gap:28px;margin-bottom:36px}
   .hero-title-group{gap:12px}
-  .hero-title-group svg{width:32px;height:32px;flex:0 0 auto}
-  .hero-brand{font-size:clamp(34px,12vw,48px);letter-spacing:-1.2px;overflow-wrap:anywhere}
-  .hero-stats{margin-top:22px;text-align:left;max-width:260px}
-  .stat-row{gap:18px}
-  .hero-mid{gap:24px}
-  .hero h1{font-size:22px;max-width:none}
-  .hero-actions,.hero .cta{width:100%}
-  .btn{width:100%;padding:11px 14px}
-  section{padding:52px 0}
-  h2{font-size:24px}
-  h3.chart{line-height:1.45}
-  .chartbox{margin-left:-8px;margin-right:-8px;padding:16px 8px 10px;border-radius:8px}
+  .hero-title-group svg{width:30px;height:30px;flex:0 0 auto}
+  .hero-brand{font-size:clamp(32px,11vw,44px);letter-spacing:-1.4px;overflow-wrap:anywhere}
+  .hero-stats{text-align:left;align-self:stretch;max-width:280px}
+  .stat-row{gap:24px}
+  .hero-pitch{font-size:17px;margin-bottom:12px}
+  .hero .lede{font-size:14px}
+  .hero-actions,.hero .cta{width:100%;flex-direction:column}
+  .btn{width:100%;padding:12px 14px}
+  section{padding:48px 0}
+  h2{font-size:24px;letter-spacing:-.5px}
+  .sub{font-size:14px;margin-bottom:26px}
+  h3.chart{line-height:1.45;margin:36px 0 14px}
+  .chartbox{padding:14px 6px 8px;border-radius:8px}
+  .chartbox svg{min-height:260px}
   .legend{gap:10px 14px;font-size:10.5px}
   .toc a{display:block;padding:16px}
   .toc .num,.toc .t,.toc .d{display:block}
   .toc .t{margin-top:4px}
   .toc .d{margin-top:6px}
   .tgrid{grid-template-columns:1fr}
-  .fp{margin-left:-8px;margin-right:-8px}
+  .fp{margin:0 -4px;-webkit-overflow-scrolling:touch}
+  .fp table{min-width:640px}
+  footer{padding:36px 0 52px}
+  footer .q{font-size:16px}
+}
+@media(max-width:420px){
+  nav .right{max-width:52vw}
+  .hero-brand{font-size:30px}
 }
 </style>
 </head>
@@ -168,24 +187,38 @@ footer .q{font-family:"Newsreader",Georgia,serif;font-size:20px;color:var(--sub)
       </div>
       <div class="hero-stats mono">
         <div class="stat-row"><span>tasks</span> <span>84</span></div>
-        <div class="stat-row"><span>repos</span> <span>1</span></div>
-        <div class="stat-row"><span>languages</span> <span>2</span></div>
+        <div class="stat-row"><span>families</span> <span>8</span></div>
+        <div class="stat-row"><span>judges</span> <span>2</span></div>
         <div class="stat-row"><span>models</span> <span>10</span></div>
       </div>
     </div>
-    
+
     <div class="hero-mid">
       <div class="hero-desc">
-        <h2 style="font-family:'Inter',sans-serif;font-size:20px;font-weight:400;letter-spacing:-.2px;line-height:1.4;margin-bottom:12px;color:var(--sub)">Measuring frontier AI models on classical Advaita Vedānta doctrinal competence.</h2>
-        <a href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark" class="scroll-link" style="display:inline-block;margin-top:8px;font-size:14px;color:var(--faint);text-decoration:none">Get notified when new models drop ↓</a>
+        <p class="hero-pitch">Most models can sound profound. Few can hold a precise position when you argue back.</p>
+        <p class="lede">AdvaitaBench is a closed-book pressure test for doctrinal reliability: can a model keep classical Advaita distinct from neighboring schools, respect levels of reality, and refuse popular misconceptions under multi-turn attack? That failure mode shows up anywhere users ask for careful reasoning — not only in philosophy.</p>
+        <a href="#why" class="scroll-link">Why labs should care ↓</a>
       </div>
       <div class="hero-actions">
-        <a class="btn solid" href="blog.html">Read the blog →</a>
-        <a class="btn" href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark">Run AdvaitaBench</a>
+        <a class="btn solid" href="#leaderboard">View leaderboard →</a>
+        <a class="btn" href="blog.html">Read the write-up</a>
       </div>
     </div>
   </div>
 </header>
+
+<section id="why"><div class="wrap">
+  <h2>Why this matters</h2>
+  <p class="sub">If your model is going to teach, advise, or debate in high-stakes domains, fluency is not enough. You need evidence it can keep distinctions stable when the user pushes.</p>
+  <div class="toc">
+    <a href="blog.html#intro"><span class="num">01</span><span class="t">Catch confident vagueness before users do</span>
+      <span class="d">Philosophy punishes answers that sound deep while being subtly wrong — the same failure mode that shows up in law, medicine, and policy chat</span></a>
+    <a href="blog.html#pressure"><span class="num">02</span><span class="t">Stress-test consistency under pressure</span>
+      <span class="d">Same doctrine asked neutrally, hostilely, academically, and in Sanskrit. If the answer flips, you have a reliability bug</span></a>
+    <a href="blog.html#bias"><span class="num">03</span><span class="t">A signal model makers can actually use</span>
+      <span class="d">Public tasks, hard failure caps, and a bias-corrected two-judge score — so labs can track regressions instead of vibes</span></a>
+  </div>
+</div></section>
 
 <section id="leaderboard"><div class="wrap">
   <h2>Leaderboard</h2>
@@ -209,7 +242,7 @@ footer .q{font-family:"Newsreader",Georgia,serif;font-size:20px;color:var(--sub)
 
 <section id="method"><div class="wrap">
   <h2>How it works</h2>
-  <p class="sub">Three design decisions do most of the work. The full methodology, rubrics, and the
+  <p class="sub">Three design decisions do most of the work. Full methodology, rubrics, and the
   bias-correction formula are in the <a href="blog.html">blog</a> and the
   <a href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark/blob/main/docs/METHODOLOGY.md">repo</a>.</p>
   <div class="toc">
