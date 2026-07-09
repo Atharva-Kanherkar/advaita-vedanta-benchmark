@@ -1,270 +1,333 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AdvaitaBench — Advaita Vedānta Doctrinal Competence in LLMs</title>
-<meta name="description" content="A research benchmark measuring how reliably large language models teach, interpret, and defend classical Advaita Vedānta under pressure.">
+<title>AdvaitaBench</title>
+<meta name="description" content="Measuring whether AI models actually understand humanity's oldest answers to Who am I, or just sound wise.">
 <style>
 :root{
-  --bg:#0a0c17; --surface:#11142a; --line:#1e2240; --line2:#2a2f52;
-  --gold:#d4a24e; --gold-dim:#8a6a2e; --bone:#f2ecdc; --ink:#c9cbdc; --dim:#8b8fa8; --muted:#5c6080;
+  --bg:#f5f2e9; --panel:#efebe0; --ink:#161513; --sub:#57534a; --faint:#8f897b;
+  --line:#dcd6c6; --line2:#c9c2af; --accent:#161513;
+  --anthropic:#d97e55; --openai:#0f9d78; --google:#4a8fe2; --alibaba:#b0578d;
+  --deepseek:#5b6ee1; --zhipu:#8a6fc8; --xai:#7a766c;
+}
+[data-theme="dark"]{
+  --bg:#141412; --panel:#1c1b18; --ink:#f0ece0; --sub:#b3ada0; --faint:#7c766a;
+  --line:#2b2a25; --line2:#3b392f; --accent:#f0ece0;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-.serif{font-family:Baskerville,"Hoefler Text",Georgia,serif}
-a{color:var(--gold);text-decoration:none}
-a:hover{text-decoration:underline}
-.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+body{background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;transition:background .2s,color .2s}
+.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace}
+a{color:var(--ink)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
 
-nav{position:sticky;top:0;background:rgba(10,12,23,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:50}
-nav .wrap{display:flex;align-items:center;gap:26px;height:56px}
-nav .brand{font-family:Baskerville,Georgia,serif;font-size:19px;color:var(--bone)}
-nav .brand span{color:var(--gold)}
-nav a.item{color:var(--dim);font-size:13px;letter-spacing:.4px}
-nav a.item:hover{color:var(--bone);text-decoration:none}
-nav .gh{margin-left:auto;border:1px solid var(--line2);border-radius:8px;padding:5px 14px;font-size:13px;color:var(--bone)}
+nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:50}
+nav .wrap{display:flex;align-items:center;gap:24px;height:58px}
+.brand{font-weight:700;font-size:16px;letter-spacing:-.2px;text-decoration:none}
+nav a.item{color:var(--sub);font-size:13.5px;text-decoration:none}
+nav a.item:hover{color:var(--ink)}
+nav .right{margin-left:auto;display:flex;gap:14px;align-items:center}
+.toggle{border:1px solid var(--line2);background:transparent;color:var(--ink);border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:15px;line-height:1}
 
-header{padding:84px 0 64px;background:radial-gradient(900px 480px at 50% -12%,#1a1f3d,transparent)}
-h1{font-family:Baskerville,Georgia,serif;font-weight:500;font-size:54px;line-height:1.12;color:var(--bone);letter-spacing:.3px}
-h1 .om{color:var(--gold)}
-.tagline{margin-top:18px;font-size:18px;color:var(--dim);max-width:680px}
-.stats{display:flex;gap:44px;margin-top:40px;flex-wrap:wrap}
-.stat .n{font-family:Baskerville,Georgia,serif;font-size:34px;color:var(--gold)}
-.stat .l{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);margin-top:2px}
+header{padding:96px 0 72px;border-bottom:1px solid var(--line)}
+.kicker{font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--faint);margin-bottom:22px}
+h1{font-size:52px;line-height:1.08;letter-spacing:-1.2px;font-weight:700;max-width:820px}
+.lede{margin-top:26px;font-size:18px;color:var(--sub);max-width:700px}
+.lede b{color:var(--ink)}
+.explain{margin-top:18px;font-size:15px;color:var(--sub);max-width:700px}
+.cta{margin-top:34px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;border:1px solid var(--ink)}
+.btn.solid{background:var(--ink);color:var(--bg)}
+.metrics{display:flex;gap:0;margin-top:56px;border:1px solid var(--line);border-radius:10px;overflow:hidden;max-width:720px}
+.metric{flex:1;padding:16px 18px;border-right:1px solid var(--line)}
+.metric:last-child{border-right:0}
+.metric .n{font-family:ui-monospace,Menlo,monospace;font-size:22px;font-weight:600}
+.metric .l{font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
 
-section{padding:64px 0;border-top:1px solid var(--line)}
-h2{font-family:Baskerville,Georgia,serif;font-weight:500;font-size:30px;color:var(--bone);margin-bottom:8px}
-.sub{color:var(--dim);font-size:14px;margin-bottom:34px;max-width:760px}
+section{padding:72px 0;border-bottom:1px solid var(--line)}
+h2{font-size:30px;letter-spacing:-.6px;font-weight:700;margin-bottom:6px}
+.sub{color:var(--sub);font-size:14.5px;margin-bottom:34px;max-width:720px}
+h3.chart{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;letter-spacing:1px;text-transform:uppercase;color:var(--sub);margin:44px 0 16px}
 
-/* Leaderboard */
-.lb{display:flex;flex-direction:column;gap:6px}
-.row{display:grid;grid-template-columns:34px 220px 1fr 74px;align-items:center;gap:14px;
-  padding:9px 12px;border-radius:10px;position:relative}
-.row:hover{background:var(--surface)}
-.row .rk{font-family:Baskerville,Georgia,serif;font-size:17px;color:var(--gold);text-align:center}
-.row .nm{color:var(--bone);font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.row .nm small{display:block;color:var(--muted);font-weight:400;font-size:11px}
-.trk{position:relative;height:14px;background:#161a33;border-radius:4px;overflow:visible}
-.bar{position:absolute;left:0;top:2px;bottom:2px;background:linear-gradient(90deg,var(--gold-dim),var(--gold));border-radius:2px 4px 4px 2px}
-.row:nth-child(-n+0) .bar{}
-.ci{position:absolute;top:50%;height:1.5px;background:var(--bone);opacity:.65}
-.ci::before,.ci::after{content:"";position:absolute;top:-3.25px;width:1.5px;height:8px;background:var(--bone)}
-.ci::before{left:0}.ci::after{right:0}
-.row .sc{font-weight:700;color:var(--gold);font-size:15px;text-align:right;font-variant-numeric:tabular-nums}
-.legend{display:flex;gap:22px;margin:18px 2px 0;color:var(--muted);font-size:12px;align-items:center;flex-wrap:wrap}
-.legend .k{display:inline-block;width:18px;height:8px;border-radius:2px;background:linear-gradient(90deg,var(--gold-dim),var(--gold));margin-right:7px;vertical-align:middle}
-.legend .kci{display:inline-block;width:16px;height:1.5px;background:var(--bone);opacity:.65;margin-right:7px;vertical-align:middle;position:relative}
+svg text{font-family:ui-monospace,Menlo,monospace;fill:var(--sub)}
+svg .axis{stroke:var(--line2);stroke-width:1}
+svg .grid{stroke:var(--line);stroke-width:1}
+.chartbox{border:1px solid var(--line);border-radius:12px;padding:22px 18px 12px;background:var(--panel);overflow-x:auto}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;padding:0 6px;font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--sub)}
+.legend .d{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:baseline}
 
-.tip{position:fixed;pointer-events:none;background:#181c36;border:1px solid var(--line2);border-radius:10px;
-  padding:10px 14px;font-size:12.5px;color:var(--ink);z-index:99;display:none;max-width:280px;box-shadow:0 8px 30px rgba(0,0,0,.5)}
-.tip b{color:var(--bone)} .tip .g{color:var(--gold);font-weight:700}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);border-radius:8px;padding:9px 13px;font-size:12.5px;z-index:99;display:none;max-width:270px;line-height:1.5}
 
-/* Heatmap */
-.hm{overflow-x:auto}
-table{border-collapse:collapse;width:100%;font-size:12.5px;min-width:840px}
-th{color:var(--muted);font-weight:500;font-size:10.5px;text-transform:uppercase;letter-spacing:.9px;padding:0 8px 12px;text-align:center}
-th.l{text-align:left}
-td{padding:8px;border-top:1px solid var(--line);text-align:center;font-variant-numeric:tabular-nums}
-td.l{text-align:left;color:var(--bone);font-weight:600;white-space:nowrap}
-td .cell{display:inline-block;min-width:44px;padding:4px 0;border-radius:5px;color:#0a0c17;font-weight:700}
+/* fingerprint matrix */
+.fp{overflow-x:auto}
+.fp table{border-collapse:collapse;min-width:760px;width:100%}
+.fp th{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;font-weight:500;text-transform:uppercase;letter-spacing:.8px;color:var(--faint);padding:0 6px 12px;text-align:center}
+.fp th.l{text-align:left}
+.fp td{padding:7px 6px;border-top:1px solid var(--line);text-align:center}
+.fp td.l{text-align:left;font-weight:600;font-size:13.5px;white-space:nowrap}
+.fp td.l small{color:var(--faint);font-weight:400}
+.dotv{display:inline-block;border-radius:50%;background:var(--ink)}
 
-/* Methodology */
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-top:8px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
-.card h3{font-size:15px;color:var(--bone);margin-bottom:6px;font-weight:600}
-.card p{font-size:13px;color:var(--dim)}
-.formula{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--gold);
-  border-radius:10px;padding:18px 22px;margin-top:22px;font:12.5px/1.8 ui-monospace,Menlo,monospace;color:var(--ink);overflow-x:auto;white-space:pre}
+/* blog teaser */
+.toc{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.toc a{display:flex;align-items:baseline;gap:18px;padding:18px 22px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.toc a:last-child{border-bottom:0}
+.toc a:hover{background:var(--panel)}
+.toc .num{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--faint)}
+.toc .t{font-size:16px;font-weight:600;flex:1}
+.toc .d{font-size:13px;color:var(--sub)}
 
-/* Tasks */
+/* tasks */
 .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
-.fbtn{border:1px solid var(--line2);background:transparent;color:var(--dim);border-radius:20px;
-  padding:5px 14px;font-size:12.5px;cursor:pointer;font-family:inherit}
-.fbtn:hover{color:var(--bone)}
-.fbtn.on{background:var(--gold);border-color:var(--gold);color:#0a0c17;font-weight:600}
-.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
-.task{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
-.task .meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-.chip{font-size:10px;letter-spacing:.6px;text-transform:uppercase;border-radius:20px;padding:2px 9px;border:1px solid var(--line2);color:var(--dim)}
-.chip.fam{color:var(--gold);border-color:#453a1e}
-.chip.novel{color:#8fae6a;border-color:#33421f}
-.chip.paraphrased{color:#9a8fd0;border-color:#37305c}
-.chip.hard{color:#c07a5b;border-color:#4b2c1e}
-.task p{font-size:13px;color:var(--ink)}
-.task .src{margin-top:10px;font-size:11.5px;color:var(--muted);font-style:italic}
+.fbtn{border:1px solid var(--line2);background:transparent;color:var(--sub);border-radius:20px;padding:5px 14px;font-size:12.5px;cursor:pointer;font-family:inherit}
+.fbtn:hover{color:var(--ink)}
+.fbtn.on{background:var(--ink);border-color:var(--ink);color:var(--bg);font-weight:600}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px}
+.task{border:1px solid var(--line);border-radius:12px;padding:18px 20px;background:var(--panel)}
+.task .meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;font-family:ui-monospace,Menlo,monospace}
+.chip{font-size:10px;letter-spacing:.5px;text-transform:uppercase;border-radius:4px;padding:2px 8px;border:1px solid var(--line2);color:var(--sub)}
+.chip.hl{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.task p{font-size:13.5px}
+.task .src{margin-top:10px;font-size:11.5px;color:var(--faint);font-style:italic}
 .more{margin:26px auto 0;display:block}
 
-footer{border-top:1px solid var(--line);padding:44px 0 60px;color:var(--muted);font-size:13px}
-footer .mantra{font-family:Baskerville,Georgia,serif;color:var(--dim);font-size:15px;margin-bottom:10px}
-@media(max-width:720px){h1{font-size:38px}.row{grid-template-columns:26px 130px 1fr 56px;gap:8px}.stats{gap:26px}}
+footer{padding:46px 0 64px;color:var(--faint);font-size:13px}
+footer .q{font-size:15px;color:var(--sub);margin-bottom:10px;font-style:italic}
+@media(max-width:720px){h1{font-size:36px}.metrics{flex-wrap:wrap}.metric{min-width:45%}}
 </style>
 </head>
 <body>
 
 <nav><div class="wrap">
-  <div class="brand">Advaita<span>Bench</span></div>
+  <a class="brand" href="#">AdvaitaBench</a>
   <a class="item" href="#leaderboard">Leaderboard</a>
-  <a class="item" href="#families">Families</a>
-  <a class="item" href="#methodology">Methodology</a>
   <a class="item" href="#tasks">Tasks</a>
-  <a class="gh" href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark">GitHub ↗</a>
+  <a class="item" href="blog.html">Blog</a>
+  <div class="right">
+    <a class="item" href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark">GitHub</a>
+    <button class="toggle" id="toggle" title="Toggle theme">◐</button>
+  </div>
 </div></nav>
 
 <header><div class="wrap">
-  <h1>Can a language model<br>hold the <span class="om">non&#8209;dual</span> line?</h1>
-  <p class="tagline">AdvaitaBench measures how reliably frontier LLMs teach, interpret, and defend
-  classical Advaita Vedānta — without conflating schools, collapsing levels of reality,
-  or capitulating under śruti pressure.</p>
-  <div class="stats">
-    <div class="stat"><div class="n" id="s-models">—</div><div class="l">Frontier models</div></div>
-    <div class="stat"><div class="n" id="s-tasks">—</div><div class="l">Tasks</div></div>
-    <div class="stat"><div class="n">8</div><div class="l">Task families</div></div>
-    <div class="stat"><div class="n">2</div><div class="l">Judges, debiased</div></div>
-    <div class="stat"><div class="n">0</div><div class="l">Tools / retrieval</div></div>
+  <div class="kicker">A benchmark for machine philosophy</div>
+  <h1>Who am I? What dies when I die? Is any of this real?</h1>
+  <p class="lede">Humanity has a 1,200-year-old tradition of answering these questions with
+  <b>rigorous, technical precision</b>: Advaita Vedanta, the philosophy distilled by the Indian
+  thinker Shankara. It has exact concepts, canonical texts, and famously hard debates.
+  That makes it something rare: a way to test whether an AI <b>actually understands</b>
+  the deepest questions, or just sounds wise.</p>
+  <p class="explain">AdvaitaBench asks frontier AI models 84 questions, from "who am I?" asked cold,
+  to multi-turn debates where we quote real scripture against the model's position and push until it
+  breaks. Answers are graded by two independent AI judges against reference material written from the
+  classical texts, with automatic penalties for the classic ways people get this philosophy wrong.
+  No web access, no retrieval. Just the model and the question.</p>
+  <div class="cta">
+    <a class="btn solid" href="#leaderboard">See the results</a>
+    <a class="btn" href="blog.html">Read the full write-up</a>
+  </div>
+  <div class="metrics">
+    <div class="metric"><div class="n">10</div><div class="l">Models</div></div>
+    <div class="metric"><div class="n">84</div><div class="l">Tasks</div></div>
+    <div class="metric"><div class="n">8</div><div class="l">Skill families</div></div>
+    <div class="metric"><div class="n">2</div><div class="l">Judges, debiased</div></div>
   </div>
 </div></header>
 
 <section id="leaderboard"><div class="wrap">
   <h2>Leaderboard</h2>
-  <p class="sub"><b style="color:var(--bone)">AdvaitaBench-N</b> — a judge-ensemble score normalized
-  across a strict GPT-5.4 grader and a Haiku 4.5 grader, with a measured self-preference correction
-  applied to each judge's own model family. 50 = field mean; higher is better. Whiskers show the ±95% CI
-  of task-level scores under the strict judge.</p>
-  <div class="lb" id="lb"></div>
-  <div class="legend">
-    <span><span class="k"></span>AdvaitaBench-N (T-score)</span>
-    <span><span class="kci"></span>±95% CI (strict-judge task spread)</span>
-    <span>Hover a row for per-judge composites.</span>
-  </div>
+  <p class="sub">The headline score, <span class="mono">AdvaitaBench-N</span>, averages two AI judges
+  after correcting each judge's measured bias toward its own maker's models. 50 is the field average.
+  Hover any point for detail.</p>
+
+  <h3 class="chart">Score vs words spent · does verbosity buy understanding?</h3>
+  <div class="chartbox"><svg id="frontier" width="100%" height="440" viewBox="0 0 960 440"></svg></div>
+  <div class="legend" id="legend"></div>
+
+  <h3 class="chart">Two judges, two stories · lenient grader vs strict grader</h3>
+  <p class="sub" style="margin-bottom:18px">Each line is one model. The left column is an Anthropic judge
+  with a permissive rubric, the right an OpenAI judge with a strict one. Lines that cross tell you the
+  ranking depends on who grades, which is exactly why the headline score uses both.</p>
+  <div class="chartbox"><svg id="slope" width="100%" height="430" viewBox="0 0 960 430"></svg></div>
+
+  <h3 class="chart">Skill fingerprint · strict scores by family, dot area = score</h3>
+  <div class="fp"><table id="fp"></table></div>
 </div></section>
 
-<section id="families"><div class="wrap">
-  <h2>Where models break</h2>
-  <p class="sub">Per-family scores under the strict judge (0–100). <b style="color:var(--bone)">Sustained
-  Dialectic</b> — multi-turn śruti pressure with genuine contradicting citations — is the widest
-  differentiator: models that answer well in one turn often concede doctrine by turn four.</p>
-  <div class="hm"><table id="hm"></table></div>
-</div></section>
-
-<section id="methodology"><div class="wrap">
-  <h2>Methodology</h2>
-  <p class="sub">Closed-book (no tools, no retrieval), temperature 0, school-pinned system prompt.
-  Every task carries reference answers, gold points, required distinctions, and forbidden claims;
-  judges verify against the reference material rather than their own prior.
-  Full detail: <a href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark/blob/main/docs/METHODOLOGY.md">METHODOLOGY.md</a>.</p>
-  <div class="cards">
-    <div class="card"><h3>①&nbsp; Eight task families</h3><p>Concept precision, levels of reality,
-      school discrimination, text-grounded interpretation, misconception repair, consistency under
-      rephrasing, open elicitation ("Who am I?" with no technical vocabulary), and sustained
-      dialectic — Yakṣa-praśna-style multi-turn pressure with genuine canonical citations.</p></div>
-    <div class="card"><h3>②&nbsp; Contamination control</h3><p>Every task is tagged
-      <i>canonical / paraphrased / novel</i>. Held-out passages are mined from less-quoted
-      bhāṣya sections (GRETIL e-texts), and scores are reported stratified — the canonical−novel
-      gap measures memorization.</p></div>
-    <div class="card"><h3>③&nbsp; Strict rubric with hard caps</h3><p>4/4 is reserved for answers a
-      śāstric examiner could not fault. School-mixing, level collapse, an affirmed forbidden claim,
-      or capitulation under pressure trigger automatic score caps regardless of eloquence.</p></div>
-    <div class="card"><h3>④&nbsp; Judge ensemble, debiased</h3><p>Both single judges showed measurable
-      same-family preference (each ranked its own lab's models on top). The headline score standardizes
-      each judge, subtracts a difference-in-differences self-preference estimate, and averages.</p></div>
+<section id="method"><div class="wrap">
+  <h2>How it works</h2>
+  <p class="sub">Three design decisions do most of the work. The full methodology, rubrics, and the
+  bias-correction formula are in the <a href="blog.html">blog</a> and the
+  <a href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark/blob/main/docs/METHODOLOGY.md">repo</a>.</p>
+  <div class="toc">
+    <a href="blog.html#pressure"><span class="num">01</span><span class="t">Pressure, not trivia</span>
+      <span class="d">Multi-turn debates quote genuine scripture against the model until it holds or folds</span></a>
+    <a href="blog.html#grading"><span class="num">02</span><span class="t">Reference-based grading</span>
+      <span class="d">Judges verify against written reference answers, with hard caps for known failure modes</span></a>
+    <a href="blog.html#bias"><span class="num">03</span><span class="t">Judge bias, measured and corrected</span>
+      <span class="d">Each AI judge favored its own maker's models. We measured it and subtracted it</span></a>
   </div>
-  <div class="formula">c_ij  = composite of model i under judge j        (after cap-misfire fix)
-z_ij  = (c_ij − μ_j) / σ_j                       per-judge standardization
-sp_j  = max(0, mean over j's own family of (z_ij − z_i,other))
-z′_ij = z_ij − sp_j · 1[i ∈ family(j)]           self-preference correction
-AdvaitaBench-N = 50 + 15 · mean_j( z′_ij )</div>
 </div></section>
 
 <section id="tasks"><div class="wrap">
-  <h2>The tasks</h2>
-  <p class="sub">The public pilot bank — 84 tasks. Filter by family. Multi-turn tasks include scripted
-  pushback sequences (shown abridged); reference answers and grading fields live in the repo.</p>
+  <h2>The questions</h2>
+  <p class="sub">All 84 tasks are public. Filter by family. "Novel" tasks were written for this benchmark
+  and exist nowhere in training data; "multi-turn" tasks include scripted pushback.</p>
   <div class="filters" id="filters"></div>
   <div class="tgrid" id="tgrid"></div>
   <button class="fbtn more" id="more">Show all</button>
 </div></section>
 
 <footer><div class="wrap">
-  <div class="mantra">tat tvam asi — thou art That</div>
-  <div>AdvaitaBench · pilot release, July 2026 · MIT ·
-    <a href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark">github.com/Atharva-Kanherkar/advaita-vedanta-benchmark</a></div>
-  <div style="margin-top:8px;max-width:720px">Results are a pilot snapshot (84 tasks, single sample,
-  two-judge ensemble). Publication-grade claims require the expanded task bank, human adjudication
-  (κ ≥ 0.65), and a third family-neutral judge — see the methodology.</div>
+  <div class="q">"Not this, not this. There is no other, better description." Brihadaranyaka Upanishad</div>
+  <div>AdvaitaBench, pilot release, July 2026 · MIT license ·
+    <a href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark">GitHub</a> ·
+    <a href="blog.html">Blog</a></div>
+  <div style="margin-top:8px;max-width:680px">Pilot snapshot: single sample per task, two-judge ensemble,
+  no human adjudication yet. Ranks 1 to 4 sit within judge disagreement. Do not read this as a measure
+  of any model's spiritual attainment; it measures doctrinal competence only.</div>
 </div></footer>
 
 <div class="tip" id="tip"></div>
 
 <script src="data.js"></script>
 <script>
-const $=s=>document.querySelector(s);
-$('#s-models').textContent=DATA.meta.n_models;
-$('#s-tasks').textContent=DATA.meta.n_tasks;
+/* ---------- theme toggle ---------- */
+const root=document.documentElement;
+const saved=localStorage.getItem('ab-theme');
+if(saved)root.dataset.theme=saved;
+document.getElementById('toggle').onclick=()=>{
+  root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';
+  localStorage.setItem('ab-theme',root.dataset.theme);
+  draw(); /* redraw charts with new css vars */
+};
 
-/* Leaderboard: bars scaled to a 0..max domain across normalized scores */
-const max=Math.max(...DATA.models.map(m=>m.normalized))*1.06;
-const lb=$('#lb'), tip=$('#tip');
-DATA.models.forEach((m,i)=>{
-  const w=100*m.normalized/max, cw=100*(m.ci*0.3)/max; /* CI is on 0-100 strict scale; scale visually */
-  const row=document.createElement('div');row.className='row';
-  row.innerHTML=`<div class="rk">${i+1}</div>
-    <div class="nm">${m.name}<small>${m.org}${m.note?' · '+m.note:''}</small></div>
-    <div class="trk"><div class="bar" style="width:${w}%"></div>
-      <div class="ci" style="left:${Math.max(0,w-cw)}%;width:${2*cw}%;"></div></div>
-    <div class="sc">${m.normalized.toFixed(1)}</div>`;
-  row.addEventListener('mousemove',e=>{
-    tip.style.display='block';
-    tip.innerHTML=`<b>${m.name}</b> · ${m.org}<br>
-      AdvaitaBench-N: <span class="g">${m.normalized.toFixed(1)}</span><br>
-      Strict judge (GPT-5.4): ${m.strict.toFixed(1)} ± ${m.ci}<br>
-      Lenient judge (Haiku 4.5): ${m.lenient.toFixed(1)}${m.note?'<br><i>'+m.note+'</i>':''}`;
-    tip.style.left=Math.min(e.clientX+16,innerWidth-300)+'px';
-    tip.style.top=(e.clientY+14)+'px';
+const ORG_COLOR={Anthropic:'var(--anthropic)',OpenAI:'var(--openai)',Google:'var(--google)',
+  Alibaba:'var(--alibaba)',DeepSeek:'var(--deepseek)',Zhipu:'var(--zhipu)',xAI:'var(--xai)'};
+const color=o=>ORG_COLOR[o]||'var(--faint)';
+const tip=document.getElementById('tip');
+const show=(e,html)=>{tip.style.display='block';tip.innerHTML=html;
+  tip.style.left=Math.min(e.clientX+14,innerWidth-290)+'px';tip.style.top=(e.clientY+12)+'px'};
+const hide=()=>tip.style.display='none';
+const S=(tag,attrs)=>{const el=document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const k in attrs)el.setAttribute(k,attrs[k]);return el};
+
+/* ---------- chart 1: efficiency frontier scatter ---------- */
+function drawFrontier(){
+  const svg=document.getElementById('frontier');svg.innerHTML='';
+  const M={l:64,r:30,t:18,b:46},W=960,H=440;
+  const xs=DATA.models.map(m=>m.tokens),ys=DATA.models.map(m=>m.normalized);
+  const xmax=Math.max(...xs)*1.12,ymin=Math.min(...ys)-6,ymax=Math.max(...ys)+6;
+  const X=v=>M.l+(W-M.l-M.r)*v/xmax, Y=v=>H-M.b-(H-M.t-M.b)*(v-ymin)/(ymax-ymin);
+  for(let g=0;g<=4;g++){const yv=ymin+(ymax-ymin)*g/4;
+    svg.appendChild(S('line',{x1:M.l,x2:W-M.r,y1:Y(yv),y2:Y(yv),class:'grid'}));
+    const t=S('text',{x:M.l-10,y:Y(yv)+4,'text-anchor':'end','font-size':11});t.textContent=yv.toFixed(0);svg.appendChild(t);}
+  for(let g=0;g<=4;g++){const xv=xmax*g/4;
+    const t=S('text',{x:X(xv),y:H-M.b+20,'text-anchor':'middle','font-size':11});t.textContent=Math.round(xv/100)*100;svg.appendChild(t);}
+  svg.appendChild(S('line',{x1:M.l,x2:W-M.r,y1:H-M.b,y2:H-M.b,class:'axis'}));
+  const xl=S('text',{x:(M.l+W-M.r)/2,y:H-8,'text-anchor':'middle','font-size':11});
+  xl.textContent='mean words per answer (output tokens)';svg.appendChild(xl);
+  const yl=S('text',{x:M.l,y:12,'font-size':11});yl.textContent='AdvaitaBench-N ↑';svg.appendChild(yl);
+  /* pareto frontier line: sort by tokens, keep running max of score */
+  const pts=[...DATA.models].sort((a,b)=>a.tokens-b.tokens);
+  let best=-1;const front=[];
+  for(const m of pts){if(m.normalized>best){best=m.normalized;front.push(m)}}
+  const path=front.map((m,i)=>(i?'L':'M')+X(m.tokens)+' '+Y(m.normalized)).join(' ');
+  svg.appendChild(S('path',{d:path,fill:'none',stroke:'var(--line2)','stroke-width':1.5,'stroke-dasharray':'5 4'}));
+  const last=front[front.length-1];
+  const fe=S('text',{x:Math.min(X(last.tokens)+14,W-150),y:Y(last.normalized)+4,'font-size':10.5});
+  fe.textContent='← efficient frontier';svg.appendChild(fe);
+  const placed=[];
+  DATA.models.forEach(m=>{
+    const g=S('g',{cursor:'pointer'});
+    const cx=X(m.tokens),cy=Y(m.normalized);
+    g.appendChild(S('circle',{cx,cy,r:7,fill:color(m.org),stroke:'var(--bg)','stroke-width':2}));
+    const w=m.name.length*6.6;
+    let ly=cy-13; // try above; flip below on overlap with an already-placed label
+    const hits=b=>placed.some(p=>Math.abs(p.x-cx)<(p.w+w)/2+6&&Math.abs(p.y-b)<14);
+    if(hits(ly))ly=cy+22;
+    if(hits(ly))ly=cy-26;
+    placed.push({x:cx,y:ly,w});
+    const lbl=S('text',{x:cx,y:ly,'text-anchor':'middle','font-size':11.5,'font-weight':600});
+    lbl.textContent=m.name;lbl.setAttribute('fill','var(--ink)');g.appendChild(lbl);
+    g.addEventListener('mousemove',e=>show(e,`<b>${m.name}</b> (${m.org})<br>score ${m.normalized.toFixed(1)} · ${m.tokens} tokens/answer<br>strict ${m.strict.toFixed(1)} / lenient ${m.lenient.toFixed(1)}${m.note?'<br>'+m.note:''}`));
+    g.addEventListener('mouseleave',hide);
+    svg.appendChild(g);
   });
-  row.addEventListener('mouseleave',()=>tip.style.display='none');
-  lb.appendChild(row);
-});
-
-/* Heatmap: sequential gold ramp on dark */
-function ramp(v){ /* 0..100 -> dark slate .. gold .. pale gold */
-  if(v==null)return['#1a1e38','#5c6080'];
-  const stops=[[35,'#3a2f22'],[50,'#6b5426'],[62,'#93712f'],[72,'#b8903c'],[82,'#d4a24e'],[101,'#ecc87e']];
-  for(const[t,c]of stops)if(v<t)return[c,'#0a0c17'];
-  return['#ecc87e','#0a0c17'];
+  const lg=document.getElementById('legend');
+  lg.innerHTML=[...new Set(DATA.models.map(m=>m.org))].map(o=>`<span><span class="d" style="background:${color(o)}"></span>${o}</span>`).join('');
 }
-const hm=$('#hm');
-hm.innerHTML='<thead><tr><th class="l">Model</th>'+DATA.families.map(f=>`<th>${f[1].replace(' ','&nbsp;')}</th>`).join('')+'</tr></thead>'
- +'<tbody>'+DATA.models.map(m=>'<tr><td class="l">'+m.name+'</td>'+DATA.families.map(f=>{
-    const v=m.families[f[0]];const[bg,fg]=ramp(v);
-    return `<td><span class="cell" style="background:${bg};color:${fg}">${v==null?'—':v.toFixed(0)}</span></td>`;
-  }).join('')+'</tr>').join('')+'</tbody>';
 
-/* Task browser */
+/* ---------- chart 2: judge slope chart ---------- */
+function drawSlope(){
+  const svg=document.getElementById('slope');svg.innerHTML='';
+  const W=960,H=430,L=300,R=660,T=44,B=36;
+  /* per-judge min-max scaling so both columns use full height */
+  const ls=DATA.models.map(m=>m.lenient),ss=DATA.models.map(m=>m.strict);
+  const sc=(v,arr)=>T+(H-T-B)*(1-(v-Math.min(...arr))/(Math.max(...arr)-Math.min(...arr)));
+  const hL=S('text',{x:L,y:22,'text-anchor':'end','font-size':12,'font-weight':600});hL.textContent='lenient · Haiku 4.5';hL.setAttribute('fill','var(--ink)');svg.appendChild(hL);
+  const hR=S('text',{x:R,y:22,'text-anchor':'start','font-size':12,'font-weight':600});hR.textContent='strict · GPT-5.4';hR.setAttribute('fill','var(--ink)');svg.appendChild(hR);
+  svg.appendChild(S('line',{x1:L,x2:L,y1:T,y2:H-B,class:'axis'}));
+  svg.appendChild(S('line',{x1:R,x2:R,y1:T,y2:H-B,class:'axis'}));
+  /* label collision avoidance: sort by y then nudge */
+  const place=(arr,key)=>{const s=[...DATA.models].map(m=>({m,y:sc(m[key],arr)})).sort((a,b)=>a.y-b.y);
+    for(let i=1;i<s.length;i++)if(s[i].y-s[i-1].y<15)s[i].y=s[i-1].y+15;return Object.fromEntries(s.map(x=>[x.m.id,x.y]))};
+  const yl=place(ls,'lenient'),yr=place(ss,'strict');
+  DATA.models.forEach(m=>{
+    const y1=yl[m.id],y2=yr[m.id],c=color(m.org);
+    const g=S('g',{cursor:'pointer'});
+    g.appendChild(S('line',{x1:L,x2:R,y1:sc(m.lenient,ls),y2:sc(m.strict,ss),stroke:c,'stroke-width':1.6,opacity:.85}));
+    g.appendChild(S('circle',{cx:L,cy:sc(m.lenient,ls),r:5,fill:c}));
+    g.appendChild(S('circle',{cx:R,cy:sc(m.strict,ss),r:5,fill:c}));
+    const t1=S('text',{x:L-12,y:y1+4,'text-anchor':'end','font-size':11.5});t1.textContent=`${m.name}  ${m.lenient.toFixed(1)}`;g.appendChild(t1);
+    const t2=S('text',{x:R+12,y:y2+4,'font-size':11.5});t2.textContent=`${m.strict.toFixed(1)}  ${m.name}`;g.appendChild(t2);
+    g.addEventListener('mousemove',e=>show(e,`<b>${m.name}</b><br>lenient ${m.lenient.toFixed(1)} → strict ${m.strict.toFixed(1)}`));
+    g.addEventListener('mouseleave',hide);
+    svg.appendChild(g);
+  });
+}
+
+/* ---------- chart 3: dot-matrix fingerprint ---------- */
+function drawFP(){
+  const tb=document.getElementById('fp');
+  const head='<thead><tr><th class="l">Model</th>'+DATA.families.map(f=>`<th>${f[1]}</th>`).join('')+'</tr></thead>';
+  const rows=DATA.models.map(m=>'<tr><td class="l">'+m.name+' <small>'+m.org+'</small></td>'+
+    DATA.families.map(f=>{const v=m.families[f[0]];
+      if(v==null)return'<td>·</td>';
+      const d=4+18*Math.pow(Math.max(0,v)/100,1.6); /* area emphasis */
+      return `<td><span class="dotv" title="${f[1]}: ${v.toFixed(0)}" style="width:${d.toFixed(1)}px;height:${d.toFixed(1)}px;opacity:${(0.35+0.65*v/100).toFixed(2)}"></span></td>`;
+    }).join('')+'</tr>').join('');
+  tb.innerHTML=head+'<tbody>'+rows+'</tbody>';
+}
+
+/* ---------- task browser ---------- */
 const famName=Object.fromEntries(DATA.families);
-let fam='all', shown=12;
-const fdiv=$('#filters'), tg=$('#tgrid'), more=$('#more');
-const fbtn=(id,label)=>{const b=document.createElement('button');b.className='fbtn'+(id===fam?' on':'');
-  b.textContent=label;b.onclick=()=>{fam=id;shown=12;render()};return b};
-function render(){
-  fdiv.innerHTML='';fdiv.appendChild(fbtn('all','All ('+DATA.tasks.length+')'));
-  DATA.families.forEach(f=>{const n=DATA.tasks.filter(t=>t.family===f[0]).length;
-    fdiv.appendChild(fbtn(f[0],f[1]+' ('+n+')'))});
+let fam='all',shown=9;
+const fdiv=document.getElementById('filters'),tg=document.getElementById('tgrid'),more=document.getElementById('more');
+function renderTasks(){
+  fdiv.innerHTML='';
+  const mk=(id,label)=>{const b=document.createElement('button');b.className='fbtn'+(id===fam?' on':'');
+    b.textContent=label;b.onclick=()=>{fam=id;shown=9;renderTasks()};fdiv.appendChild(b)};
+  mk('all','All '+DATA.tasks.length);
+  DATA.families.forEach(f=>mk(f[0],f[1]));
   const list=DATA.tasks.filter(t=>fam==='all'||t.family===fam);
   tg.innerHTML=list.slice(0,shown).map(t=>`
     <div class="task"><div class="meta">
-      <span class="chip fam">${famName[t.family]}</span>
-      <span class="chip ${t.provenance}">${t.provenance}</span>
-      ${t.difficulty==='hard'?'<span class="chip hard">hard</span>':''}
+      <span class="chip hl">${famName[t.family]}</span>
+      <span class="chip">${t.provenance}</span>
+      ${t.difficulty==='hard'?'<span class="chip">hard</span>':''}
       ${t.multiturn?'<span class="chip">multi-turn</span>':''}
-    </div><p>${t.prompt.length>300?t.prompt.slice(0,300)+'…':t.prompt}</p>
+    </div><p>${t.prompt.length>280?t.prompt.slice(0,280)+'…':t.prompt}</p>
     ${t.source?`<div class="src">${t.source}</div>`:''}</div>`).join('');
   more.style.display=list.length>shown?'block':'none';
-  more.textContent=`Show all ${list.length}`;
+  more.textContent='Show all '+list.length;
 }
-more.onclick=()=>{shown=1e4;render()};
-render();
+more.onclick=()=>{shown=1e4;renderTasks()};
+
+function draw(){drawFrontier();drawSlope();drawFP()}
+draw();renderTasks();
 </script>
 </body>
 </html>

@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AdvaitaBench: can AI hold the non-dual line? · Blog</title>
+<meta name="description" content="Why we built a benchmark out of humanity's oldest questions, what frontier models got right, and where every one of them breaks.">
+<style>
+:root{
+  --bg:#f5f2e9; --panel:#efebe0; --ink:#161513; --sub:#57534a; --faint:#8f897b;
+  --line:#dcd6c6; --line2:#c9c2af;
+}
+[data-theme="dark"]{
+  --bg:#141412; --panel:#1c1b18; --ink:#f0ece0; --sub:#b3ada0; --faint:#7c766a;
+  --line:#2b2a25; --line2:#3b392f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.75 -apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;transition:background .2s,color .2s}
+.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace}
+a{color:var(--ink)}
+.wrap{max-width:720px;margin:0 auto;padding:0 24px}
+nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:50}
+nav .inner{max-width:1040px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:24px;height:58px}
+.brand{font-weight:700;font-size:16px;text-decoration:none}
+nav a.item{color:var(--sub);font-size:13.5px;text-decoration:none}
+nav a.item:hover{color:var(--ink)}
+nav .right{margin-left:auto;display:flex;gap:14px;align-items:center}
+.toggle{border:1px solid var(--line2);background:transparent;color:var(--ink);border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:15px}
+
+header{padding:80px 0 40px}
+.kicker{font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--faint);margin-bottom:18px}
+h1{font-size:40px;line-height:1.15;letter-spacing:-.8px;font-weight:700}
+.meta{margin-top:16px;color:var(--faint);font-size:13.5px;font-family:ui-monospace,Menlo,monospace}
+
+.toc{border:1px solid var(--line);border-radius:12px;margin:36px 0 8px;overflow:hidden}
+.toc a{display:flex;gap:16px;align-items:baseline;padding:13px 20px;border-bottom:1px solid var(--line);text-decoration:none}
+.toc a:last-child{border-bottom:0}
+.toc a:hover{background:var(--panel)}
+.toc .n{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--faint)}
+.toc .t{font-weight:600;font-size:15px}
+
+article{padding:28px 0 80px}
+h2{font-size:26px;letter-spacing:-.4px;margin:56px 0 16px;font-weight:700}
+h2 .n{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--faint);font-weight:500;margin-right:12px}
+h3{font-size:17px;margin:30px 0 10px}
+p{margin:14px 0;color:var(--ink)}
+p.dim,li{color:var(--sub)}
+ul,ol{margin:14px 0 14px 22px}
+li{margin:6px 0}
+b{color:var(--ink)}
+blockquote{border-left:3px solid var(--line2);padding:4px 0 4px 18px;margin:20px 0;color:var(--sub);font-style:italic}
+.callout{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin:22px 0;font-size:14.5px;color:var(--sub)}
+.callout b{color:var(--ink)}
+code,pre{font-family:ui-monospace,Menlo,monospace;font-size:13px}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 20px;overflow-x:auto;line-height:1.7;margin:20px 0}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}
+th{text-align:left;font-family:ui-monospace,Menlo,monospace;font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--faint);padding:0 10px 10px 0;font-weight:500}
+td{border-top:1px solid var(--line);padding:8px 10px 8px 0;color:var(--sub)}
+td:first-child{color:var(--ink);font-weight:600}
+td.r,th.r{text-align:right}
+footer{border-top:1px solid var(--line);padding:40px 0 64px;color:var(--faint);font-size:13px}
+</style>
+</head>
+<body>
+
+<nav><div class="inner">
+  <a class="brand" href="index.html">AdvaitaBench</a>
+  <a class="item" href="index.html#leaderboard">Leaderboard</a>
+  <a class="item" href="index.html#tasks">Tasks</a>
+  <a class="item" href="blog.html" style="color:var(--ink)">Blog</a>
+  <div class="right">
+    <a class="item" href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark">GitHub</a>
+    <button class="toggle" id="toggle" title="Toggle theme">◐</button>
+  </div>
+</div></nav>
+
+<div class="wrap">
+<header>
+  <div class="kicker">AdvaitaBench · pilot report</div>
+  <h1>We asked ten frontier AI models the oldest questions humans have. Then we argued back.</h1>
+  <div class="meta">July 2026 · 84 tasks · 10 models · 2 judges · ~2,800 API calls</div>
+  <div class="toc">
+    <a href="#intro"><span class="n">01</span><span class="t">Introduction</span></a>
+    <a href="#what"><span class="n">02</span><span class="t">Advaita in five minutes, for people who have never heard of it</span></a>
+    <a href="#pressure"><span class="n">03</span><span class="t">Methodology: pressure, not trivia</span></a>
+    <a href="#grading"><span class="n">04</span><span class="t">Grading: reference answers and hard caps</span></a>
+    <a href="#bias"><span class="n">05</span><span class="t">The judges were biased, so we measured it</span></a>
+    <a href="#results"><span class="n">06</span><span class="t">Results</span></a>
+    <a href="#qualitative"><span class="n">07</span><span class="t">Qualitative analysis: how each model fails</span></a>
+    <a href="#limits"><span class="n">08</span><span class="t">Limitations and future work</span></a>
+  </div>
+</header>
+
+<article>
+
+<h2 id="intro"><span class="n">01</span>Introduction</h2>
+<p>Every benchmark measures something. Code benchmarks measure whether a model can build; math
+benchmarks measure whether it can derive. We wanted to measure something different: whether a model
+can <b>hold a precise philosophical position under sustained attack</b>.</p>
+<p class="dim">Philosophy is a good stress test for a reason that has nothing to do with spirituality.
+A rigorous philosophical tradition is a web of exact distinctions. Get one wrong and a trained reader
+notices immediately. Sound impressive while being subtly wrong, and a good examiner catches it. Most
+of what LLMs are criticized for, confident vagueness, agreeable drift, sounding deep instead of being
+right, is exactly what a hard philosophy exam punishes.</p>
+<p class="dim">We chose Advaita Vedanta because it is one of the most technically demanding
+philosophical systems ever built, it has a fixed canon and centuries of documented debate, and,
+frankly, because most AI models constantly get it wrong in a very specific way: they melt it into
+generic wellness non-duality. That failure is measurable.</p>
+
+<h2 id="what"><span class="n">02</span>Advaita in five minutes</h2>
+<p>You do not need Sanskrit to follow this benchmark. You need four ideas.</p>
+<h3>1. The question is "who am I?"</h3>
+<p class="dim">Not your name, job, or memories. What is the thing that is aware of your thoughts right
+now? Advaita's answer: that awareness is the only thing that is ultimately real, and it is the same
+in everyone. The Sanskrit slogan is <i>tat tvam asi</i>, "you are That."</p>
+<h3>2. Reality comes in levels</h3>
+<p class="dim">A dream is real while you dream it and unreal when you wake. Advaita says ordinary
+waking life has the same structure: fully real for practical purposes (money works, walls stop you,
+ethics bind you), but not the final layer. Getting this two-level logic right without contradicting
+yourself is genuinely hard, and it is where models most often break.</p>
+<h3>3. Mistakes have structure</h3>
+<p class="dim">The tradition's favorite image: in dim light you see a snake, you panic, you look
+closer, it was a rope. The snake was never there, yet the fear was real. Advaita treats the entire
+experience of being a separate, mortal self as this kind of mistake. Death, on this view, is something
+that happens to the costume, not to the awareness wearing it.</p>
+<h3>4. It is not the same as its neighbors</h3>
+<p class="dim">Buddhism, other Vedanta schools, Kashmir Shaivism, and modern "everything is one"
+spirituality all sound similar and are all technically different. A competent model must keep them
+apart. Mixing them is the single most common AI failure we observed.</p>
+
+<h2 id="pressure"><span class="n">03</span>Methodology: pressure, not trivia</h2>
+<p>84 tasks across eight families, run closed-book (no web, no retrieval) at temperature 0:</p>
+<ul>
+<li><b>Concepts.</b> Distinguish near-synonyms that are not synonyms (the self vs the ego, illusion vs absence).</li>
+<li><b>Levels of reality.</b> "Is my suffering real?" asked by someone actually suffering. No contradictions allowed.</li>
+<li><b>School discrimination.</b> Including a passage from a rival school presented unattributed, to see if the model notices it is grading the wrong textbook.</li>
+<li><b>Text-grounded reading.</b> Interpret supplied passages, including held-out commentary sections that rarely appear online.</li>
+<li><b>Misconception repair.</b> Multi-turn: "so nothing matters and morality is optional, right?" with scripted escalation.</li>
+<li><b>Consistency.</b> The same doctrine asked neutrally, hostilely, academically, in Sanskrit, and by a grieving parent. The answer must not flip.</li>
+<li><b>Open elicitation.</b> "Who am I?" with zero technical vocabulary. Does the model reach for the real apparatus or serve wellness mush?</li>
+<li><b>Sustained dialectic.</b> The flagship. We state a position, then quote <i>genuine</i> scripture that appears to contradict it, escalating for up to four scripted turns, ending with lines like "admit your formula is invented." The model must reconcile the citation the way the tradition actually does, without capitulating and without dismissing the text.</li>
+</ul>
+<div class="callout"><b>Contamination control.</b> Every task is tagged canonical, paraphrased, or
+novel (written for this benchmark, existing nowhere in training data). Scores are reported stratified.
+Under strict grading the canonical-to-novel gap was roughly zero: models were not winning on
+memorization.</div>
+
+<h2 id="grading"><span class="n">04</span>Grading: reference answers and hard caps</h2>
+<p class="dim">Each task ships with a reference answer written from the classical sources, required
+distinctions, and forbidden claims. AI judges are instructed to verify against that material, not
+their own opinions. Certain failures trigger automatic score caps no matter how eloquent the answer:
+mixing schools, collapsing levels of reality, affirming a forbidden claim, or agreeing with the user's
+misconception under pressure.</p>
+<p class="dim">The strict rubric reserves a perfect mark for answers a traditional examiner could not
+fault. Under the earlier permissive rubric, 95.6% of all dimension grades were perfect and the top
+model scored 98.9. That is a saturated benchmark, which is to say, a broken one. Under the strict
+rubric the same responses spread across forty points.</p>
+
+<h2 id="bias"><span class="n">05</span>The judges were biased, so we measured it</h2>
+<p>We graded everything twice: once with an Anthropic judge (Haiku 4.5, permissive rubric) and once
+with an OpenAI judge (GPT-5.4, strict rubric). Each judge put its own maker's models at the top.</p>
+<ul>
+<li>The Anthropic judge ranked Claude models #1 and #2.</li>
+<li>The OpenAI judge ranked GPT models #1 and #2, and penalized GPT models about 5 points less than everyone else on average.</li>
+<li>Agreement between the two rankings was weak (Kendall tau 0.29).</li>
+</ul>
+<p class="dim">A manual audit also caught the strict judge misfiring a penalty: it capped answers for
+"not citing the passage" when the model had cited the passage and then quoted <i>additional</i>
+scripture. We fixed the cap logic, then normalized:</p>
+<pre>z_ij  = (c_ij - mean_j) / sd_j          standardize each judge
+sp_j  = max(0, own-family advantage measured against the other judge)
+z'_ij = z_ij - sp_j  if model i belongs to judge j's family
+score = 50 + 15 * average over judges of z'_ij</pre>
+<p class="dim">The correction fired against the OpenAI judge (0.87 standard deviations) and not
+against the Anthropic one, whose apparent Claude preference did not survive the cross-judge test.
+With only two judges this cannot perfectly separate bias from genuine quality, which is why the
+top four should be read as a cluster, not a ranking.</p>
+
+<h2 id="results"><span class="n">06</span>Results</h2>
+<table>
+<thead><tr><th>Model</th><th class="r">AdvaitaBench-N</th><th class="r">Strict</th><th class="r">Lenient</th></tr></thead>
+<tbody>
+<tr><td>Claude Fable 5</td><td class="r">62.7</td><td class="r">73.5</td><td class="r">99.4</td></tr>
+<tr><td>Claude Opus 4.8</td><td class="r">59.9</td><td class="r">71.5</td><td class="r">99.7</td></tr>
+<tr><td>GPT-5.5</td><td class="r">58.0</td><td class="r">75.3</td><td class="r">98.8</td></tr>
+<tr><td>GPT-5.2</td><td class="r">56.2</td><td class="r">73.8</td><td class="r">99.2</td></tr>
+<tr><td>Qwen 3.7 Max</td><td class="r">48.8</td><td class="r">66.9</td><td class="r">98.9</td></tr>
+<tr><td>DeepSeek V4 Pro</td><td class="r">48.0</td><td class="r">67.7</td><td class="r">98.1</td></tr>
+<tr><td>GLM 5.2</td><td class="r">46.6</td><td class="r">66.3</td><td class="r">98.6</td></tr>
+<tr><td>Gemini 3.1 Pro</td><td class="r">46.4</td><td class="r">66.0</td><td class="r">98.7</td></tr>
+<tr><td>Grok 4.3</td><td class="r">43.5</td><td class="r">69.6</td><td class="r">95.2</td></tr>
+<tr><td>Claude Sonnet 5</td><td class="r">16.8</td><td class="r">62.5</td><td class="r">90.6</td></tr>
+</tbody></table>
+<ul>
+<li><b>Sustained dialectic separates models</b> like nothing else: 35 to 71 under strict grading, while single-turn families cluster. Holding a position through turn four is a different skill from stating it in turn one.</li>
+<li><b>Verbosity does not buy understanding.</b> Qwen wrote the longest answers (~3,900 tokens each) and landed mid-table. Grok wrote the shortest and landed lower for a different reason: thin coverage.</li>
+<li><b>Gemini's single-turn answers are strong; its debate stamina is not.</b> Its dialectic score (53.5 strict) was its weakest family by far.</li>
+<li><b>Sonnet 5's collapse is an availability story,</b> not only a philosophy one: 14 of 123 answers came back empty, and blanks are scored as failures by design.</li>
+</ul>
+
+<h2 id="qualitative"><span class="n">07</span>Qualitative analysis</h2>
+<p class="dim">Reading transcripts, the failure modes are recognizably human:</p>
+<ul>
+<li><b>The polite capitulator.</b> Opens with the correct position, then, three turns of pressure later, concedes that "perhaps the texts really do contradict each other." In a tradition built on reconciling apparent contradictions, that is a failing grade.</li>
+<li><b>The terminology gambler.</b> GLM confidently used a technical term for "absolute absence" that does not exist in the tradition (the real term is <i>atyantabhava</i>). Everything around it was excellent, which is exactly what makes the error dangerous.</li>
+<li><b>The over-quoter.</b> Qwen answered a "read this one verse" task by citing five other texts. Impressive, and beside the point; the task tests restraint in reading, not breadth of memory.</li>
+<li><b>The mush-merchant.</b> On "who am I?" with no technical vocabulary, weaker answers drifted into interchangeable wellness prose that could have come from any tradition or none. The rubric scores apparatus, and mush has none.</li>
+</ul>
+
+<h2 id="limits"><span class="n">08</span>Limitations and future work</h2>
+<ul>
+<li><b>Two judges is the minimum viable ensemble.</b> A third, family-neutral judge (Gemini) is the planned tie-breaker; with two, the bias correction leans on one comparison.</li>
+<li><b>Single sample per task.</b> Publication-grade numbers need resampling and confidence intervals per family, plus human adjudication on a 10% subset (target kappa 0.65 or better).</li>
+<li><b>84 tasks is a pilot.</b> The methodology targets 30+ per family. Task authoring is the bottleneck; the harness is not.</li>
+<li><b>Four models missed the run</b> (Kimi K2.6, MiniMax M3, Mistral Medium 3.5, Hunyuan 3) and will be added in the next batch.</li>
+<li><b>One tradition.</b> The recipe here, reference answers plus adversarial dialectic plus debiased ensemble judging, generalizes to any rigorous school of thought. Advaita is the first instance, not the last.</li>
+</ul>
+
+<blockquote>The rope was never a snake. But you still had to look.</blockquote>
+
+</article>
+</div>
+
+<footer><div class="wrap">
+  AdvaitaBench · July 2026 · MIT ·
+  <a href="index.html">Leaderboard</a> ·
+  <a href="https://github.com/Atharva-Kanherkar/advaita-vedanta-benchmark">GitHub</a>
+</div></footer>
+
+<script>
+const root=document.documentElement;
+const saved=localStorage.getItem('ab-theme');
+if(saved)root.dataset.theme=saved;
+document.getElementById('toggle').onclick=()=>{
+  root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';
+  localStorage.setItem('ab-theme',root.dataset.theme);
+};
+</script>
+</body>
+</html>
